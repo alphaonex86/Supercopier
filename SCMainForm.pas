@@ -18,7 +18,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics,  TntForms,
-  Dialogs, StdCtrls,filectrl,tntsysutils,TntStdCtrls,ShellApi, Controls,
+  Dialogs, StdCtrls,filectrl,TntSysUtils,TntStdCtrls,ShellApi, Controls,
   ComCtrls, TntComCtrls, XPMan, ScSystray, Menus, TntMenus, ImgList,
   Buttons, TntButtons,SCConfigShared,SCLocEngine,SCAPI;
 
