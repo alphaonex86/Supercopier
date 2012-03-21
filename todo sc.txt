@@ -1,0 +1,152 @@
+* bug menu d&d caption 1er item
+* pb \ \\ qd copie volume
+* pb d&d quand pause 
+* hook 9x
+* renommage
+* sauvegarde liste de copie
+* fenetres
+  * collisions
+  * renommage
+  * place libre
+  * erreurs
+  * enable des boutons sur copyform
+* option collision/erreurs sur CopyForm
+* timer quand retry auto sur erreur
+* timestamp pour les erreurs
+* sauvegarde log
+  * options sauvegarde automatique
+* prise en charge mount points NTFS
+  * pour la prise en charge de la copie
+  * pour la verif place libre
+    * option pour choisir le mode lent-fidele/rapide-legerement bugge
+* ajout à copie en cours (canhandle)
+* surligner le tab du log d'erreur quand erreur
+* suppression copie sur cancel/erreur
+* support gdes polices
+* ouverture fenetre copie
+* sauvegarde position/taille
+* bt ajout de fichier a une copylist
+* config
+* destination config reg/ini
+* % dans le titre de la form
+* always on top
+* config 'instantannée' (prio/systray/...)
+* opendialog/bff et stayontop
+* compo label a filename
+* systray
+  * systray principal
+    * liste des threads
+      ? a koi ca peut servir?
+  * progression
+  * option demarrage reduit
+  * option systray/taskbar
+  * bulles
+    * erreurs
+    * collisions
+    * fin de copie
+* startwithwindows
+* cancel
+* od passe en arriere plan a la 2eme ouverture
+* boutons de la copyform repassent enabled avant la fermeture
+* WideUnbufferedCopier
+  * overlapped
+  * droits ntfs
+* copier peut po copier les fichiers de 0 octets
+* pb retour erreur dans copysecurity   1307
+* cancel marche po
+* config
+* installeur
+* pause ki foire si lancee par Execute
+*? icones
+* evt restore quand minimisé dans la taskbar
+* chg icone principale selon etat
+
+* created du dossier destiantion est à false (donc bug avec la sécurité)
+* click bulle=affichage fenetre
+
+* compos
+  * dbl click sur le systray
+  * perf de la progress
+  * tbbt qui s'efface (pb de taille du caption)
+  * leak bitmap sur systray
+
+* multilangues
+
+=== beta 1 ===
+
+* bug processes et casse
+* pb rep relatif pour les langages
+* utf8 non décodé (pb code byte order sur mm ligne ke header)
+* pb valeur de 'language' dans la cfg, passer en utf8
+* annuler quand disque plein de décrémente pas les compteurs
+x moyen de ne pas incrémenter totalcount et totalsize quand on ajoute un fichier
+* tinifile pas unicode (HACK)
+* queue des baselist
+* pause 'universelle' (dans récursion et avant de copier un fichier)
+* delay de rééssai pour tout les fichiers en erreur, ajouter prop a tfileitem
+* pas de applyconfig au démarrage
+* pas de notification pour diskspace
+* gerer la taille de la fenetre du copier en fonction de la taille non cliente
+* btUnfold en default et concerver focus unfold/pause
+
+* compos
+  * clic sur tbbt ki foire si on bouge la souris
+  * scintillement barres de progression avec themes
+    * fix temporaire avec DoubleBuffered
+  * crash de delphi quand on le ferme (surement du au scsystray)
+  * sous 9x, pas d'affichage du temps restant pour la progressbar
+    * a tester
+*? pb maj icone progression systray (pb compo ???)
+* pb vitesse upload sur rezo (et aussi dl?)
+* ecraser si on peut po resume
+  * s'assurer ke ca marche si deplacement (fichier bien supprime)
+  * ajouter option avancee pour forcer le resume
+    * modif fenetre config
+? pb % > a 100 en ajoutant des fichiers
+x se positionner sur le tab log + unfold si erreur a la fin
+  * message d'état signalant les erreurs
+* pb calcul taille dans recursion
+* bug renommage avec noms des fichiers contenant des .
+
+=== beta 1.9 ===
+
+- pb avec always on top et opendialogs
+* ajouter choix police dans .lng
+  - ajouter ParentFont a TScPopupButton et TScProgressBar
+- caption copyform pas unicode
+- compos 
+  - V pour popupbutton
+  * modif scsystray pour afficher l'icone quand bulle
+      - icone transparente qui disparait pas
+- exception "Impossible de créer le repertoire" qd fermeture fenetre copie + erreur ou annulation
+- SC2 ne se lance pas sur un compte user
+  - hook non global
+  - rajouter evt launch explorer sur compo systray
+- attendre la fin de la copie avant de rendre la main dans SHFileOp
+* pb loc si plusieurs fenetres de copie ouvertes
+- utiliser chemin appli pour bouton readme
+- suport multisessions (ajouter nom user au nom ipc ?)
+
+=== beta 2 ===
+
+? gestion des liens dfs pour espace disque restant
+
+- tris selon les colonnes
+
+- plantage quand timeout au quit
+
+- compos
+  - focus qui s'efface du bouton
+
+- changement taille buffer quand copie vers mm dur
+? supression/déplacement
+
+
+? extension du shell:
+        SuperCopier Ajouter à > Nouvelle copie
+                                Nouveau déplacement
+                                -----------------------
+                                Copy de ? vers ?
+                                Déplacement de ? vers ?
+                                ....
+
