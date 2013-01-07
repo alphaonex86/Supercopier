@@ -1,3 +1,4 @@
+* arondir vers le bas pour le % de la copie total
 * bug menu d&d caption 1er item
 * pb \ \\ qd copie volume
 * pb d&d quand pause 
