@@ -50,7 +50,7 @@ History:
 - v3.0.0.0
     - Rewrite for lazarus
     - Rewrite of the copy interception system
-    - New version
+    - Native/full unicode support
 
 - v2.3 RC:
     New packaging
