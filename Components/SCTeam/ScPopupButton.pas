@@ -248,7 +248,7 @@ procedure TScPopupButton.Paint;
   begin
     if Win32Platform=VER_PLATFORM_WIN32_NT then
     begin
-      DrawTextW(Canvas.Handle,Pwidechar(pCaption),length(pCaption),Rect,DT_CENTER+DT_VCENTER+DT_SINGLELINE);
+      DrawTextW(Canvas.Handle,Pwidechar(Utf8Decode(pCaption)),length(pCaption),Rect,DT_CENTER+DT_VCENTER+DT_SINGLELINE);
     end else
     begin
       DrawText(Canvas.Handle,PChar(String(pCaption)),length(pCaption),Rect,DT_CENTER+DT_VCENTER+DT_SINGLELINE);
