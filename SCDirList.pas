@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,8 +14,10 @@
 
 unit SCDirList;
 
+{$MODE Delphi}
+
 interface
-uses Classes,SCObjectThreadList;
+uses Classes,SCObjectThreadList,types;
 
 const
   DIRLIST_DATA_VERSION=001;
@@ -62,12 +64,12 @@ type
 
 implementation
 
-uses Windows,SCCommon,SCWin32, SysUtils,TntSysUtils;
+uses LCLIntf, LCLType, LMessages,SCCommon,SCWin32, SysUtils, Windows;
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TDirItem: répertoire à copier, gère la création récursive
+// TDirItem: rÐ¹pertoire Ð° copier, gÐ¸re la crÐ¹ation rÐ¹cursive
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -96,7 +98,7 @@ begin
   begin
     TheStream.Read(Idx,SizeOf(Integer));
     if Idx>=0 then
-        // on récupère le DirItem en ajoutant à l'index sauvegardé
+        // on rÐ¹cupÐ¸re le DirItem en ajoutant Ð° l'index sauvegardÐ¹
         // l'index du dernier DirItem avant le Chargement
       ParentDir:=Owner[BaseDirListIndex+Idx]
     else
@@ -114,7 +116,7 @@ end;
 
 procedure TDirItem.DestCopyAge;
 var SrcHnd,DstHnd:THandle;
-		CT,AT,WT:TFileTime;
+		CT,AT,WT:Windows.TFILETIME;
 begin
 	if Created and (Win32Platform=VER_PLATFORM_WIN32_NT) then
 	begin
@@ -136,8 +138,8 @@ begin
 				 GetFileTime(SrcHnd,@CT,@AT,@WT) then
 			SetFileTime(DstHnd,@CT,@AT,@WT);
 
-		CloseHandle(SrcHnd);
-		CloseHandle(DstHnd);
+		FileClose(SrcHnd); { *Converted from CloseHandle*  }
+		FileClose(DstHnd); { *Converted from CloseHandle*  }
 	end;
 end;
 
@@ -194,7 +196,7 @@ begin
 
 	Created:=SCWin32.CreateDirectory(PWideChar(DestPath),nil) or (GetLastError=ERROR_ALREADY_EXISTS);
 
-  // nouveau répertoire créé -> on recopie sa date de modif
+  // nouveau rÐ¹pertoire crÐ¹Ð¹ -> on recopie sa date de modif
   DestCopyAge;
 end;
 
@@ -207,7 +209,7 @@ end;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TDirList: liste de répertoires à copier
+// TDirList: liste de rÐ¹pertoires Ð° copier
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -236,7 +238,7 @@ begin
   Num:=0;
 
   TheStream.Read(Version,SizeOf(Integer));
-  if Version>DIRLIST_DATA_VERSION then raise Exception.Create('DirItems: data file is for a newer SuperCopier2 version');
+  if Version>DIRLIST_DATA_VERSION then raise Exception.Create('DirItems: data file is for a newer SuperCopier version');
 
   TheStream.Read(num,SizeOf(Integer));
 
@@ -276,8 +278,8 @@ begin
   Result:=nil;
   Found:=False;
 
-  CleanSrcPath:=WideIncludeTrailingBackslash(SrcPath);
-  CleanDestPath:=WideIncludeTrailingBackslash(DestPath);
+  CleanSrcPath:=IncludeTrailingBackslash(SrcPath);
+  CleanDestPath:=IncludeTrailingBackslash(DestPath);
 
   while (i<Count) and (not Found) do
   begin

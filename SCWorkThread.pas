@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,12 +14,14 @@
 
 unit SCWorkThread;
 
+{$MODE Delphi}
+
 interface
 
 uses Classes;
 
 type
-  TWorkThreadType=(wttNone,wttCopy,wttMove,wttDelete); //wttCopy est utilisé aussi pour les déplacements entre volumes
+  TWorkThreadType=(wttNone,wttCopy,wttMove,wttDelete); //wttCopy est utilisÐ¹ aussi pour les dÐ¹placements entre volumes
 
   TWorkThread=class(TThread)
   protected

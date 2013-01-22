@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,15 +14,13 @@
 
 unit SCCommon;
 
-{$include 'SCBuildConfig.inc'}
-
 interface
 
 uses
-  Windows,SCWin32;
+  Windows,SCWin32, dialogs;
 
 type
-  TConfigLocation=(clRegistry,clIniFile);
+  TConfigLocation=(clIniFile, clRegistry);
 
   TBaselistAddMode=(amDefaultDir=0,amSpecifyDest=1,amPromptForDest=2,amPromptForDestAndSetDefault=3);
 
@@ -104,7 +102,7 @@ procedure dbgmem(buf:pointer;size:integer);
 implementation
 
 uses
-  SysUtils,TntSysutils,StrUtils,ShellApi,ShlObj,Classes,Forms,Math,SCLocStrings,Activex,SCMainForm;
+  SysUtils,StrUtils,ShellApi,ShlObj,Classes,Forms,Math,SCLocStrings,Activex,SCMainForm;
 
 {$ifdef DEBUG}
 var
@@ -112,7 +110,7 @@ var
 {$endif}
 
 //******************************************************************************
-// GetFileSizeByName: renvoie la taille d'un fichier à partir de son nom
+// GetFileSizeByName: renvoie la taille d'un fichier Ð° partir de son nom
 //******************************************************************************
 function GetFileSizeByName(FileName:WideString):Int64;
 var FindData:TWin32FindDataW;
@@ -135,7 +133,7 @@ begin
   Result:=False;
   SetLastError(ERROR_SUCCESS);
 
-  // on récup la position courrante dans le fichier
+  // on rÐ¹cup la position courrante dans le fichier
   PrevPos:=SetFilePointer(TheFile,0,FILE_CURRENT);
   if GetLastError<>ERROR_SUCCESS then Exit;
 
@@ -146,7 +144,7 @@ begin
   // on marque la fin du fichier
   if not SetEndOfFile(TheFile) then Exit;
 
-  // on revient à la pos précédente
+  // on revient Ð° la pos prÐ¹cÐ¹dente
   SetFilePointer(TheFile,PrevPos,FILE_BEGIN);
   if GetLastError<>ERROR_SUCCESS then Exit;
 
@@ -154,7 +152,7 @@ begin
 end;
 
 //******************************************************************************
-// BrowseForFolder: afficher un dialogue permettant de sélectionner un répertoire
+// BrowseForFolder: afficher un dialogue permettant de sÐ¹lectionner un rÐ¹pertoire
 //******************************************************************************
 
   function SelectDirCB(Wnd: HWND; uMsg: UINT; lParam, lpData: LPARAM): Integer stdcall;
@@ -170,6 +168,7 @@ end;
 
 function BrowseForFolder(Caption:WideString;var Folder:WideString;OwnerWindowHandle:THandle):boolean;
 var BrowseInfo:_browseinfoW;
+    _BrowseInfo:PBROWSEINFOW;
     Item:PItemIDList;
     Buffer:array[0..MAX_PATH] of WideChar;
 begin
@@ -190,10 +189,11 @@ begin
       lParam := Integer(PWideChar(Folder));
     end;
   end;
+  _BrowseInfo := @BrowseInfo;
 
-  Item:=SCWin32.SHBrowseForFolder(BrowseInfo);
+  Item:=SCWin32.SHBrowseForFolder(_BrowseInfo);
 
-  if (Item<>nil) and IsWindow(OwnerWindowHandle) then // s'assurer que la fenêtre parente existe toujours
+  if (Item<>nil) and IsWindow(OwnerWindowHandle) then // s'assurer que la fenÐºtre parente existe toujours
   begin
     Result:=SCWin32.SHGetPathFromIDList(Item,Buffer);
     if Result then Folder:=Buffer;
@@ -202,7 +202,7 @@ begin
 end;
 
 //******************************************************************************
-// GetLastErrorText: renvoie la dernière erreur windows sous forme de texte
+// GetLastErrorText: renvoie la derniÐ¸re erreur windows sous forme de texte
 //******************************************************************************
 function GetLastErrorText:WideString;
 begin
@@ -210,7 +210,7 @@ begin
 end;
 
 //*********************************************************************************
-// SizeToString: renvoie en chaine une taille spécifiée en octets
+// SizeToString: renvoie en chaine une taille spÐ¹cifiÐ¹e en octets
 //*********************************************************************************
 function SizeToString(Size:int64;SizeUnit:TSizeUnit=suAuto):WideString;
 const
@@ -249,7 +249,7 @@ begin
 end;
 
 //*********************************************************************************
-// PaddedIntToStr: renvoie en chaine de taille fixe complétée par des 0 un entier
+// PaddedIntToStr: renvoie en chaine de taille fixe complÐ¹tÐ¹e par des 0 un entier
 //*********************************************************************************
 function PaddedIntToStr(Int,Width:Integer):WideString;
 var StrInt:WideString;
@@ -267,7 +267,7 @@ var TmpStr,Tag:WideString;
     Found,InTag:Boolean;
     C:WideChar;
 begin
-  // on remplace les tags qui ont une valeur 'fixe' et on marque la position du numéro incrémentiel
+  // on remplace les tags qui ont une valeur 'fixe' et on marque la position du numÐ¹ro incrÐ¹mentiel
   i:=1;
   InTag:=False;
   TmpStr:='';
@@ -297,12 +297,12 @@ begin
         else if Tag='name' then
         begin
           if Pos('.',FileName)>0 then // le fichier a une extension?
-            TmpStr:=TmpStr+LeftStr(FileName,Pos(WideExtractFileExt(FileName),FileName)-1)
+            TmpStr:=TmpStr+LeftStr(FileName,Pos(ExtractFileExt(FileName),FileName)-1)
           else
             TmpStr:=FileName;
         end
         else if Tag='ext' then
-          TmpStr:=TmpStr+MidStr(WideExtractFileExt(FileName),2,MaxInt); // enlever le '.' de l'extension
+          TmpStr:=TmpStr+MidStr(ExtractFileExt(FileName),2,MaxInt); // enlever le '.' de l'extension
       end;
       '#':
       begin
@@ -321,7 +321,7 @@ begin
 
   dbgln(TmpStr);
 
-  // on cherche maintenant un nom incrémentiel libre si besoin
+  // on cherche maintenant un nom incrÐ¹mentiel libre si besoin
   if NumberWidth>0 then
   begin
     i:=1;
@@ -329,7 +329,7 @@ begin
     while Found do
     begin
       Result:=StringReplace(TmpStr,'?',PaddedIntToStr(i,NumberWidth),[rfReplaceAll]);
-      Found:=WideFileExists(Path+Result);
+      Found:=FileExists(Path+Result);
       Inc(i);
     end;
   end
@@ -356,14 +356,14 @@ begin
   Result:=Volume;
   if Pos('\\',Volume)=0 then
   begin
-    Ok:=SCWin32.GetVolumeInformation(PWideChar(WideIncludeTrailingBackslash(Volume)),@Buf,64,nil,Dummy,Dummy,nil,0);
+    Ok:=SCWin32.GetVolumeInformation(PWideChar(IncludeTrailingBackslash(Volume)),@Buf,64,nil,Dummy,Dummy,nil,0);
     if Ok then Result:=Buf+' ('+UpperCase(Volume)+')';
   end;
 end;
 
 //******************************************************************************
-// GetStorageDeviceNumber: récupère le numéro du périphérique sur lequel pointe Path
-//                         renvoie false si échoue
+// GetStorageDeviceNumber: rÐ¹cupÐ¸re le numÐ¹ro du pÐ¹riphÐ¹rique sur lequel pointe Path
+//                         renvoie false si Ð¹choue
 //******************************************************************************
 function GetStorageDeviceNumber(Path:WideString;var SDN:TStorageDeviceNumber):Boolean;
 var Handle:THandle;
@@ -373,9 +373,9 @@ begin
   Result:=False;
 
   if GetVolumePathName(PWideChar(Path),TmpBuf,MAX_PATH) and
-     GetVolumeNameForVolumeMountPoint(TmpBuf,TmpBuf,MAX_PATH) then // on récupère d'abord le guid de volume
+     GetVolumeNameForVolumeMountPoint(TmpBuf,TmpBuf,MAX_PATH) then // on rÐ¹cupÐ¸re d'abord le guid de volume
   begin
-    Handle:=CreateFileW(PWideChar(WideExcludeTrailingBackslash(TmpBuf)),0,FILE_SHARE_READ or FILE_SHARE_WRITE,nil,OPEN_EXISTING,0,0);
+    Handle:=CreateFileW(PWideChar(ExcludeTrailingBackslash(TmpBuf)),0,FILE_SHARE_READ or FILE_SHARE_WRITE,nil,OPEN_EXISTING,0,0);
     if Handle<>INVALID_HANDLE_VALUE then
     begin
       Result:=DeviceIoControl(Handle,IOCTL_STORAGE_GET_DEVICE_NUMBER,nil,0,@SDN,SizeOf(TStorageDeviceNumber),Dummy,nil);
@@ -393,18 +393,18 @@ begin
   if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion>=5) and
      GetVolumePathName(PWideChar(Path),TmpBuf,MAX_PATH) then
   begin
-    // pour windows 2000 et supérieurs
+    // pour windows 2000 et supÐ¹rieurs
     Result:=TmpBuf;
   end
   else
   begin
-    // pour Win NT4/9x ou si problème
-    Result:=WideExtractFileDrive(Path);
+    // pour Win NT4/9x ou si problÐ¸me
+    Result:=ExtractFileDrive(Path);
   end;
 end;
 
 //******************************************************************************
-// SameVolume: renvoie true si les 2 chemins sont situés sur le même volume
+// SameVolume: renvoie true si les 2 chemins sont situÐ¹s sur le mÐºme volume
 //******************************************************************************
 function SameVolume(Path1,Path2:WideString):boolean;
 var TmpBuf,TmpBuf2:array[0..MAX_PATH] of WideChar;
@@ -415,18 +415,18 @@ begin
      GetVolumeNameForVolumeMountPoint(TmpBuf,TmpBuf,MAX_PATH) and
      GetVolumeNameForVolumeMountPoint(TmpBuf2,TmpBuf2,MAX_PATH) then
   begin
-    // pour windows 2000 et supérieurs, on compare le guid de volume
+    // pour windows 2000 et supÐ¹rieurs, on compare le guid de volume
     Result:=WideCompareStr(TmpBuf,TmpBuf2)=0;
   end
   else
   begin
-    // pour Win NT4/9x ou si problème, on fait une simple comparaison de texte
-    Result:=WideExtractFileDrive(Path1)=WideExtractFileDrive(Path2);
+    // pour Win NT4/9x ou si problÐ¸me, on fait une simple comparaison de texte
+    Result:=ExtractFileDrive(Path1)=ExtractFileDrive(Path2);
   end;
 end;
 
 //******************************************************************************
-// SamePhysicalDrive: renvoie true si les 2 chemins sont situés sur le même emplacement physique
+// SamePhysicalDrive: renvoie true si les 2 chemins sont situÐ¹s sur le mÐºme emplacement physique
 //******************************************************************************
 function SamePhysicalDrive(Path1,Path2:WideString):boolean;
 var SDN1,SDN2:TStorageDeviceNumber;
@@ -435,18 +435,18 @@ begin
      GetStorageDeviceNumber(Path1,SDN1) and
      GetStorageDeviceNumber(Path2,SDN2) then
   begin
-    // pour windows 2000 et supérieurs, on compare le numéro de périphérique
+    // pour windows 2000 et supÐ¹rieurs, on compare le numÐ¹ro de pÐ¹riphÐ¹rique
     Result:=(SDN1.DeviceType=SDN2.DeviceType) and (SDN1.DeviceNumber=SDN2.DeviceNumber);
   end
   else
   begin
-    // pour Win NT4/9x ou si problème, on fait une simple comparaison de texte
-    Result:=WideExtractFileDrive(Path1)=WideExtractFileDrive(Path2);
+    // pour Win NT4/9x ou si problÐ¸me, on fait une simple comparaison de texte
+    Result:=ExtractFileDrive(Path1)=ExtractFileDrive(Path2);
   end;
 end;
 
 //******************************************************************************
-// SetProcessPriority: change la priorité du processus
+// SetProcessPriority: change la prioritÐ¹ du processus
 //******************************************************************************
 procedure SetProcessPriority(Priority:Cardinal);
 var ph:THandle;
@@ -458,12 +458,12 @@ begin
 end;
 
 //******************************************************************************
-// CopySecurity: copie les infos de sécurité d'un fichier ou dossier vers un autre
+// CopySecurity: copie les infos de sÐ¹curitÐ¹ d'un fichier ou dossier vers un autre
 //******************************************************************************
 function CopySecurity(const SourceFile:WideString;const DestFile:WideString):Boolean;
 var SD:array of byte;
     SDR:TSecurityDescriptor;
-    LengthNeeded:Cardinal;
+    LengthNeeded:LPDWORD;
     LastError:Cardinal;
 begin
   // on tente de lire le SecutityDescriptor avec un buffer de 256 octets
@@ -475,10 +475,10 @@ begin
                     Length(SD),
                     LengthNeeded);
 
-  // si le buffer était trop petit, on donne au buffer la taille nécessaire
+  // si le buffer Ð¹tait trop petit, on donne au buffer la taille nÐ¹cessaire
   if (not Result) and (GetLastError=ERROR_INSUFFICIENT_BUFFER) then
   begin
-    SetLength(SD,LengthNeeded);
+    SetLength(SD,cardinal(LengthNeeded));
     Result:=GetFileSecurityW(PWideChar(SourceFile),
                       DACL_SECURITY_INFORMATION or GROUP_SECURITY_INFORMATION or
                       OWNER_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION,
@@ -500,7 +500,7 @@ begin
     end;
   end;
 
-  // échouer silencieusement si l'on a pas le droit de lire ou écrire la sécurité
+  // Ð¹chouer silencieusement si l'on a pas le droit de lire ou Ð¹crire la sÐ¹curitÐ¹
   LastError:=GetLastError;
   if not Result and
       (LastError=ERROR_ACCESS_DENIED) or
@@ -530,7 +530,7 @@ begin
 end;
 
 //******************************************************************************
-// IndexToSpeedLimit: renvoie une limite de vitesse calculée a partir des infos de zone
+// IndexToSpeedLimit: renvoie une limite de vitesse calculÐ¹e a partir des infos de zone
 //******************************************************************************
 function IndexToSpeedLimit(AIndex:Integer):Integer;
 var Zone:Integer;
@@ -542,7 +542,7 @@ begin
 end;
 
 //******************************************************************************
-// SpeedLimitToIndex: renvoie un index calculé a partir des infos de zone
+// SpeedLimitToIndex: renvoie un index calculÐ¹ a partir des infos de zone
 //******************************************************************************
 function SpeedLimitToIndex(ASpeedLimit:Integer):Integer;
 var i:Integer;
@@ -557,17 +557,17 @@ begin
 end;
 
 //******************************************************************************
-// FixParentBugs: restore les parents de la mainform et de la appform, qui sont altérés par les Common dialogs
+// FixParentBugs: restore les parents de la mainform et de la appform, qui sont altÐ¹rÐ¹s par les Common dialogs
 //******************************************************************************
 procedure FixParentBugs;
 begin
-  SetParent(Application.Handle,THandle(HWND_MESSAGE));
-  SetParent(MainForm.Handle,THandle(HWND_MESSAGE));
+  SetParent(Application.Mainform.Handle,THandle(-3{HWND_MESSAGE}));
+  SetParent(MainForm.Handle,THandle(-3{HWND_MESSAGE}));
 end;
 
 //******************************************************************************
 //******************************************************************************
-// Procédures de debug
+// ProcÐ¹dures de debug
 //******************************************************************************
 //******************************************************************************
 

@@ -1,18 +1,21 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 }
 
 unit SCWorkThreadList;
+
+{$MODE Delphi}
+
 //TODO: quand on enleve une workthread de la liste, l'enlever aussi de la liste des handles de l'API
 
 interface
@@ -40,7 +43,7 @@ var
 
 implementation
 
-uses ShellApi,TntSysUtils, Contnrs,SCCopyThread, DateUtils,Windows,Forms;
+uses ShellApi,SysUtils, Contnrs,SCCopyThread, DateUtils,Windows,Forms;
 
 //******************************************************************************
 //******************************************************************************
@@ -77,7 +80,7 @@ begin
 end;
 
 //******************************************************************************
-// ProcessBaseList: prends en charge une opÈration sur une BaseList,
+// ProcessBaseList: prends en charge une op–πration sur une BaseList,
 //                  renvoie la WorkThread qui a pris en charge la BL ou nil si pas de prise en charge
 //******************************************************************************
 function TWorkThreadList.ProcessBaseList(BaseList:TBaseList;Operation:Cardinal;DestDir:WideString=''):TWorkThread;
@@ -99,16 +102,16 @@ begin
       FO_RENAME:
         Result:=nil;
       FO_DELETE:
-        Result:=nil; // non supportÈ pour le moment
+        Result:=nil; // non support–π pour le moment
       FO_MOVE,
       FO_COPY:
       begin
-        GuessedSrcDir:=WideExtractFilePath(BaseList[0].SrcName);
+        GuessedSrcDir:=ExtractFilePath(BaseList[0].SrcName);
         SameVolumeMove:=(Operation=FO_MOVE) and SameVolume(GuessedSrcDir,DestDir);
 
         if SameVolumeMove then
         begin
-          Result:=nil; // non supportÈ pour le moment
+          Result:=nil; // non support–π pour le moment
         end
         else
         begin
@@ -128,7 +131,7 @@ begin
             Inc(i);
           end;
 
-          if Result=nil then // aucune CopyThread ne peut prendre en charge l'opÈration -> on en crÈe une nouvelle
+          if Result=nil then // aucune CopyThread ne peut prendre en charge l'op–πration -> on en cr–πe une nouvelle
           begin
             CopyThread:=TCopyThread.Create(Operation=FO_MOVE);
             Add(CopyThread); // rescencer la thread
@@ -146,7 +149,7 @@ begin
 end;
 
 //******************************************************************************
-// CreateEmptyCopyThread: crÈe une fenÍtre de copie vide
+// CreateEmptyCopyThread: cr–πe une fen–∫tre de copie vide
 //******************************************************************************
 procedure TWorkThreadList.CreateEmptyCopyThread(IsMove:Boolean);
 var CopyThread:TCopyThread;

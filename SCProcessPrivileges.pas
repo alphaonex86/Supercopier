@@ -1,5 +1,7 @@
 unit SCProcessPrivileges;
 
+{$MODE Delphi}
+
 interface
 
 uses Windows,SysUtils;
@@ -87,7 +89,7 @@ begin
           PrevTokenPriv, ReturnLength);
       end;
     finally
-      CloseHandle(hToken);
+      FileClose(hToken); { *Converted from CloseHandle*  }
     end;
   end;
   // test the return value of AdjustTokenPrivileges.

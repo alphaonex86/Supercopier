@@ -21,21 +21,21 @@ object DiskSpaceForm: TDiskSpaceForm
     147)
   PixelsPerInch = 96
   TextHeight = 13
-  object llDiskSpaceText1: TTntLabel
+  object llDiskSpaceText1: TLabel
     Left = 48
     Top = 8
     Width = 270
     Height = 13
     Caption = 'There is not enough free space on the following volumes:'
   end
-  object llDiskSpaceText2: TTntLabel
+  object llDiskSpaceText2: TLabel
     Left = 48
     Top = 104
     Width = 126
     Height = 13
     Caption = 'What would you like to to?'
   end
-  object imIcon: TTntImage
+  object imIcon: TImage
     Left = 8
     Top = 8
     Width = 32
@@ -114,7 +114,7 @@ object DiskSpaceForm: TDiskSpaceForm
       FFFFFFFF}
     Transparent = True
   end
-  object lvDiskSpace: TTntListView
+  object lvDiskSpace: TListView
     Left = 48
     Top = 23
     Width = 345

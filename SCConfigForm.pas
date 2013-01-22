@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,137 +14,136 @@
 
 unit SCConfigForm;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,TntForms,
-  Dialogs, ExtCtrls, TntExtCtrls, ComCtrls, TntComCtrls, StdCtrls,
-  TntStdCtrls, TntDialogs, SCProgessBar,SCLocEngine, ScTrackBar;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls,  ComCtrls,  StdCtrls,
+    SCProgessBar,SCLocEngine, ScTrackBar;
 
 type
-  TConfigForm = class(TTntForm)
-    lvSections: TTntListView;
-    pcSections: TTntPageControl;
-    tsStartup: TTntTabSheet;
-    tsCWDefaults: TTntTabSheet;
-    tsProcesses: TTntTabSheet;
-    tsAdvanced: TTntTabSheet;
-    btCancel: TTntButton;
-    btOk: TTntButton;
-    tsUI: TTntTabSheet;
-    tsLog: TTntTabSheet;
-    tsCopy: TTntTabSheet;
-    gbCopyEnd: TTntGroupBox;
-    llCopyEnd: TTntLabel;
-    cbCopyEnd: TTntComboBox;
-    gbSpeedLimit: TTntGroupBox;
-    gbCollisions: TTntGroupBox;
-    llCollisions: TTntLabel;
-    cbCollisions: TTntComboBox;
-    gbCopyErrors: TTntGroupBox;
-    llCopyErrors: TTntLabel;
-    cbCopyError: TTntComboBox;
-    gbStartup: TTntGroupBox;
-    chStartWithWindows: TTntCheckBox;
-    chActivateOnStart: TTntCheckBox;
-    gbTaskbar: TTntGroupBox;
-    chTrayIcon: TTntCheckBox;
-    gbCWAppearance: TTntGroupBox;
-    chCWSavePosition: TTntCheckBox;
-    chCWSaveSize: TTntCheckBox;
-    chCWStartMinimized: TTntCheckBox;
-    gbSizeUnit: TTntGroupBox;
-    llSizeUnit: TTntLabel;
-    cbSizeUnit: TTntComboBox;
-    gbCLHandling: TTntGroupBox;
-    llCLHandling: TTntLabel;
-    cbCLHandling: TTntComboBox;
-    chCLHandlingConfirm: TTntCheckBox;
-    llCLHandlingInfo: TTntLabel;
-    gbAttributes: TTntGroupBox;
-    chSaveAttributesOnCopy: TTntCheckBox;
-    chSaveAttributesOnMove: TTntCheckBox;
-    gbDeleting: TTntGroupBox;
-    chDeleteUnfinishedCopies: TTntCheckBox;
-    chDontDeleteOnCopyError: TTntCheckBox;
-    gbRenaming: TTntGroupBox;
-    llRenameOld: TTntLabel;
-    llRenameNew: TTntLabel;
-    edRenameOldPattern: TTntEdit;
-    edRenameNewPattern: TTntEdit;
-    gbErrorLog: TTntGroupBox;
-    llErrorLogAutoSaveMode: TTntLabel;
-    cbErrorLogAutoSaveMode: TTntComboBox;
-    chErrorLogAutoSave: TTntCheckBox;
-    edErrorLogFileName: TTntEdit;
-    btELFNBrowse: TTntButton;
-    llErrorLogFileName: TTntLabel;
-    gbHandledProcesses: TTntGroupBox;
-    lvHandledProcesses: TTntListView;
-    llHandledProcessses: TTntLabel;
-    btAddProcess: TTntButton;
-    btRemoveProcess: TTntButton;
-    llRetryInterval: TTntLabel;
-    edCopyErrorRetry: TTntEdit;
-    llRetryIntervalUnit: TTntLabel;
-    gbPriority: TTntGroupBox;
-    llPriority: TTntLabel;
-    cbPriority: TTntComboBox;
-    gbAdvanced: TTntGroupBox;
-    llCopyBufferSize: TTntLabel;
-    edCopyBufferSize: TTntEdit;
-    llCopyBufferSizeUnit: TTntLabel;
-    llCopyWindowUpdateInterval: TTntLabel;
-    edCopyWindowUpdateInterval: TTntEdit;
-    llCopyWindowUpdateIntervalUnit: TTntLabel;
-    llCopySpeedAveragingInterval: TTntLabel;
-    edCopySpeedAveragingInterval: TTntEdit;
-    llCopySpeedAveragingIntervalUnit: TTntLabel;
-    llCopyThrottleInterval: TTntLabel;
-    edCopyThrottleInterval: TTntEdit;
-    llCopyThrottleIntervalUnit: TTntLabel;
-    chFastFreeSpaceCheck: TTntCheckBox;
-    gbProgressrar: TTntGroupBox;
-    btProgressFG1: TTntButton;
-    bgProgressFG2: TTntButton;
-    btProgressBG1: TTntButton;
-    btProgressBG2: TTntButton;
-    llProgressFG: TTntLabel;
-    llProgressBG: TTntLabel;
-    cbMinimize: TTntComboBox;
-    gbConfigLocation: TTntGroupBox;
-    llConfigLocation: TTntLabel;
-    cbConfigLocation: TTntComboBox;
-    odLog: TTntOpenDialog;
-    odProcesses: TTntOpenDialog;
-    llProgressBorder: TTntLabel;
+
+  { TConfigForm }
+
+  TConfigForm = class(TForm)
+    lvSections: TListView;
+    pcSections: TPageControl;
+    tsStartup: TTabSheet;
+    tsCWDefaults: TTabSheet;
+    tsAdvanced: TTabSheet;
+    btCancel: TButton;
+    btOk: TButton;
+    tsUI: TTabSheet;
+    tsLog: TTabSheet;
+    tsCopy: TTabSheet;
+    gbCopyEnd: TGroupBox;
+    llCopyEnd: TLabel;
+    cbCopyEnd: TComboBox;
+    gbSpeedLimit: TGroupBox;
+    gbCollisions: TGroupBox;
+    llCollisions: TLabel;
+    cbCollisions: TComboBox;
+    gbCopyErrors: TGroupBox;
+    llCopyErrors: TLabel;
+    cbCopyError: TComboBox;
+    gbStartup: TGroupBox;
+    chStartWithWindows: TCheckBox;
+    chActivateOnStart: TCheckBox;
+    gbTaskbar: TGroupBox;
+    chTrayIcon: TCheckBox;
+    gbCWAppearance: TGroupBox;
+    chCWSavePosition: TCheckBox;
+    chCWSaveSize: TCheckBox;
+    chCWStartMinimized: TCheckBox;
+    gbSizeUnit: TGroupBox;
+    llSizeUnit: TLabel;
+    cbSizeUnit: TComboBox;
+    gbCLHandling: TGroupBox;
+    llCLHandling: TLabel;
+    cbCLHandling: TComboBox;
+    chCLHandlingConfirm: TCheckBox;
+    llCLHandlingInfo: TLabel;
+    gbAttributes: TGroupBox;
+    chSaveAttributesOnCopy: TCheckBox;
+    chSaveAttributesOnMove: TCheckBox;
+    gbDeleting: TGroupBox;
+    chDeleteUnfinishedCopies: TCheckBox;
+    chDontDeleteOnCopyError: TCheckBox;
+    gbRenaming: TGroupBox;
+    llRenameOld: TLabel;
+    llRenameNew: TLabel;
+    edRenameOldPattern: TEdit;
+    edRenameNewPattern: TEdit;
+    gbErrorLog: TGroupBox;
+    llErrorLogAutoSaveMode: TLabel;
+    cbErrorLogAutoSaveMode: TComboBox;
+    chErrorLogAutoSave: TCheckBox;
+    edErrorLogFileName: TEdit;
+    btELFNBrowse: TButton;
+    llErrorLogFileName: TLabel;
+    llRetryInterval: TLabel;
+    edCopyErrorRetry: TEdit;
+    llRetryIntervalUnit: TLabel;
+    gbPriority: TGroupBox;
+    llPriority: TLabel;
+    cbPriority: TComboBox;
+    gbAdvanced: TGroupBox;
+    llCopyBufferSize: TLabel;
+    edCopyBufferSize: TEdit;
+    llCopyBufferSizeUnit: TLabel;
+    llCopyWindowUpdateInterval: TLabel;
+    edCopyWindowUpdateInterval: TEdit;
+    llCopyWindowUpdateIntervalUnit: TLabel;
+    llCopySpeedAveragingInterval: TLabel;
+    edCopySpeedAveragingInterval: TEdit;
+    llCopySpeedAveragingIntervalUnit: TLabel;
+    llCopyThrottleInterval: TLabel;
+    edCopyThrottleInterval: TEdit;
+    llCopyThrottleIntervalUnit: TLabel;
+    chFastFreeSpaceCheck: TCheckBox;
+    gbProgressrar: TGroupBox;
+    btProgressFG1: TButton;
+    bgProgressFG2: TButton;
+    btProgressBG1: TButton;
+    btProgressBG2: TButton;
+    llProgressFG: TLabel;
+    llProgressBG: TLabel;
+    cbMinimize: TComboBox;
+    //gbConfigLocation: TGroupBox;
+    //llConfigLocation: TLabel;
+    //cbConfigLocation: TComboBox;
+    odLog: TOpenDialog;
+    odProcesses: TOpenDialog;
+    llProgressBorder: TLabel;
     ggProgress: TSCProgessBar;
     cdProgress: TColorDialog;
-    btRenamingHelp: TTntButton;
-    btAdvancedHelp: TTntButton;
-    llMinimizedEventHandling: TTntLabel;
-    cbMinimizedEventHandling: TTntComboBox;
-    btApply: TTntButton;
-    btProgressBorder: TTntButton;
-    btProgressOutline: TTntButton;
-    btProgressText: TTntButton;
-    llProgressText: TTntLabel;
-    tsLanguage: TTntTabSheet;
-    gbLanguage: TTntGroupBox;
-    llLanguage: TTntLabel;
-    cbLanguage: TTntComboBox;
-    llLanguageInfo: TTntLabel;
-    chFailSafeCopier: TTntCheckBox;
-    chCopyResumeNoAgeVerification: TTntCheckBox;
-    llAttributesAndSecurityForCopies: TTntLabel;
-    llAttributesAndSecurityForMoves: TTntLabel;
-    chSaveSecurityOnCopy: TTntCheckBox;
-    chSaveSecurityOnMove: TTntCheckBox;
-    llCustomSpeedLimit: TTntLabel;
-    chSpeedLimit: TTntCheckBox;
+    btRenamingHelp: TButton;
+    btAdvancedHelp: TButton;
+    llMinimizedEventHandling: TLabel;
+    cbMinimizedEventHandling: TComboBox;
+    btApply: TButton;
+    btProgressBorder: TButton;
+    btProgressOutline: TButton;
+    btProgressText: TButton;
+    llProgressText: TLabel;
+    tsLanguage: TTabSheet;
+    gbLanguage: TGroupBox;
+    llLanguage: TLabel;
+    cbLanguage: TComboBox;
+    llLanguageInfo: TLabel;
+    chFailSafeCopier: TCheckBox;
+    chCopyResumeNoAgeVerification: TCheckBox;
+    llAttributesAndSecurityForCopies: TLabel;
+    llAttributesAndSecurityForMoves: TLabel;
+    chSaveSecurityOnCopy: TCheckBox;
+    chSaveSecurityOnMove: TCheckBox;
+    llCustomSpeedLimit: TLabel;
+    chSpeedLimit: TCheckBox;
     tbSpeedLimit: TScTrackBar;
-    edCustomSpeedLimit: TTntEdit;
-    llSpeedLimit: TTntLabel;
+    edCustomSpeedLimit: TEdit;
+    llSpeedLimit: TLabel;
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure lvSectionsChange(Sender: TObject; Item: TListItem;
       Change: TItemChange);
@@ -156,12 +155,10 @@ type
     procedure cbErrorLogAutoSaveModeChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btRenamingHelpClick(Sender: TObject);
-    procedure btAddProcessClick(Sender: TObject);
-    procedure btRemoveProcessClick(Sender: TObject);
     procedure btELFNBrowseClick(Sender: TObject);
     procedure NumbersOnly(Sender: TObject; var Key: Char);
     procedure FileNameOnly(Sender: TObject; var Key: Char);
-    procedure TntFormShow(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure btProgressFG1Click(Sender: TObject);
     procedure bgProgressFG2Click(Sender: TObject);
     procedure btProgressBG1Click(Sender: TObject);
@@ -172,6 +169,7 @@ type
     procedure btApplyClick(Sender: TObject);
     procedure btProgressTextClick(Sender: TObject);
     procedure btProgressOutlineClick(Sender: TObject);
+    procedure pcSectionsChange(Sender: TObject);
     procedure tbSpeedLimitChange(Sender: TObject);
   private
     { Private declarations }
@@ -188,13 +186,13 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
-uses SCConfig,SCWin32,SCLocStrings,TntSysutils, Math, SCCommon, SCMainForm,
+uses SCConfig,SCWin32,SCLocStrings, Math, SCCommon, SCMainForm,
   StrUtils;
 
 //******************************************************************************
-// UpdateControlsState : fixe l'Ètat d'activation des controles
+// UpdateControlsState : fixe l'–πtat d'activation des controles
 //******************************************************************************
 procedure TConfigForm.UpdateControlsState;
 var IsCustom:Boolean;
@@ -214,12 +212,12 @@ begin
   cbErrorLogAutoSaveMode.Enabled:=chErrorLogAutoSave.Checked;
   edErrorLogFileName.Enabled:=chErrorLogAutoSave.Checked;
   btELFNBrowse.Enabled:=chErrorLogAutoSave.Checked and (cbErrorLogAutoSaveMode.ItemIndex=2);
-  btRemoveProcess.Enabled:=lvHandledProcesses.Items.Count>0;
+  //btRemoveProcess.Enabled:=lvHandledProcesses.Items.Count>0;
   chFailSafeCopier.Enabled:=Win32Platform=VER_PLATFORM_WIN32_NT;
 end;
 
 //******************************************************************************
-// GetConfig : charge la configuration dans la fenÍtre
+// GetConfig : charge la configuration dans la fen–∫tre
 //******************************************************************************
 procedure TConfigForm.GetConfig;
 var i:Integer;
@@ -232,7 +230,7 @@ begin
   begin
     //tsLanguage
     cbLanguage.Items.Add(DEFAULT_LANGUAGE);
-    FindHandle:=SCWin32.FindFirstFile(PWideChar(WideExtractFilePath(TntApplication.ExeName)+LANG_SUBDIR+'*.lng'),FindData);
+    FindHandle:=SCWin32.FindFirstFile(PWideChar(ExtractFilePath(Application.ExeName)+LANG_SUBDIR+'*.lng'),FindData);
     if FindHandle<>INVALID_HANDLE_VALUE then
     begin
       repeat
@@ -294,22 +292,13 @@ begin
     chErrorLogAutoSave.Checked:=ErrorLogAutoSave;
     cbErrorLogAutoSaveMode.ItemIndex:=Integer(ErrorLogAutoSaveMode);
     edErrorLogFileName.Text:=ErrorLogFileName;
-    //tsProcesses
-    ProcList:=TStringList.Create;
-    try
-      ExtractStrings(['|'],[' '],PChar(HandledProcesses),ProcList);
-      for i:=0 to ProcList.Count-1 do
-        lvHandledProcesses.AddItem(ProcList[i],nil);
-    finally
-      ProcList.Free;
-    end;
     //tsAdvanced
     case Priority of
       IDLE_PRIORITY_CLASS: cbPriority.ItemIndex:=0;
       NORMAL_PRIORITY_CLASS: cbPriority.ItemIndex:=1;
       HIGH_PRIORITY_CLASS: cbPriority.ItemIndex:=2;
     end;
-    cbConfigLocation.ItemIndex:=Integer(ConfigLocation);
+//    cbConfigLocation.ItemIndex:=Integer(ConfigLocation);
     edCopyBufferSize.Text:=IntToStr(CopyBufferSize);
     edCopyWindowUpdateInterval.Text:=IntToStr(CopyWindowUpdateInterval);
     edCopySpeedAveragingInterval.Text:=IntToStr(CopySpeedAveragingInterval);
@@ -321,7 +310,7 @@ begin
 end;
 
 //******************************************************************************
-// UpdateConfig : mets ‡ jour la configuration
+// UpdateConfig : mets –∞ jour la configuration
 //******************************************************************************
 procedure TConfigForm.UpdateConfig;
 var i:Integer;
@@ -378,17 +367,13 @@ begin
     ErrorLogAutoSave:=chErrorLogAutoSave.Checked;
     ErrorLogAutoSaveMode:=TErrorLogAutoSaveMode(cbErrorLogAutoSaveMode.ItemIndex);
     ErrorLogFileName:=edErrorLogFileName.Text;
-    //tsProcesses
-    HandledProcesses:='';
-    for i:=0 to lvHandledProcesses.Items.Count-1 do
-      HandledProcesses:=HandledProcesses+lvHandledProcesses.Items[i].Caption+'|';
     //tsAdvanced
     case cbPriority.ItemIndex of
       0: Priority:=IDLE_PRIORITY_CLASS;
       1: Priority:=NORMAL_PRIORITY_CLASS;
       2: Priority:=HIGH_PRIORITY_CLASS;
     end;
-    ConfigLocation:=TConfigLocation(cbConfigLocation.ItemIndex);
+//    ConfigLocation:=TConfigLocation(cbConfigLocation.ItemIndex);
     CopyBufferSize:=StrToIntDef(edCopyBufferSize.Text,CONFIG_DEFAULT_VALUES.CopyBufferSize);
     CopyWindowUpdateInterval:=StrToIntDef(edCopyWindowUpdateInterval.Text,CONFIG_DEFAULT_VALUES.CopyWindowUpdateInterval);
     CopySpeedAveragingInterval:=StrToIntDef(edCopySpeedAveragingInterval.Text,CONFIG_DEFAULT_VALUES.CopySpeedAveragingInterval);
@@ -402,7 +387,7 @@ end;
 procedure TConfigForm.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
-  lvSections.OnChange:=nil; //HACK: empËche l'erreur Win32 #87 de se dÈclencher sur Windows 7
+  lvSections.OnChange:=nil; //HACK: emp–∏che l'erreur Win32 #87 de se d–πclencher sur Windows 7
   CanClose:=False;
   Hide;
   Release;
@@ -491,37 +476,17 @@ begin
   end;
 end;
 
-procedure TConfigForm.btAddProcessClick(Sender: TObject);
-begin
-  FixParentBugs;
-
-  if odProcesses.Execute then
-  begin
-    lvHandledProcesses.AddItem(WideExtractFileName(odProcesses.FileName),nil);
-    UpdateControlsState;
-  end;
-end;
-
-procedure TConfigForm.btRemoveProcessClick(Sender: TObject);
-begin
-  if lvHandledProcesses.ItemIndex>=0 then
-  begin
-    lvHandledProcesses.Items.Delete(lvHandledProcesses.ItemIndex);
-    UpdateControlsState;
-  end;
-end;
-
 procedure TConfigForm.NumbersOnly(Sender: TObject; var Key: Char);
 begin
-  if not (Key in ['0'..'9']) and (Key>#31) then Key:=#0; // autoriser seulement les chiffres et les caractËres de contrÙle
+  if not (Key in ['0'..'9']) and (Key>#31) then Key:=#0; // autoriser seulement les chiffres et les caract–∏res de contr—Ñle
 end;
 
 procedure TConfigForm.FileNameOnly(Sender: TObject; var Key: Char);
 begin
-  if Key in ['/','?','*','"','<','>','|'] then Key:=#0; //caractËres interdits dans un nom de fichier
+  if Key in ['/','?','*','"','<','>','|'] then Key:=#0; //caract–∏res interdits dans un nom de fichier
 end;
 
-procedure TConfigForm.TntFormShow(Sender: TObject);
+procedure TConfigForm.FormShow(Sender: TObject);
 begin
   lvSections.Items[0].Focused:=True;
   lvSections.Items[0].Selected:=True;
@@ -596,6 +561,11 @@ begin
     ggProgress.FontProgressColor:=cdProgress.Color;
     ggProgress.Refresh;
   end;
+end;
+
+procedure TConfigForm.pcSectionsChange(Sender: TObject);
+begin
+
 end;
 
 end.

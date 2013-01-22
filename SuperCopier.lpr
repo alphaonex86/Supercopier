@@ -1,18 +1,20 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 }
 
-program SuperCopier2;
+program SuperCopier;
+
+{$MODE Delphi}
 
 {%File 'ana sc.txt'}
 {%File 'SCBuildConfig.inc'}
@@ -22,7 +24,7 @@ program SuperCopier2;
 
 uses
   Forms,
-  Windows,
+  LCLIntf, LCLType, LMessages, Interfaces,
   Messages,
   SCMainForm in 'SCMainForm.pas' {MainForm},
   SCBaseList in 'SCBaseList.pas',
@@ -58,10 +60,10 @@ uses
 begin
   Application.Initialize;
 
-  // nécessaire pour avoir le droit de copier la sécurité des dossiers et fichiers
+  // nÐ¹cessaire pour avoir le droit de copier la sÐ¹curitÐ¹ des dossiers et fichiers
   ProcessSetPrivilege(SE_SECURITY_NAME,True);
 
-  SetParent(Application.Handle,THandle(HWND_MESSAGE)); // cacher la form du TApplication
+  //SetParent(Application.MainForm.Handle,THandle(-3{HWND_MESSAGE})); // cacher la form du TApplication SL-27
   Application.ShowMainForm:=False;
 
   Application.CreateForm(TMainForm, MainForm);

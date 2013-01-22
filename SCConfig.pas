@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,11 +14,13 @@
 
 unit SCConfig;
 
+{$MODE Delphi}
+
 interface
 uses Registry,IniFiles,SCCommon,Graphics,Windows;
 
 type
-  // /!\ a chaque modification de cette structure, modifier en concéquence
+  // /!\ a chaque modification de cette structure, modifier en concÐ¹quence
   //     CONFIG_DEFAULT_VALUES, TConfig.SaveConfig et TConfig.LoadConfig
   TSCConfigValues=record
     CopyBufferSize:Integer;
@@ -137,7 +139,7 @@ type
   end;
 
 const
-  // valeurs de config par défaut
+  // valeurs de config par dÐ¹faut
   CONFIG_DEFAULT_VALUES:TSCConfigValues=(
     CopyBufferSize:65536;
     CopyWindowUpdateInterval:100;
@@ -193,7 +195,7 @@ const
     SaveSecurityOnMove:False;
   );
 
-  CONFIG_REGISTRY_KEY='Software\SFX TEAM\SuperCopier2';
+  CONFIG_REGISTRY_KEY='Software\Supercopier\SuperCopier';
   AUTORUN_REGISTRY_KEY='\Software\Microsoft\Windows\CurrentVersion\Run';
 var
   Config:TConfig;
@@ -204,18 +206,18 @@ procedure CloseConfig;
 procedure ApplyConfig;
 
 implementation
-uses SysUtils, StrUtils,TntForms,TntSysutils,SCWin32,SCMainForm,SCLocEngine,SCLocStrings,SCConfigForm,SCAboutForm;
+uses SysUtils, StrUtils,Forms,SCWin32,SCMainForm,SCLocEngine,SCLocStrings,SCConfigForm,SCAboutForm;
 
 //******************************************************************************
-// OpenConfig: crée l'objet de configuration et charge la config
+// OpenConfig: crÐ¹e l'objet de configuration et charge la config
 //******************************************************************************
 procedure OpenConfig;
 var IniFileName:WideString;
     Reg:TRegistry;
 begin
-  IniFileName:=ChangeFileExt(TntApplication.ExeName,'.ini');
+  IniFileName:=ChangeFileExt(Application.ExeName,'.ini');
 
-  if WideFileExists(IniFileName) then
+  if FileExists(IniFileName) then
   begin
     ConfigLocation:=clIniFile;
     Config:=TIniConfig.Create(IniFileName);
@@ -228,12 +230,12 @@ begin
 
   Config.LoadConfig;
 
-	//lecture de l'état de l'autorun
+	//lecture de l'Ð¹tat de l'autorun
   Reg:=TRegistry.Create;
   try
     Reg.RootKey := HKEY_CURRENT_USER;
     if Reg.OpenKey(AUTORUN_REGISTRY_KEY, True) then
-      Config.Values.StartWithWindows:=Reg.ValueExists(WideExtractFileName(TntApplication.ExeName));
+      Config.Values.StartWithWindows:=Reg.ValueExists(ExtractFileName(Application.ExeName));
   finally
     Reg.CloseKey;
     Reg.Free;
@@ -243,13 +245,13 @@ begin
   if Config.Values.Language='' then Config.Values.Language:=GetOSLanguageName;
   if Config.Values.Language<>DEFAULT_LANGUAGE then
   begin
-    LocEngine.LoadLanguageFile(WideExtractFilePath(TntApplication.ExeName)+LANG_SUBDIR+Config.Values.Language+LANG_EXT);
+    LocEngine.LoadLanguageFile(ExtractFilePath(Application.ExeName)+LANG_SUBDIR+Config.Values.Language+LANG_EXT);
     TranslateAllStrings;
   end;
 end;
 
 //******************************************************************************
-// CloseConfig sauvegarde la config et détruit l'objet de configuration
+// CloseConfig sauvegarde la config et dÐ¹truit l'objet de configuration
 //******************************************************************************
 procedure CloseConfig;
 var IniFileName:WideString;
@@ -263,16 +265,16 @@ begin
     if Reg.OpenKey(AUTORUN_REGISTRY_KEY, True) then
     begin
       if Config.Values.StartWithWindows then
-        Reg.WriteString(WideExtractFileName(TntApplication.ExeName),TntApplication.ExeName)
+        Reg.WriteString(ExtractFileName(Application.ExeName),Application.ExeName)
       else
-        Reg.DeleteValue(WideExtractFileName(TntApplication.ExeName));
+        Reg.DeleteValue(ExtractFileName(Application.ExeName));
     end;
   finally
     Reg.CloseKey;
     Reg.Free;
   end;
 
-  if (ConfigLocation=clRegistry) and (Config is TIniConfig) then
+    if (ConfigLocation=clRegistry) and (Config is TIniConfig) then
   begin
     Config.DeleteData;
 
@@ -288,7 +290,7 @@ begin
   begin
     Config.DeleteData;
 
-    IniFileName:=ChangeFileExt(TntApplication.ExeName,'.ini');
+    IniFileName:=ChangeFileExt(Application.ExeName,'.ini');
     NewConfig:=TIniConfig.Create(IniFileName);
     try
       NewConfig.Values:=Config.Values;
@@ -306,7 +308,7 @@ begin
 end;
 
 //******************************************************************************
-// ApplyConfig: applique la configuration 'instantannée' 
+// ApplyConfig: applique la configuration 'instantannÐ¹e' 
 //******************************************************************************
 procedure ApplyConfig;
 begin
@@ -321,7 +323,7 @@ end;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TConfig: classe abstraite de base gérant la configuration
+// TConfig: classe abstraite de base gÐ¹rant la configuration
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -540,6 +542,7 @@ begin
   Reg.WriteString(Name,Value);
 end;
 
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -575,7 +578,7 @@ procedure TIniConfig.DeleteData;
 begin
   Ini.Free;
   Ini:=nil;
-  SCWin32.DeleteFile(PWidechar(FFileName));
+  SCWin32.DeleteFile(PWidechar(FFileName)); { *Converted from DeleteFile*  }
 end;
 
 procedure TIniConfig.VerifyValueExists(Name:String);

@@ -1,0 +1,1110 @@
+object CopyForm: TCopyForm
+  Left = 314
+  Height = 409
+  Top = 252
+  Width = 408
+  HorzScrollBar.Visible = False
+  VertScrollBar.Visible = False
+  BorderStyle = bsSingle
+  Caption = 'CopyForm'
+  ClientHeight = 409
+  ClientWidth = 408
+  Color = clBtnFace
+  Constraints.MinHeight = 169
+  Constraints.MinWidth = 408
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Microsoft Sans Serif'
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poScreenCenter
+  LCLVersion = '1.0.4.0'
+  object ggAll: TSCProgessBar
+    Left = 8
+    Height = 17
+    Top = 48
+    Width = 393
+    Anchors = [akTop, akLeft, akRight]
+    BorderColor = clBlack
+    FrontColor1 = clRed
+    FrontColor2 = clBlue
+    BackColor1 = clGray
+    BackColor2 = clWhite
+    FontProgress.Color = clWhite
+    FontProgress.Height = -11
+    FontProgress.Name = 'MS Sans Serif'
+    FontProgress.Style = [fsBold]
+    FontProgressColor = clBlack
+    FontTxt.Color = clWhite
+    FontTxt.Height = -11
+    FontTxt.Name = 'MS Sans Serif'
+    FontTxtColor = clBlack
+    Max = 100
+  end
+  object llAll: TLabel
+    Left = 8
+    Height = 13
+    Top = 32
+    Width = 393
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = False
+    Caption = 'llAll'
+    ParentColor = False
+    ShowAccelChar = False
+  end
+  object llSpeed: TLabel
+    Left = 8
+    Height = 13
+    Top = 120
+    Width = 105
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = False
+    Caption = 'llSpeed'
+    ParentColor = False
+  end
+  object llFromTitle: TLabel
+    Left = 8
+    Height = 14
+    Top = 0
+    Width = 27
+    Caption = 'From:'
+    ParentColor = False
+  end
+  object llToTitle: TLabel
+    Left = 8
+    Height = 14
+    Top = 16
+    Width = 17
+    Caption = 'To:'
+    ParentColor = False
+  end
+  object ggFile: TSCProgessBar
+    Left = 8
+    Height = 17
+    Top = 88
+    Width = 393
+    Anchors = [akTop, akLeft, akRight]
+    BorderColor = clBlack
+    FrontColor1 = clRed
+    FrontColor2 = clBlue
+    BackColor1 = clGray
+    BackColor2 = clWhite
+    FontProgress.Color = clWhite
+    FontProgress.Height = -11
+    FontProgress.Name = 'MS Sans Serif'
+    FontProgress.Style = [fsBold]
+    FontProgressColor = clBlack
+    FontTxt.Color = clWhite
+    FontTxt.Height = -11
+    FontTxt.Name = 'MS Sans Serif'
+    FontTxtColor = clBlack
+    Max = 100
+  end
+  object llTo: TSCFileNameLabel
+    Left = 40
+    Height = 13
+    Top = 16
+    Width = 361
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = False
+    Caption = 'llTo'
+    ParentColor = False
+    ShowAccelChar = False
+  end
+  object llFrom: TSCFileNameLabel
+    Left = 40
+    Height = 13
+    Top = 0
+    Width = 361
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = False
+    Caption = 'llFrom'
+    ParentColor = False
+    ShowAccelChar = False
+  end
+  object llFile: TSCFileNameLabel
+    Left = 8
+    Height = 13
+    Top = 72
+    Width = 393
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = False
+    Caption = 'llFile'
+    ParentColor = False
+    ShowAccelChar = False
+  end
+  object pcPages: TPageControl
+    Left = -1
+    Height = 268
+    Top = 150
+    Width = 412
+    ActivePage = tsCopyList
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Images = MainForm.ilGlobal
+    MultiLine = True
+    TabIndex = 0
+    TabOrder = 6
+    OnChange = pcPagesChange
+    Options = [nboMultiLine]
+    object tsCopyList: TTabSheet
+      Caption = 'Copy list'
+      ClientHeight = 241
+      ClientWidth = 404
+      ImageIndex = 8
+      object btFileTop: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Move files to top'
+        Top = 0
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btFileTopClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object btFileUp: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Move files up'
+        Top = 28
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btFileUpClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object btFileDown: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Move files down'
+        Top = 56
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btFileDownClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object btFileBottom: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Move files to bottom'
+        Top = 84
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btFileBottomClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object btFileAdd: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Add files'
+        Top = 117
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btFileAddClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object btFileRemove: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Remove files'
+        Top = 145
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btFileRemoveClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object btFileSave: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Save copy list'
+        Top = 178
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btFileSaveClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object btFileLoad: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Load copy list'
+        Top = 206
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btFileLoadClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object lvFileList: TListView
+        Left = 25
+        Height = 236
+        Top = 0
+        Width = 380
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Columns = <        
+          item
+            Caption = 'Source'
+            Width = 250
+          end        
+          item
+            Alignment = taRightJustify
+            Caption = 'Size'
+            Width = 75
+          end        
+          item
+            Caption = 'Destination'
+            Width = 300
+          end>
+        HideSelection = False
+        MultiSelect = True
+        OwnerData = True
+        PopupMenu = pmFileContext
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 0
+        ViewStyle = vsReport
+        OnColumnClick = lvFileListColumnClick
+        OnData = lvFileListData
+      end
+    end
+    object tsErrors: TTabSheet
+      Caption = 'Error log'
+      ClientHeight = 241
+      ClientWidth = 404
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      ImageIndex = 9
+      ParentFont = False
+      object btErrorClear: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Clear log'
+        Top = 0
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btErrorClearClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object btErrorSaveLog: TSpeedButton
+        Left = 0
+        Height = 25
+        Hint = 'Save log'
+        Top = 28
+        Width = 25
+        Flat = True
+        NumGlyphs = 0
+        OnClick = btErrorSaveLogClick
+        ShowHint = True
+        ParentShowHint = False
+      end
+      object lvErrorList: TListView
+        Left = 25
+        Height = 206
+        Top = 0
+        Width = 371
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Columns = <        
+          item
+            Caption = 'Time'
+            Width = 65
+          end        
+          item
+            Caption = 'Action'
+            Width = 75
+          end        
+          item
+            Caption = 'Target'
+            Width = 200
+          end        
+          item
+            Caption = 'Error text'
+            Width = 300
+          end>
+        ColumnClick = False
+        HideSelection = False
+        MultiSelect = True
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 0
+        ViewStyle = vsReport
+        OnData = lvFileListData
+      end
+    end
+    object tsOptions: TTabSheet
+      Caption = 'Options'
+      ClientHeight = 241
+      ClientWidth = 404
+      ImageIndex = 4
+      object gbSpeedLimit: TGroupBox
+        Left = 8
+        Height = 44
+        Top = 51
+        Width = 381
+        Anchors = [akTop, akLeft, akRight]
+        Caption = 'Speed limit'
+        ClientHeight = 26
+        ClientWidth = 377
+        TabOrder = 1
+        object llCustomSpeedLimit: TLabel
+          Left = 352
+          Height = 14
+          Top = 17
+          Width = 15
+          Anchors = [akTop, akRight]
+          Caption = 'KB'
+          Enabled = False
+          ParentColor = False
+        end
+        object llSpeedLimit: TLabel
+          Left = 294
+          Height = 13
+          Top = -1
+          Width = 73
+          Alignment = taRightJustify
+          Anchors = [akTop, akRight]
+          AutoSize = False
+          Caption = 'llSpeedLimit'
+          Enabled = False
+          ParentColor = False
+          Visible = False
+        end
+        object chSpeedLimit: TCheckBox
+          Left = 8
+          Height = 17
+          Top = 1
+          Width = 59
+          Caption = 'Enabled'
+          OnClick = chSpeedLimitClick
+          TabOrder = 0
+        end
+        object tbSpeedLimit: TScTrackBar
+          Left = 80
+          Height = 23
+          Top = -4
+          Width = 205
+          Max = 52
+          OnChange = tbSpeedLimitChange
+          Position = 0
+          TickMarks = tmBoth
+          TickStyle = tsNone
+          Anchors = [akTop, akLeft, akRight]
+          Enabled = False
+          TabOrder = 1
+        end
+        object edCustomSpeedLimit: TEdit
+          Left = 292
+          Height = 21
+          Top = -1
+          Width = 57
+          Anchors = [akTop, akRight]
+          Enabled = False
+          OnChange = edCustomSpeedLimitChange
+          OnKeyPress = edCustomSpeedLimitKeyPress
+          TabOrder = 2
+          Text = 'edCustomSpeedLimit'
+        end
+      end
+      object gbCollisions: TGroupBox
+        Left = 8
+        Height = 44
+        Top = 99
+        Width = 381
+        Anchors = [akTop, akLeft, akRight]
+        Caption = 'File collisions'
+        ClientHeight = 26
+        ClientWidth = 377
+        TabOrder = 2
+        object llCollisions: TLabel
+          Left = 8
+          Height = 14
+          Top = 3
+          Width = 162
+          Caption = 'When a file already exists, always:'
+          ParentColor = False
+        end
+        object cbCollisions: TComboBox
+          Left = 184
+          Height = 21
+          Top = -1
+          Width = 185
+          Anchors = [akTop, akLeft, akRight]
+          ItemHeight = 13
+          ItemIndex = 0
+          Items.Strings = (
+            'Ask what to do'
+            'Cancel the whole copy'
+            'Skip'
+            'Resume transfer'
+            'Overwrite'
+            'Overwrite if different'
+            'Rename new file'
+            'Rename old file'
+          )
+          OnChange = cbCollisionsChange
+          Style = csDropDownList
+          TabOrder = 0
+          Text = 'Ask what to do'
+        end
+      end
+      object gbCopyErrors: TGroupBox
+        Left = 8
+        Height = 44
+        Top = 147
+        Width = 381
+        Anchors = [akTop, akLeft, akRight]
+        Caption = 'Copy errors'
+        ClientHeight = 26
+        ClientWidth = 377
+        TabOrder = 3
+        object llCopyErrors: TLabel
+          Left = 8
+          Height = 14
+          Top = 4
+          Width = 167
+          Caption = 'When there is a copy error, always:'
+          ParentColor = False
+        end
+        object cbCopyError: TComboBox
+          Left = 184
+          Height = 21
+          Top = 0
+          Width = 185
+          Anchors = [akTop, akLeft, akRight]
+          ItemHeight = 13
+          ItemIndex = 0
+          Items.Strings = (
+            'Ask what to do'
+            'Cancel then whole copy'
+            'Skip'
+            'Retry'
+            'Put the file at the copy list bottom'
+          )
+          OnChange = cbCopyErrorChange
+          Style = csDropDownList
+          TabOrder = 0
+          Text = 'Ask what to do'
+        end
+      end
+      object gbCopyEnd: TGroupBox
+        Left = 8
+        Height = 44
+        Top = 3
+        Width = 381
+        Anchors = [akTop, akLeft, akRight]
+        Caption = 'Copy end'
+        ClientHeight = 26
+        ClientWidth = 377
+        TabOrder = 0
+        object llCopyEnd: TLabel
+          Left = 8
+          Height = 14
+          Top = 0
+          Width = 109
+          Caption = 'At the end of the copy:'
+          ParentColor = False
+        end
+        object cbCopyEnd: TComboBox
+          Left = 184
+          Height = 21
+          Top = -2
+          Width = 185
+          Anchors = [akTop, akLeft, akRight]
+          ItemHeight = 13
+          ItemIndex = 0
+          Items.Strings = (
+            'Close the window'
+            'Don''t close the window'
+            'Don''t close if there was errors'
+          )
+          OnChange = cbCopyEndChange
+          Style = csDropDownList
+          TabOrder = 0
+          Text = 'Close the window'
+        end
+      end
+      object btSaveDefaultCfg: TButton
+        Left = 192
+        Height = 25
+        Top = 199
+        Width = 196
+        Anchors = [akTop, akRight]
+        Caption = 'Set as default options'
+        OnClick = btSaveDefaultCfgClick
+        TabOrder = 4
+      end
+    end
+  end
+  object btCancel: TScPopupButton
+    Left = 337
+    Height = 25
+    Top = 116
+    Width = 65
+    TabOrder = 5
+    TabStop = True
+    Anchors = [akTop, akRight]
+    ItemIndex = 0
+    Caption = 'Cancel'
+    ImageIndex = 6
+    ImageList = MainForm.ilGlobal
+    OnClick = btCancelClick
+  end
+  object btSkip: TScPopupButton
+    Left = 265
+    Height = 25
+    Top = 116
+    Width = 65
+    TabOrder = 4
+    TabStop = True
+    Anchors = [akTop, akRight]
+    ItemIndex = 0
+    Caption = 'Skip'
+    ImageIndex = 19
+    ImageList = MainForm.ilGlobal
+    OnClick = btSkipClick
+  end
+  object btPause: TScPopupButton
+    Left = 193
+    Height = 25
+    Top = 116
+    Width = 65
+    TabOrder = 2
+    TabStop = True
+    Anchors = [akTop, akRight]
+    ItemIndex = 0
+    Caption = 'Pause'
+    ImageIndex = 25
+    ImageList = MainForm.ilGlobal
+    OnClick = btPauseClick
+  end
+  object btResume: TScPopupButton
+    Left = 193
+    Height = 25
+    Top = 116
+    Width = 65
+    Visible = False
+    TabOrder = 3
+    TabStop = True
+    Anchors = [akTop, akRight]
+    ItemIndex = 0
+    Caption = 'Resume'
+    ImageIndex = 26
+    ImageList = MainForm.ilGlobal
+    OnClick = btPauseClick
+  end
+  object btUnfold: TScPopupButton
+    Left = 121
+    Height = 25
+    Top = 116
+    Width = 65
+    TabOrder = 1
+    TabStop = True
+    Anchors = [akTop, akRight]
+    ItemIndex = 0
+    Caption = 'Unfold'
+    ImageIndex = 24
+    ImageList = MainForm.ilGlobal
+    OnClick = btUnfoldClick
+  end
+  object btFold: TScPopupButton
+    Left = 121
+    Height = 25
+    Top = 116
+    Width = 65
+    TabOrder = 0
+    TabStop = True
+    Anchors = [akTop, akRight]
+    ItemIndex = 0
+    Caption = 'Fold up'
+    ImageIndex = 23
+    ImageList = MainForm.ilGlobal
+    OnClick = btUnfoldClick
+  end
+  object pmFileContext: TPopupMenu
+    Images = MainForm.ilGlobal
+    TrackButton = tbLeftButton
+    left = 204
+    top = 366
+    object miTop: TMenuItem
+      Caption = 'Top'
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000040204FF00000000000000000000000000000000000000000000
+        000000000000040204FF00000000000000000000000000000000000000000000
+        0000040204FFD46A0CFF040204FF000000000000000000000000000000000000
+        0000040204FFDC720CFF040204FF000000000000000000000000000000000402
+        04FFD46A0CFFE48E0CFFD46A0CFF040204FF0000000000000000000000000402
+        04FFDC720CFFD46A0CFFDC720CFF040204FF0000000000000000040204FFD46A
+        0CFFE48E0CFFE48E0CFFE48E0CFFD46A0CFF040204FF00000000040204FFDC7E
+        0CFFD46A0CFFD46A0CFFD46A0CFFDC720CFF040204FF00000000000000000402
+        04FFD46A0CFFE48E0CFFDC860CFFDC7E0CFFDC720CFF040204FFDC7E0CFFDC6E
+        0CFFDC6E0CFFD46A0CFFDC7E0CFF040204FF0000000000000000000000000000
+        0000040204FFD46A0CFFDC7E0CFFDC860CFFDC7E0CFFDC7E0CFFDC6E0CFFDC72
+        0CFFDC6E0CFFDC7E0CFF040204FF000000000000000000000000000000000402
+        04FFD46A0CFF040204FFDC720CFFDC7E0CFFDC7E0CFFDC720CFFDC720CFFDC6E
+        0CFFE48E0CFF040204FFDC720CFF040204FF0000000000000000040204FFD46A
+        0CFFE48E0CFFDC860CFF040204FFDC720CFFDC6E0CFFDC720CFFD46A0CFFDC86
+        0CFF040204FFD46A0CFFD46A0CFFDC720CFF040204FF00000000000000000402
+        04FFD46A0CFFE48E0CFFDC7E0CFF040204FFDC7E0CFFD46A0CFFDC860CFF0402
+        04FFDC6E0CFFD46A0CFFDC7E0CFF040204FF0000000000000000000000000000
+        0000040204FFD46A0CFFDC860CFFDC860CFF040204FFDC7E0CFF040204FFDC72
+        0CFFDC6E0CFFDC7E0CFF040204FF000000000000000000000000000000000000
+        000000000000040204FFDC720CFFDC7E0CFFDC7E0CFF040204FFDC720CFFDC6E
+        0CFFDC860CFF040204FF00000000000000000000000000000000000000000000
+        00000000000000000000040204FFDC6E0CFFDC720CFFDC720CFFD46A0CFFE48E
+        0CFF040204FF0000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000040204FFDC7E0CFFDC6E0CFFDC7E0CFF0402
+        04FF000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000040204FFDC7E0CFF040204FF0000
+        0000000000000000000000000000000000000000000000000000000000000000
+        00000000000000000000000000000000000000000000040204FF000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      ImageIndex = 12
+      ShortCut = 16468
+      OnClick = btFileTopClick
+    end
+    object miUp: TMenuItem
+      Caption = 'Up'
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000040204FF00000000000000000000000000000000000000000000
+        000000000000040204FF00000000000000000000000000000000000000000000
+        0000040204FFD46A0CFF040204FF000000000000000000000000000000000000
+        0000040204FFDC720CFF040204FF000000000000000000000000000000000402
+        04FFD46A0CFFE48E0CFFD46A0CFF040204FF0000000000000000000000000402
+        04FFDC720CFFD46A0CFFDC720CFF040204FF0000000000000000040204FFD46A
+        0CFFE48E0CFFE48E0CFFE48E0CFFD46A0CFF040204FF00000000040204FFDC7E
+        0CFFD46A0CFFD46A0CFFD46A0CFFDC720CFF040204FF00000000000000000402
+        04FFD46A0CFFE48E0CFFDC860CFFDC7E0CFFDC720CFF040204FFDC7E0CFFDC6E
+        0CFFDC6E0CFFD46A0CFFDC7E0CFF040204FF0000000000000000000000000000
+        0000040204FFD46A0CFFDC7E0CFFDC860CFFDC7E0CFFDC7E0CFFDC6E0CFFDC72
+        0CFFDC6E0CFFDC7E0CFF040204FF000000000000000000000000000000000000
+        000000000000040204FFDC720CFFDC7E0CFFDC7E0CFFDC720CFFDC720CFFDC6E
+        0CFFE48E0CFF040204FF00000000000000000000000000000000000000000000
+        00000000000000000000040204FFDC720CFFDC6E0CFFDC720CFFD46A0CFFDC86
+        0CFF040204FF0000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000040204FFDC7E0CFFD46A0CFFDC860CFF0402
+        04FF000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000040204FFDC7E0CFF040204FF0000
+        0000000000000000000000000000000000000000000000000000000000000000
+        00000000000000000000000000000000000000000000040204FF000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      ImageIndex = 10
+      ShortCut = 16469
+      OnClick = btFileUpClick
+    end
+    object miDown: TMenuItem
+      Caption = 'Down'
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        00000000000000000000000000000000000000000000040204FF000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000040204FFDC7E0CFF040204FF0000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000040204FFDC7E0CFFD46A0CFFDC7E0CFF0402
+        04FF000000000000000000000000000000000000000000000000000000000000
+        00000000000000000000040204FFDC720CFFDC720CFFDC720CFFD46A0CFFE48E
+        0CFF040204FF0000000000000000000000000000000000000000000000000000
+        000000000000040204FFDC720CFFDC7E0CFFDC7E0CFFDC720CFFDC720CFFDC6E
+        0CFFDC860CFF040204FF00000000000000000000000000000000000000000000
+        0000040204FFDC6E0CFFDC7E0CFFDC7E0CFFDC7E0CFFDC7E0CFFDC720CFFDC72
+        0CFFDC720CFFDC7E0CFF040204FF000000000000000000000000000000000402
+        04FFD46A0CFFE48E0CFFDC860CFFDC860CFFDC6E0CFF040204FFDC7E0CFFDC72
+        0CFFDC6E0CFFD46A0CFFDC7E0CFF040204FF0000000000000000040204FFD46A
+        0CFFE48E0CFFE48E0CFFDC860CFFDC6E0CFF040204FF00000000040204FFDC7E
+        0CFFD46A0CFFD46A0CFFD46A0CFFDC720CFF040204FF00000000000000000402
+        04FFD46A0CFFE48E0CFFD46A0CFF040204FF0000000000000000000000000402
+        04FFDC720CFFD46A0CFFDC720CFF040204FF0000000000000000000000000000
+        0000040204FFD46A0CFF040204FF000000000000000000000000000000000000
+        0000040204FFDC720CFF040204FF000000000000000000000000000000000000
+        000000000000040204FF00000000000000000000000000000000000000000000
+        000000000000040204FF00000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      ImageIndex = 11
+      ShortCut = 16452
+      OnClick = btFileDownClick
+    end
+    object miBottom: TMenuItem
+      Caption = 'Bottom'
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        00000000000000000000000000000000000000000000040204FF000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000040204FFDC7E0CFF040204FF0000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000040204FFDC7E0CFFD46A0CFFDC7E0CFF0402
+        04FF000000000000000000000000000000000000000000000000000000000000
+        00000000000000000000040204FFDC720CFFDC720CFFDC720CFFD46A0CFFE48E
+        0CFF040204FF0000000000000000000000000000000000000000000000000000
+        000000000000040204FFDC720CFFDC7E0CFFDC7E0CFF040204FFDC720CFFDC6E
+        0CFFDC860CFF040204FF00000000000000000000000000000000000000000000
+        0000040204FFD46A0CFFDC860CFFDC7E0CFF040204FFDC7E0CFF040204FFDC72
+        0CFFDC720CFFDC7E0CFF040204FF000000000000000000000000000000000402
+        04FFD46A0CFFE48E0CFFDC7E0CFF040204FFDC7E0CFFD46A0CFFDC7E0CFF0402
+        04FFDC6E0CFFD46A0CFFDC7E0CFF040204FF0000000000000000040204FFD46A
+        0CFFE48E0CFFE48E0CFF040204FFDC720CFFDC720CFFDC720CFFDC6E0CFFDC86
+        0CFF040204FFD46A0CFFD46A0CFFDC720CFF040204FF00000000000000000402
+        04FFD46A0CFF040204FFDC720CFFDC7E0CFFDC7E0CFFDC720CFFDC720CFFDC6E
+        0CFFE48E0CFF040204FFDC720CFF040204FF0000000000000000000000000000
+        0000040204FFD46A0CFFDC860CFFDC7E0CFFDC7E0CFFDC7E0CFFDC720CFFDC72
+        0CFFDC6E0CFFDC7E0CFF040204FF000000000000000000000000000000000402
+        04FFD46A0CFFE48E0CFFDC7E0CFFDC860CFFDC720CFF040204FFDC7E0CFFDC72
+        0CFFD46A0CFFDC6E0CFFDC7E0CFF040204FF0000000000000000040204FFD46A
+        0CFFE48E0CFFDC860CFFE48E0CFFDC6E0CFF040204FF00000000040204FFDC7E
+        0CFFDC6E0CFFD46A0CFFD46A0CFFDC720CFF040204FF00000000000000000402
+        04FFD46A0CFFE48E0CFFD46A0CFF040204FF0000000000000000000000000402
+        04FFDC720CFFD46A0CFFDC720CFF040204FF0000000000000000000000000000
+        0000040204FFD46A0CFF040204FF000000000000000000000000000000000000
+        0000040204FFDC720CFF040204FF000000000000000000000000000000000000
+        000000000000040204FF00000000000000000000000000000000000000000000
+        000000000000040204FF00000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      ImageIndex = 13
+      ShortCut = 16450
+      OnClick = btFileBottomClick
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object miRemove: TMenuItem
+      Caption = 'Remove'
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        000000000000323232FF323232FF323232FF323232FF323232FF000000FF3232
+        32FF323232FF323232FF323232FF000000FF0000000000000000000000000000
+        0000323232FF868686FFB6B6B6FFC2C2C2FFC2C2C2FF000000FF4848FFFF0000
+        00FFC0C0C0FFB6B6B6FF000000FF2525FFFF000000FF00000000000000003232
+        32FFF2F2F2FF4A4A4AFFB6B6B6FFE6E6E6FF000000FF4848FFFF4848FFFF4848
+        FFFF000000FF000000FF2525FFFF6B6BFFFF2525FFFF000000FF323232FF8686
+        86FF4A4A4AFF626262FFE6E6E6FFE6E6E6FFE6E6E6FF000000FF4848FFFF4848
+        FFFF4848FFFF4848FFFF4848FFFF2525FFFF000000FF00000000323232FFDADA
+        DAFFDADADAFFDADADAFFDADADAFFE6E6E6FFE6E6E6FFE6E6E6FF000000FF4848
+        FFFF4848FFFF4848FFFF4848FFFF000000FF0000000000000000323232FFDADA
+        DAFFDADADAFFDADADAFFDADADAFFDADADAFFDADADAFFE6E6E6FFE6E6E6FF0000
+        00FF4848FFFF4848FFFF000000FF000000000000000000000000323232FFE6E6
+        E6FFDADADAFFDADADAFFDADADAFFDADADAFFDADADAFFDADADAFF000000FF6B6B
+        FFFF4848FFFF4848FFFF4848FFFF000000FF0000000000000000323232FFE6E6
+        E6FFCECECEFFCECECEFFDADADAFFDADADAFFDADADAFF000000FF6B6BFFFF2525
+        FFFF2525FFFF4848FFFF4848FFFF4848FFFF000000FF00000000323232FFE6E6
+        E6FFCECECEFFCECECEFFCECECEFFDADADAFF000000FF6B6BFFFF2525FFFF6B6B
+        FFFF000000FF000000FF4848FFFF4848FFFF4848FFFF000000FF323232FFE6E6
+        E6FFCECECEFFCECECEFFCECECEFFCECECEFFDADADAFF000000FF6B6BFFFF0000
+        00FFDADADAFFCECECEFF000000FF4848FFFF000000FF00000000323232FFF2F2
+        F2FFCECECEFFCECECEFFCECECEFFCECECEFFCECECEFFCECECEFF000000FFDADA
+        DAFFDADADAFFDADADAFF323232FF000000FF0000000000000000323232FFF2F2
+        F2FFC2C2C2FFC2C2C2FFCECECEFFCECECEFFCECECEFFCECECEFFCECECEFFDADA
+        DAFFDADADAFFDADADAFF323232FF000000000000000000000000323232FFF2F2
+        F2FFC2C2C2FFC2C2C2FFC2C2C2FFCECECEFFCECECEFFCECECEFFCECECEFFCECE
+        CEFFCECECEFFDADADAFF323232FF000000000000000000000000323232FFF2F2
+        F2FFC0C0C0FFC2C2C2FFC2C2C2FFC2C2C2FFCECECEFFCECECEFFCECECEFFCECE
+        CEFFCECECEFFDADADAFF323232FF000000000000000000000000323232FFF2F2
+        F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFE6E6E6FFE6E6
+        E6FFE6E6E6FFE6E6E6FF323232FF000000000000000000000000323232FF3232
+        32FF323232FF323232FF323232FF323232FF323232FF323232FF323232FF3232
+        32FF323232FF323232FF323232FF000000000000000000000000
+      }
+      ImageIndex = 15
+      ShortCut = 46
+      OnClick = btFileRemoveClick
+    end
+    object N2: TMenuItem
+      Caption = '-'
+    end
+    object miSelectAll: TMenuItem
+      Caption = 'Select all'
+      ShortCut = 16449
+      OnClick = miSelectAllClick
+    end
+    object miInvert: TMenuItem
+      Caption = 'Invert selection'
+      ShortCut = 16457
+      OnClick = miInvertClick
+    end
+    object N4: TMenuItem
+      Caption = '-'
+    end
+    object miSort: TMenuItem
+      Caption = 'Sort by'
+      object miBySrcFullPath: TMenuItem
+        Tag = 1
+        Caption = 'Source full path'
+        OnClick = miBySrcFullPathClick
+      end
+      object miBySrcName: TMenuItem
+        Tag = 2
+        Caption = 'Source name'
+        OnClick = miBySrcNameClick
+      end
+      object miBySrcExt: TMenuItem
+        Tag = 3
+        Caption = 'Source extension'
+        OnClick = miBySrcExtClick
+      end
+      object miByDestFullPath: TMenuItem
+        Tag = 4
+        Caption = 'Destination full path'
+        OnClick = miByDestFullPathClick
+      end
+      object miBySize: TMenuItem
+        Tag = 5
+        Caption = 'Size'
+        OnClick = miBySizeClick
+      end
+    end
+  end
+  object pmNewFiles: TPopupMenu
+    TrackButton = tbLeftButton
+    left = 236
+    top = 366
+    object miDefaultDest: TMenuItem
+      Caption = 'Use default destination folder ()'
+      Default = True
+      OnClick = miDefaultDestClick
+    end
+    object miChooseDest: TMenuItem
+      Caption = 'Choose destination folder...'
+      OnClick = miChooseDestClick
+    end
+    object miChooseSetDefault: TMenuItem
+      Caption = 'Choose destination folder and set it as default...'
+      OnClick = miChooseSetDefaultClick
+    end
+    object N3: TMenuItem
+      Caption = '-'
+    end
+    object miCancel: TMenuItem
+      Caption = 'Cancel'
+      OnClick = miCancelClick
+    end
+  end
+  object odCopyList: TOpenDialog
+    DefaultExt = '.scl'
+    Filter = 'SuperCopier Copy List (*.scl)|*.scl'
+    Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
+    left = 300
+    top = 366
+  end
+  object sdCopyList: TSaveDialog
+    DefaultExt = '.scl'
+    Filter = 'SuperCopier Copy List (*.scl)|*.scl'
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
+    left = 332
+    top = 366
+  end
+  object sdErrorLog: TSaveDialog
+    DefaultExt = '.txt'
+    FileName = 'errorlog.txt'
+    Filter = 'Text files (*.txt)|*.txt'
+    left = 364
+    top = 366
+  end
+  object odFileAdd: TOpenDialog
+    Filter = 'Any file (*.*)'
+    Options = [ofHideReadOnly, ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofShareAware, ofEnableSizing]
+    left = 268
+    top = 366
+  end
+  object pmFileAdd: TPopupMenu
+    TrackButton = tbLeftButton
+    left = 172
+    top = 366
+    object miAddFiles: TMenuItem
+      Caption = 'Add files...'
+      OnClick = miAddFilesClick
+    end
+    object miAddFolder: TMenuItem
+      Caption = 'Add folder...'
+      OnClick = miAddFolderClick
+    end
+  end
+  object Systray: TTrayIcon
+    PopUpMenu = pmSystray
+    OnClick = SystrayMouseDown
+    OnMouseDown = SystrayMouseDown
+    left = 107
+    top = 366
+  end
+  object tiSystray: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = tiSystrayTimer
+    left = 75
+    top = 366
+  end
+  object pmSystray: TPopupMenu
+    Images = MainForm.ilGlobal
+    TrackButton = tbLeftButton
+    left = 140
+    top = 366
+    object miStResume: TMenuItem
+      Caption = 'Resume'
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        000000000000000000000000000000000000000000000000000000000000944A
+        6BFF100808FF0000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000944A6BFF1008
+        08FF18E739FF100808FF00000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000944A6BFF1008
+        08FF18E739FF100808FF00000000000000000000000000000000000000000000
+        000000000000000000000000000000000000944A6BFF944A6BFF944A6BFF1008
+        08FF18E739FF18E739FF100808FF000000000000000000000000000000000000
+        00000000000000000000944A6BFF944A6BFF100808FF100808FF100808FF18E7
+        39FF31E752FF42EF5AFF100808FF000000000000000000000000000000000000
+        0000944A6BFF944A6BFF100808FF100808FF18E739FF18E739FF18E739FF18E7
+        39FF18E739FF31E752FF42EF5AFF100808FF000000000000000000000000944A
+        6BFF100808FF100808FF31E752FF100808FF42EF5AFF42EF5AFF42EF5AFF42EF
+        5AFF42EF5AFF42EF5AFF63F77BFF100808FF0000000000000000000000001008
+        08FF63F77BFF100808FF63F77BFF100808FF63F77BFF63F77BFF63F77BFF63F7
+        7BFF63F77BFF63F77BFF8CFF9CFFADFFBDFF100808FF00000000000000001008
+        08FFADFFBDFF100808FF9CFFADFF100808FF8CFF9CFF8CFF9CFF8CFF9CFF8CFF
+        9CFF8CFF9CFF8CFF9CFFADFFBDFFCEFFD6FF100808FF00000000000000000000
+        0000100808FF100808FFCEFFD6FF100808FFADFFBDFFADFFBDFFADFFBDFF9CFF
+        ADFF9CFFADFF9CFFADFFCEFFD6FF100808FF0000000000000000000000000000
+        00000000000000000000100808FF100808FFEFFFF7FFEFFFF7FFEFFFF7FFADFF
+        BDFF9CFFADFFADFFBDFFCEFFD6FF100808FF0000000000000000000000000000
+        000000000000000000000000000000000000100808FF100808FF100808FFCEFF
+        D6FFADFFBDFFCEFFD6FF100808FF000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000001008
+        08FFADFFBDFFCEFFD6FF100808FF000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000001008
+        08FFCEFFD6FF100808FF00000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000001008
+        08FFCEFFD6FF100808FF00000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000100808FF0000000000000000000000000000000000000000
+      }
+      ImageIndex = 26
+      Visible = False
+      OnClick = miStPauseClick
+    end
+    object miStPause: TMenuItem
+      Caption = 'Pause'
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000080800FF000000FF000000FF000000FF0000000000000000000000000000
+        00FF000000FF000000FF000000FF000000000000000000000000000000000808
+        00FF10D6E7FF10D6E7FF10D6E7FF10D6E7FF080800FF00000000080800FF10D6
+        E7FF10D6E7FF10D6E7FF10D6E7FF080800FF0000000000000000000000000808
+        00FF10D6E7FF10D6E7FF10D6E7FF10D6E7FF080800FF00000000080800FF10D6
+        E7FF10D6E7FF10D6E7FF10D6E7FF080800FF0000000000000000000000000808
+        00FF18DEE7FF18DEE7FF18DEE7FF18DEE7FF080800FF00000000080800FF18DE
+        E7FF18DEE7FF18DEE7FF18DEE7FF080800FF0000000000000000000000000808
+        00FF31DEE7FF31DEE7FF31DEE7FF31DEE7FF080800FF00000000080800FF31DE
+        E7FF31DEE7FF31DEE7FF31DEE7FF080800FF0000000000000000000000000808
+        00FF18DEE7FF18DEE7FF18DEE7FF18DEE7FF080800FF00000000080800FF18DE
+        E7FF18DEE7FF18DEE7FF18DEE7FF080800FF0000000000000000000000000808
+        00FF39E7EFFF39E7EFFF39E7EFFF39E7EFFF080800FF00000000080800FF39E7
+        EFFF39E7EFFF39E7EFFF39E7EFFF080800FF0000000000000000000000000808
+        00FF5AF7F7FF5AF7F7FF5AF7F7FF5AF7F7FF080800FF00000000080800FF5AF7
+        F7FF5AF7F7FF5AF7F7FF5AF7F7FF080800FF0000000000000000000000000808
+        00FF84F7FFFF84F7FFFF84F7FFFF84F7FFFF080800FF00000000080800FF84F7
+        FFFF84F7FFFF84F7FFFF84F7FFFF080800FF0000000000000000000000000808
+        00FF9CFFFFFF9CFFFFFF9CFFFFFF9CFFFFFF080800FF00000000080800FF9CFF
+        FFFF9CFFFFFF9CFFFFFF9CFFFFFF080800FF0000000000000000000000000808
+        00FF9CFFFFFF9CFFFFFF9CFFFFFF9CFFFFFF080800FF00000000080800FF9CFF
+        FFFF9CFFFFFF9CFFFFFF9CFFFFFF080800FF0000000000000000000000000808
+        00FFA5FFFFFFA5FFFFFFA5FFFFFFA5FFFFFF080800FF00000000080800FFA5FF
+        FFFFA5FFFFFFA5FFFFFFA5FFFFFF080800FF0000000000000000000000000808
+        00FFA5FFFFFFA5FFFFFFA5FFFFFFA5FFFFFF080800FF00000000080800FFA5FF
+        FFFFA5FFFFFFA5FFFFFFA5FFFFFF080800FF0000000000000000000000000808
+        00FFCEFFFFFFCEFFFFFFCEFFFFFFCEFFFFFF080800FF00000000080800FFCEFF
+        FFFFCEFFFFFFCEFFFFFFCEFFFFFF080800FF0000000000000000000000000808
+        00FFCEFFFFFFCEFFFFFFCEFFFFFFCEFFFFFF080800FF00000000080800FFCEFF
+        FFFFCEFFFFFFCEFFFFFFCEFFFFFF080800FF0000000000000000000000000000
+        0000080800FF000000FF000000FF000000FF0000000000000000000000000000
+        00FF000000FF000000FF000000FF000000000000000000000000
+      }
+      ImageIndex = 25
+      OnClick = miStPauseClick
+    end
+    object miStCancel: TMenuItem
+      Caption = 'Cancel'
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000FF000000FF000000FF000000000000000000000000000000000000
+        00FF000000FF0000000000000000000000000000000000000000000000000000
+        00FF1B1BCBFF0807BEFF0807BEFF000000FF0000000000000000000000FF0505
+        BCFF0505BCFF000000FF00000000000000000000000000000000000000000000
+        00FF393ADFFF5F5FF8FF4B4CEAFF000000FF00000000000000FF1313C5FF6867
+        FDFF6B6BFFFF2827D3FF000000FF000000000000000000000000000000000000
+        00FF504FEDFF6464FAFF6B6BFFFF4343E5FF000000FF1313C5FF5B5BF5FF6B6B
+        FFFF6B6BFFFF393ADFFF000000FF000000000000000000000000000000000000
+        00FF393ADFFF5B5BF5FF5B5BF5FF6867FDFF4343E5FF5B5BF5FF6464FAFF6867
+        FDFF5F5FF8FF201FCDFF000000FF000000000000000000000000000000000000
+        0000000000FF393ADFFF5352EFFF5555F1FF605FF8FF6464FAFF5555F1FF6464
+        FAFF4B4CEAFF201FCDFF000000FF000000000000000000000000000000000000
+        000000000000000000FF393ADFFF504FEDFF5352EFFF5555F1FF6464FAFF4B4C
+        EAFF201FCDFF000000FF00000000000000000000000000000000000000000000
+        00000000000000000000000000FF4B4CEAFF4343E5FF4B4CEAFF4B4CEAFF4B4C
+        EAFF201FCDFF000000FF00000000000000000000000000000000000000000000
+        00000000000000000000000000FF4343E5FF393ADFFF4343E5FF4343E5FF4B4C
+        EAFF4343E5FF000000FF00000000000000000000000000000000000000000000
+        00000000000000000000000000FF504FEDFF2D2DD6FF3738DDFF393ADFFF4343
+        E5FF4343E5FF1B1BCBFF000000FF000000000000000000000000000000000000
+        000000000000000000FF3434DBFF3434DBFF2D2DD6FF3434DBFF3434DBFF3434
+        DBFF3D3DE1FF4343E5FF1313C5FF000000FF0000000000000000000000000000
+        000000000000000000FF3434DBFF3434DBFF2222CFFF2827D3FF504FEDFF4343
+        E5FF3434DBFF3738DDFF3738DDFF1313C5FF000000FF00000000000000000000
+        0000000000FF5352EFFF393ADFFF1B1BCBFF3434DBFF3D3DE1FF000000FF2D2D
+        D6FF3D3DE1FF3434DBFF4343E5FF1313C5FF000000FF00000000000000000000
+        0000000000FF504FEDFF4343E5FF4343E5FF4343E5FF3434DBFF000000FF0000
+        00FF2222CFFF393ADFFF3D3DE1FF2D2DD6FF000000FF00000000000000000000
+        000000000000000000FF504FEDFF4B4CEAFF4B4CEAFF000000FF000000000000
+        0000000000FF000000FF000000FF000000FF0000000000000000000000000000
+        00000000000000000000000000FF000000FF000000FF00000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      ImageIndex = 6
+      OnClick = miStCancelClick
+    end
+  end
+end

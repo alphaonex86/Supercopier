@@ -14,20 +14,20 @@ object CollisionRenameForm: TCollisionRenameForm
   FormStyle = fsStayOnTop
   OldCreateOrder = False
   Position = poOwnerFormCenter
-  OnCreate = TntFormCreate
+  OnCreate = FormCreate
   DesignSize = (
     400
     147)
   PixelsPerInch = 96
   TextHeight = 13
-  object llOriginalNameTitle: TTntLabel
+  object llOriginalNameTitle: TLabel
     Left = 8
     Top = 48
     Width = 66
     Height = 13
     Caption = 'Rename from:'
   end
-  object llOriginalName: TTntLabel
+  object llOriginalName: TLabel
     Left = 80
     Top = 48
     Width = 313
@@ -35,14 +35,14 @@ object CollisionRenameForm: TCollisionRenameForm
     AutoSize = False
     Caption = 'llOriginalName'
   end
-  object llNewNameTitle: TTntLabel
+  object llNewNameTitle: TLabel
     Left = 8
     Top = 80
     Width = 16
     Height = 13
     Caption = 'To:'
   end
-  object rbRenameNew: TTntRadioButton
+  object rbRenameNew: TRadioButton
     Left = 8
     Top = 8
     Width = 201
@@ -52,7 +52,7 @@ object CollisionRenameForm: TCollisionRenameForm
     TabOrder = 0
     TabStop = True
   end
-  object rbRenameOld: TTntRadioButton
+  object rbRenameOld: TRadioButton
     Left = 208
     Top = 8
     Width = 193
@@ -60,7 +60,7 @@ object CollisionRenameForm: TCollisionRenameForm
     Caption = 'Rename old file'
     TabOrder = 1
   end
-  object edNewName: TTntEdit
+  object edNewName: TEdit
     Left = 80
     Top = 76
     Width = 313

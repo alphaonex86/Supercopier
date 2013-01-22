@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,14 +14,16 @@
 
 unit SCCopyForm;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, TntForms,Forms,
-  Dialogs, StdCtrls,TntStdCtrls, ComCtrls, TntComCtrls, Controls,
-  ExtCtrls, TntExtCtrls, Spin, Menus, TntMenus,SCFilelist,ScBaseList,ShellApi,
-  TntDialogs,TntClasses,SCCommon, SCProgessBar, ScSystray,
-  SCFileNameLabel, Buttons, TntButtons, ToolWin, ScPopupButton,SCLocEngine,Themes,
+  Windows, Messages, SysUtils, Classes, Graphics, Forms,
+  Dialogs, StdCtrls, ComCtrls,  Controls,
+  ExtCtrls,  Spin, Menus, SCFilelist,ScBaseList,ShellApi,
+  SCCommon, SCProgessBar, {ScSystray,}
+  SCFileNameLabel, Buttons,  ToolWin, ScPopupButton,SCLocEngine,Themes,
   ScTrackBar;
 
 const
@@ -32,90 +34,92 @@ const
 type
   TLvFileListAction=procedure(FileList:TFileList;Item:TListItem);
 
-  TCopyForm = class(TTntForm)
-    llAll: TTntLabel;
-    llSpeed: TTntLabel;
-    llFromTitle: TTntLabel;
-    llToTitle: TTntLabel;
-    pcPages: TTntPageControl;
-    tsCopyList: TTntTabSheet;
-    tsErrors: TTntTabSheet;
-    tsOptions: TTntTabSheet;
-    lvFileList: TTntListView;
-    lvErrorList: TTntListView;
-    pmFileContext: TTntPopupMenu;
-    miTop: TTntMenuItem;
-    miUp: TTntMenuItem;
-    miDown: TTntMenuItem;
-    miBottom: TTntMenuItem;
-    miRemove: TTntMenuItem;
-    miSelectAll: TTntMenuItem;
-    miInvert: TTntMenuItem;
-    N1: TTntMenuItem;
-    N2: TTntMenuItem;
-    pmNewFiles: TTntPopupMenu;
-    miChooseDest: TTntMenuItem;
-    miDefaultDest: TTntMenuItem;
-    miCancel: TTntMenuItem;
-    N3: TTntMenuItem;
-    odCopyList: TTntOpenDialog;
-    sdCopyList: TTntSaveDialog;
-    miChooseSetDefault: TTntMenuItem;
-    gbSpeedLimit: TTntGroupBox;
-    chSpeedLimit: TTntCheckBox;
-    llCustomSpeedLimit: TTntLabel;
-    gbCollisions: TTntGroupBox;
-    llCollisions: TTntLabel;
-    cbCollisions: TTntComboBox;
-    gbCopyErrors: TTntGroupBox;
-    llCopyErrors: TTntLabel;
-    cbCopyError: TTntComboBox;
-    gbCopyEnd: TTntGroupBox;
-    llCopyEnd: TTntLabel;
-    cbCopyEnd: TTntComboBox;
-    sdErrorLog: TTntSaveDialog;
-    btSaveDefaultCfg: TTntButton;
-    odFileAdd: TTntOpenDialog;
-    pmFileAdd: TTntPopupMenu;
-    miAddFiles: TTntMenuItem;
-    miAddFolder: TTntMenuItem;
+  { TCopyForm }
+
+  TCopyForm = class(TForm)
+    llAll: TLabel;
+    llSpeed: TLabel;
+    llFromTitle: TLabel;
+    llToTitle: TLabel;
+    pcPages: TPageControl;
+    tsCopyList: TTabSheet;
+    tsErrors: TTabSheet;
+    tsOptions: TTabSheet;
+    lvFileList: TListView;
+    lvErrorList: TListView;
+    pmFileContext: TPopupMenu;
+    miTop: TMenuItem;
+    miUp: TMenuItem;
+    miDown: TMenuItem;
+    miBottom: TMenuItem;
+    miRemove: TMenuItem;
+    miSelectAll: TMenuItem;
+    miInvert: TMenuItem;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    pmNewFiles: TPopupMenu;
+    miChooseDest: TMenuItem;
+    miDefaultDest: TMenuItem;
+    miCancel: TMenuItem;
+    N3: TMenuItem;
+    odCopyList: TOpenDialog;
+    sdCopyList: TSaveDialog;
+    miChooseSetDefault: TMenuItem;
+    gbSpeedLimit: TGroupBox;
+    chSpeedLimit: TCheckBox;
+    llCustomSpeedLimit: TLabel;
+    gbCollisions: TGroupBox;
+    llCollisions: TLabel;
+    cbCollisions: TComboBox;
+    gbCopyErrors: TGroupBox;
+    llCopyErrors: TLabel;
+    cbCopyError: TComboBox;
+    gbCopyEnd: TGroupBox;
+    llCopyEnd: TLabel;
+    cbCopyEnd: TComboBox;
+    sdErrorLog: TSaveDialog;
+    btSaveDefaultCfg: TButton;
+    odFileAdd: TOpenDialog;
+    pmFileAdd: TPopupMenu;
+    miAddFiles: TMenuItem;
+    miAddFolder: TMenuItem;
     ggFile: TSCProgessBar;
     ggAll: TSCProgessBar;
-    Systray: TScSystray;
+    Systray: TTrayIcon; //ScSystray;
     tiSystray: TTimer;
     llTo: TSCFileNameLabel;
     llFrom: TSCFileNameLabel;
-    btFileTop: TTntSpeedButton;
-    btFileUp: TTntSpeedButton;
-    btFileDown: TTntSpeedButton;
-    btFileBottom: TTntSpeedButton;
-    btFileAdd: TTntSpeedButton;
-    btFileRemove: TTntSpeedButton;
-    btFileSave: TTntSpeedButton;
-    btFileLoad: TTntSpeedButton;
-    btErrorClear: TTntSpeedButton;
-    btErrorSaveLog: TTntSpeedButton;
+    btFileTop: TSpeedButton;
+    btFileUp: TSpeedButton;
+    btFileDown: TSpeedButton;
+    btFileBottom: TSpeedButton;
+    btFileAdd: TSpeedButton;
+    btFileRemove: TSpeedButton;
+    btFileSave: TSpeedButton;
+    btFileLoad: TSpeedButton;
+    btErrorClear: TSpeedButton;
+    btErrorSaveLog: TSpeedButton;
     btCancel: TScPopupButton;
     btSkip: TScPopupButton;
     btPause: TScPopupButton;
     btResume: TScPopupButton;
     btUnfold: TScPopupButton;
     btFold: TScPopupButton;
-    pmSystray: TTntPopupMenu;
-    miStCancel: TTntMenuItem;
-    miStPause: TTntMenuItem;
-    miStResume: TTntMenuItem;
+    pmSystray: TPopupMenu;
+    miStCancel: TMenuItem;
+    miStPause: TMenuItem;
+    miStResume: TMenuItem;
     llFile: TSCFileNameLabel;
-    N4: TTntMenuItem;
-    miSort: TTntMenuItem;
-    miBySrcFullPath: TTntMenuItem;
-    miByDestFullPath: TTntMenuItem;
-    miBySize: TTntMenuItem;
-    miBySrcName: TTntMenuItem;
-    miBySrcExt: TTntMenuItem;
+    N4: TMenuItem;
+    miSort: TMenuItem;
+    miBySrcFullPath: TMenuItem;
+    miByDestFullPath: TMenuItem;
+    miBySize: TMenuItem;
+    miBySrcName: TMenuItem;
+    miBySrcExt: TMenuItem;
     tbSpeedLimit: TScTrackBar;
-    edCustomSpeedLimit: TTntEdit;
-    llSpeedLimit: TTntLabel;
+    edCustomSpeedLimit: TEdit;
+    llSpeedLimit: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure chSpeedLimitClick(Sender: TObject);
@@ -163,7 +167,7 @@ type
     procedure tbSpeedLimitChange(Sender: TObject);
     procedure edCustomSpeedLimitChange(Sender: TObject);
   private
-    { DÈclarations privÈes }
+    { D–πclarations priv–πes }
     SystrayBmp:TBitmap;
  		NewBaseList:TBaseList;
     FState:TCopyWindowState;
@@ -184,12 +188,12 @@ type
     procedure SetUnfolded(Value:Boolean);
     procedure SetMinimized(Value:Boolean);
   public
-    { DÈclarations publiques }
+    { D–πclarations publiques }
     Paused,SkipPending,CancelPending:Boolean;
     
-    CopyThread:TThread; // dÈclarÈ en tant que TThread pour Èviter la rÈfÈrence circulaire
+    CopyThread:TThread; // d–πclar–π en tant que TThread pour –πviter la r–πf–πrence circulaire
     UnfoldedHeight,NonClientHeight:Integer;
-    NotificationTargetForm:TTntForm;
+    NotificationTargetForm:TForm;
 
     property State:TCopyWindowState read FState write SetState;
     property ConfigData:TCopyWindowConfigData read FConfigData write SetConfigData;
@@ -205,15 +209,15 @@ var
 
 implementation
 
-uses DateUtils,SCLocStrings,SCCopyThread, SCCopier,SCWin32,SCConfig, StrUtils,TntSysutils,
+uses DateUtils,SCLocStrings,SCCopyThread, SCCopier,SCWin32,SCConfig, StrUtils,
   SCMainForm, ImgList;
 
 var DestIndex:Integer;
 
-{$R *.dfm}
+{$R *.lfm}
 
 //******************************************************************************
-// MoveSelectionInfo: passe les infos de sÈlection et de focus d'un item ‡ un autre
+// MoveSelectionInfo: passe les infos de s–πlection et de focus d'un item –∞ un autre
 //******************************************************************************
 procedure MoveSelectionInfo(Item:TListItem;DestIndex:Integer);
 var Focused:Boolean;
@@ -280,7 +284,7 @@ begin
 end;
 
 //******************************************************************************
-// ProcessLvFileListAction : exÈcute une action sur les ÈlÈments de lvFileList
+// ProcessLvFileListAction : ex–πcute une action sur les –πl–πments de lvFileList
 //******************************************************************************
 procedure TCopyForm.ProcessLvFileListAction(Action:TLvFileListAction;SelectedOnly:Boolean;BackwardScan:Boolean=True);
 var i:Integer;
@@ -354,7 +358,7 @@ begin
 end;
 
 //******************************************************************************
-// SetState : appelÈe quand la thread fait changer la fenÍtre d'Ètat
+// SetState : appel–πe quand la thread fait changer la fen–∫tre d'–πtat
 //******************************************************************************
 procedure TCopyForm.SetState(Value:TCopyWindowState);
 begin
@@ -400,7 +404,7 @@ begin
 end;
 
 //******************************************************************************
-// SetConfigData : appelÈe quand la thread change la config de la fenÍtre
+// SetConfigData : appel–πe quand la thread change la config de la fen–∫tre
 //******************************************************************************
 procedure TCopyForm.SetConfigData(Value:TCopyWindowConfigData);
 begin
@@ -420,7 +424,7 @@ begin
 end;
 
 //******************************************************************************
-// SetUnfolded : change les paramÍtres de la fenÍtre pour passer en mode dÈveloppÈ ou non
+// SetUnfolded : change les param–∫tres de la fen–∫tre pour passer en mode d–πvelopp–π ou non
 //******************************************************************************
 procedure TCopyForm.SetUnfolded(Value:Boolean);
 var NewClientHeight:Integer;
@@ -454,7 +458,7 @@ begin
 end;
 
 //******************************************************************************
-// SetMinimized : permets de minimiser la fenÍtre dans la taskbar/le systray selon la config
+// SetMinimized : permets de minimiser la fen–∫tre dans la taskbar/le systray selon la config
 //******************************************************************************
 procedure TCopyForm.SetMinimized(Value:Boolean);
 begin
@@ -475,7 +479,7 @@ begin
     end
     else
     begin
-      //HACK: en utilisant WindowState, toutes les fenÍtres de copies sont rÈduites
+      //HACK: en utilisant WindowState, toutes les fen–∫tres de copies sont r–πduites
       //      j'utilise donc direct l'API
       SetForegroundWindow(Handle);
       ShowWindow(Handle,SW_SHOWMINIMIZED);
@@ -491,14 +495,14 @@ begin
     Systray.Visible:=False;
     tiSystray.Enabled:=False;
 
-    // si une form est en attente aprËs une notification, l'afficher
+    // si une form est en attente apr–∏s une notification, l'afficher
     if Assigned(NotificationTargetForm) then NotificationTargetForm.Visible:=True;
     NotificationTargetForm:=nil;
   end;
 end;
 
 //******************************************************************************
-// SaveCopyErrorLog : Ècrit le log des erreurs dans un fichier
+// SaveCopyErrorLog : –πcrit le log des erreurs dans un fichier
 //******************************************************************************
 procedure TCopyForm.SaveCopyErrorLog(FileName:WideString);
 var Log:TStringList;
@@ -519,10 +523,10 @@ begin
         end;
 
       // on s'assure que le rep du log existe
-      WideForceDirectories(WideExtractFilePath(FileName));
+      ForceDirectories(ExtractFilePath(FileName));
 
-      // on crÈe le fichier si il n'existe pas et on l'ouvre si il existe
-      if WideFileExists(FileName) then
+      // on cr–πe le fichier si il n'existe pas et on l'ouvre si il existe
+      if FileExists(FileName) then
         FS:=TFileStream.Create(FileName,fmOpenReadWrite)
       else
         FS:=TFileStream.Create(FileName,fmCreate);
@@ -577,12 +581,12 @@ begin
   if (Win32Platform=VER_PLATFORM_WIN32_NT) and (Win32MajorVersion=4) and (PixelsPerInch=96) then
     PixelsPerInch:=Round(PixelsPerInch*Width/(WIDTH_DPI_MULTIPLIER*96));
 
-  //HACK: ne pas mettre directement la fenÍtre en resizeable pour que
+  //HACK: ne pas mettre directement la fen–∫tre en resizeable pour que
   //      la gestion des grandes polices puisse la redimentionner
   BorderStyle:=bsSizeable;
 
   //HACK: fix temporaire pour les pb de scintillement des barres de progression
-  //      avec les thËmes activÈs
+  //      avec les th–∏mes activ–πs
   DoubleBuffered:=ThemeServices.ThemesEnabled;
 
   // init variables
@@ -598,7 +602,7 @@ begin
 
   NewBaseList:=nil;
 
-  // charger la config par dÈfaut
+  // charger la config par d–πfaut
   ConfigData:=Config.Values.DefaultCopyWindowConfig;
 
   // chargement taille/position
@@ -659,7 +663,7 @@ begin
   end;
 
   // si on ne minimise pas dans le systray, afficher un tab dans la
-  // barre des t‚ches sinon passer la form en always on top
+  // barre des t–≤ches sinon passer la form en always on top
   if not Config.Values.MinimizeToTray then
   begin
     ExStyle:=GetWindowLong(Handle,GWL_EXSTYLE);
@@ -724,19 +728,19 @@ begin
     Config.Values.CopyWindowLeft:=Left;
   end;
 
-  // libÈration
+  // lib–πration
   SystrayBmp.Free;
 end;
 
 procedure TCopyForm.pcPagesChange(Sender: TObject);
 begin
-  if pcPages.ActivePage=tsErrors then tsErrors.Highlighted:=False;
+  if pcPages.ActivePage=tsErrors then tsErrors.Show;
 end;
 
 procedure TCopyForm.lvFileListData(Sender: TObject; Item: TListItem);
 begin
   try
-    with TCopyThread(CopyThread).LockCopier,TTntListItem(Item) do
+    with TCopyThread(CopyThread).LockCopier,TListItem(Item) do
     begin
       if Index<FileList.Count-1 then
         with FileList[Item.Index+1] do
@@ -761,7 +765,7 @@ begin
   FixParentBugs;
 
   sdErrorLog.InitialDir:=TCopyThread(CopyThread).DefaultDir;
-  sdErrorLog.FileName:=WideExtractFileName(Config.Values.ErrorLogFileName);
+  sdErrorLog.FileName:=ExtractFileName(Config.Values.ErrorLogFileName);
 
   if sdErrorLog.Execute then
     try
@@ -815,7 +819,7 @@ begin
 end;
 
 procedure TCopyForm.btFileSaveClick(Sender: TObject);
-var FS:TTntFileStream;
+var FS:TFileStream;
 begin
   FixParentBugs;
 
@@ -825,7 +829,7 @@ begin
       Screen.Cursor:=crHourGlass;
       with TCopyThread(CopyThread).LockCopier do
       begin
-        FS:=TTntFileStream.Create(sdCopyList.FileName,fmCreate);
+        FS:=TFileStream.Create(sdCopyList.FileName,fmCreate);
         try
           SaveToStream(FS);
         finally
@@ -840,7 +844,7 @@ begin
 end;
 
 procedure TCopyForm.btFileLoadClick(Sender: TObject);
-var FS:TTntFileStream;
+var FS:TFileStream;
 begin
   FixParentBugs;
 
@@ -850,7 +854,7 @@ begin
       Screen.Cursor:=crHourGlass;
       with TCopyThread(CopyThread).LockCopier do
       begin
-        FS:=TTntFileStream.Create(odCopyList.FileName,fmOpenRead);
+        FS:=TFileStream.Create(odCopyList.FileName,fmOpenRead);
         try
           LoadFromStream(FS);
         finally
@@ -892,7 +896,7 @@ end;
 
 procedure TCopyForm.miCancelClick(Sender: TObject);
 begin
-  // on libËre la baselist vu qu'elle ne vas pas Ítre traitÈe
+  // on lib–∏re la baselist vu qu'elle ne vas pas –∫tre trait–πe
   NewBaseList.Free;
   NewBaseList:=nil;
 end;
@@ -919,7 +923,7 @@ end;
 
 procedure TCopyForm.edCustomSpeedLimitKeyPress(Sender: TObject; var Key: Char);
 begin
-  if not (Key in ['0'..'9']) and (Key>#31) then Key:=#0; // autoriser seulement les chiffres et les caractËres de contrÙle
+  if not (Key in ['0'..'9']) and (Key>#31) then Key:=#0; // autoriser seulement les chiffres et les caract–∏res de contr—Ñle
 end;
 
 procedure TCopyForm.tbSpeedLimitChange(Sender: TObject);
@@ -965,12 +969,12 @@ begin
     begin
       BaseItem:=TBaseItem.Create;
       BaseItem.SrcName:=odFileAdd.Files[i];
-      BaseItem.IsDirectory:=WideDirectoryExists(BaseItem.SrcName);
+      BaseItem.IsDirectory:=DirectoryExists(BaseItem.SrcName);
       NewBaseList.Add(BaseItem);
     end;
 
-    // HACK≤: le hack prÈcedent empËche le popupmenu de s'ouvrir, ceci corrige le problËme
-    Windows.SetParent(TntPopupList.Window,THandle(HWND_DESKTOP));
+    // HACK–Ü: le hack pr–πcedent emp–∏che le popupmenu de s'ouvrir, ceci corrige le probl–∏me
+//    Windows.SetParent(NewBaseList.Window,THandle(HWND_DESKTOP)); Vitaliy Sklyar
 
     OpenNewFilesMenu;
   end;
@@ -1031,7 +1035,9 @@ begin
       end;
     end;
 
-    Systray.Bitmap:=SystrayBmp;
+    Systray.Icon.Transparent:= true;
+    Systray.Icon.Assign(SystrayBmp);
+//    Systray.Icon.LoadFromBitmapHandles(SystrayBmp.Handle, SystrayBmp.MaskHandle, nil);
 
     //hint
     Systray.Hint:=Caption+#13+llSpeed.Caption;
@@ -1050,7 +1056,7 @@ procedure TCopyForm.btSkipClick(Sender: TObject;
   ItemIndex: Integer);
 begin
   SkipPending:=True;
-  if Paused then btPauseClick(nil,0); // appuyer sur 'passer' enlËve la pause
+  if Paused then btPauseClick(nil,0); // appuyer sur 'passer' enl–∏ve la pause
   State:=cwsWaitingActionResult;
 end;
 
@@ -1133,7 +1139,7 @@ begin
 end;
 
 //*******************************************************************************
-// ProcÈdures de message
+// Proc–πdures de message
 //*******************************************************************************
 
 procedure TCopyForm.OnDropFiles(var Msg:TMessage);
@@ -1157,7 +1163,7 @@ begin
 			SCWin32.DragQueryFile(Msg.WParam,i,FN,MAX_PATH);
 			BaseItem:=TBaseItem.Create;
       BaseItem.SrcName:=FN;
-      BaseItem.IsDirectory:=WideDirectoryExists(FN);
+      BaseItem.IsDirectory:=DirectoryExists(FN);
       NewBaseList.Add(BaseItem);
     end;
 
@@ -1173,7 +1179,7 @@ procedure TCopyForm.OnWindowPosChanged(var Msg:TMessage);
 begin
   inherited;
 
-  // gÈrer la propriÈtÈ Minimized lorsque l'on rÈduit dans la taskbar
+  // g–πrer la propri–πt–π Minimized lorsque l'on r–πduit dans la taskbar
   if (Msg.WParamLo<>WA_INACTIVE) and (GetForegroundWindow=Handle) and IsIconic(Handle) then
   begin
     Minimized:=False;

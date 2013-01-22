@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,8 +14,11 @@
 
 unit SCCopier;
 
+{$MODE Delphi}
+
 interface
-uses Classes,SCFileList,SCDirList,SCBaseList,Sysutils,TntSysUtils,SCCommon;
+uses Classes, SCFileList, SCDirList, SCBaseList, Sysutils,
+  SCCommon, FileUtil, Windows;
 
 const
   COPIER_DATA_VERSION=001;
@@ -94,13 +97,13 @@ type
 	end;
 
 implementation
-uses Windows,SCWin32,SCLocStrings, Math;
+uses LCLIntf, LCLType, LMessages,SCWin32,SCLocStrings, Math;
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 // TCopier: classe de base de copie de fichiers, les erreurs et collisions sont
-//          gÈrÈes par ÈvËnements
+//          g–πr–πes par –πv–∏nements
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -110,7 +113,7 @@ uses Windows,SCWin32,SCLocStrings, Math;
 //******************************************************************************
 constructor TCopier.Create;
 begin
-  // crÈation des listes
+  // cr–πation des listes
   DirList:=TDirList.Create;
   FileList:=TFileList.Create(DirList);
 
@@ -142,7 +145,7 @@ end;
 //******************************************************************************
 destructor TCopier.Destroy;
 begin
-  // libÈration des listes
+  // lib–πration des listes
   FileList.Free;
   DirList.Free;
 
@@ -150,7 +153,7 @@ begin
 end;
 
 //******************************************************************************
-// SaveToStream : sauvegarde des donnÈes
+// SaveToStream : sauvegarde des donn–πes
 //******************************************************************************
 procedure TCopier.SaveToStream(TheStream:TStream);
 var Sig:String;
@@ -168,7 +171,7 @@ begin
 end;
 
 //******************************************************************************
-// LoadFromStream : chargement des donnÈes
+// LoadFromStream : chargement des donn–πes
 //******************************************************************************
 procedure TCopier.LoadFromStream(TheStream:TStream);
 var Sig:String;
@@ -176,19 +179,19 @@ var Sig:String;
 begin
   SetLength(Sig,SCL_SIGNATURE_LENGTH);
   TheStream.Read(Sig[1],SCL_SIGNATURE_LENGTH);
-  if Sig<>SCL_SIGNATURE then raise Exception.Create('Data file is not a SuperCopier2 CopyList');
+  if Sig<>SCL_SIGNATURE then raise Exception.Create('Data file is not a SuperCopier CopyList');
 
   Version:=000;
 
   TheStream.Read(Version,SizeOf(Integer));
-  if Version>COPIER_DATA_VERSION then raise Exception.Create('Copier: data file is for a newer SuperCopier2 version');
+  if Version>COPIER_DATA_VERSION then raise Exception.Create('Copier: data file is for a newer SuperCopier version');
 
   DirList.LoadFromStream(TheStream);
   FileList.LoadFromStream(TheStream);
 end;
 
 //******************************************************************************
-// RaiseCopyErrorIfNot : dÈclenche un exception ECopyError si Test vaut false
+// RaiseCopyErrorIfNot : d–πclenche un exception ECopyError si Test vaut false
 //******************************************************************************
 procedure TCopier.RaiseCopyErrorIfNot(Test:Boolean);
 begin
@@ -199,7 +202,7 @@ end;
 // CopyFileAge : copie la date de modif d'un fichier ouvert vers un autre
 //******************************************************************************
 procedure TCopier.CopyFileAge(HSrc,HDest:THandle);
-var FileTime:TFileTime;
+var FileTime:Windows.TFileTime;
 begin
   if (not GetFileTime(HSrc,nil,nil,@FileTime)) or
      (not SetFileTime(HDest,nil,nil,@FileTime)) then
@@ -209,7 +212,7 @@ begin
 end;
 
 //******************************************************************************
-// GenericError : dÈclenche un ÈvËnement d'erreur gÈnÈrique
+// GenericError : d–πclenche un –πv–∏nement d'erreur g–πn–πrique
 //******************************************************************************
 procedure TCopier.GenericError(Action,Target:WideString;ErrorText:WideString='');
 begin
@@ -220,7 +223,7 @@ begin
 end;
 
 //******************************************************************************
-// CopyError : dÈclenche un ÈvËnement d'erreur de copie et gere la valeur de retour
+// CopyError : d–πclenche un –πv–∏nement d'erreur de copie et gere la valeur de retour
 //******************************************************************************
 procedure TCopier.CopyError;
 var ErrorResult:TCopyErrorAction;
@@ -243,7 +246,7 @@ begin
     begin
       CurrentCopy.NextAction:=cpaNextFile;
 
-      // on ajoute ‡ la filelist un nouvel item contenant les mÍmes donnÈes que celui en cours
+      // on ajoute –∞ la filelist un nouvel item contenant les m–∫mes donn–πes que celui en cours
       with CurrentCopy.FileItem do
       begin
         FileItem:=TFileItem.Create;
@@ -261,7 +264,7 @@ begin
 end;
 
 //******************************************************************************
-// AddBaseList : Ajoute une liste de fichiers au Copier, CopiÈs dans DestDir
+// AddBaseList : Ajoute une liste de fichiers au Copier, Copi–πs dans DestDir
 //******************************************************************************
 procedure TCopier.AddBaseList(BaseList:TBaseList;DestDir:WideString);
 
@@ -269,7 +272,7 @@ procedure TCopier.AddBaseList(BaseList:TBaseList;DestDir:WideString);
 	function FindOrCreateParent(SrcPath,DestPath:WideString):TDirItem;
   var SrcParent:WideString;
   begin
-    SrcParent:=WideExtractFilePath(SrcPath);
+    SrcParent:=ExtractFilePath(SrcPath);
 
     Result:=DirList.FindDirItem(SrcParent,DestPath);
     if Result=nil then
@@ -278,7 +281,7 @@ procedure TCopier.AddBaseList(BaseList:TBaseList;DestDir:WideString);
       Result.SrcPath:=SrcParent;
       Result.DestPath:=DestPath;
       Result.ParentDir:=nil;
-      Result.Created:=WideDirectoryExists(DestPath);
+      Result.Created:=DirectoryExists(DestPath);
       DirList.Add(Result);
     end;
   end;
@@ -297,7 +300,7 @@ procedure TCopier.AddBaseList(BaseList:TBaseList;DestDir:WideString);
 
 			NotFound:=True;
 
-			if WideFileExists(Dir+Result) or WideDirectoryExists(Dir+Result) then
+			if FileExists(Dir+Result) or DirectoryExists(Dir+Result) then
 				NotFound:=False;
 
 			Inc(NewInc);
@@ -316,16 +319,16 @@ begin
   BaseList.SortByFileName;
 
   // forcer le \ terminal
-  DestDir:=WideIncludeTrailingBackslash(DestDir);
+  DestDir:=IncludeTrailingBackslash(DestDir);
 
   for i:=0 to BaseList.Count-1 do
     with BaseList[i] do
     begin
-      ShortSourceName:=WideExtractFileName(SrcName);
+      ShortSourceName:=ExtractFileName(SrcName);
       ShortDestName:=ShortSourceName;
 
-      //copie d'un ÈlÈment sur lui mÍme=renommage automatique
-      if WideExtractFilePath(SrcName)=DestDir then
+      //copie d'un –πl–πment sur lui m–∫me=renommage automatique
+      if ExtractFilePath(SrcName)=DestDir then
       begin
         ShortDestName:=FindNewName(ShortDestName,DestDir);
       end;
@@ -335,8 +338,8 @@ begin
       begin
         DirItem:=TDiritem.Create;
         DirItem.BaseListId:=LastBaseListId;
-        DirItem.SrcPath:=WideIncludeTrailingBackslash(SrcName);
-        DirItem.DestPath:=WideIncludeTrailingBackslash(DestDir+ShortDestName);
+        DirItem.SrcPath:=IncludeTrailingBackslash(SrcName);
+        DirItem.DestPath:=IncludeTrailingBackslash(DestDir+ShortDestName);
         DirItem.ParentDir:=FindOrCreateParent(SrcName,DestDir);
         DirItem.Created:=False;
         DirList.Add(DirItem);
@@ -360,12 +363,12 @@ begin
       end;
     end;
 
-  // libÈration de la liste
+  // lib–πration de la liste
   BaseList.Free;
 end;
 
 //******************************************************************************
-// RemoveLastBaseList : EnlËve de la liste de copie les derniers fichiers ajoutÈs
+// RemoveLastBaseList : Enl–∏ve de la liste de copie les derniers fichiers ajout–πs
 //******************************************************************************
 procedure TCopier.RemoveLastBaseList;
 var i:integer;
@@ -403,8 +406,8 @@ begin
 end;
 
 //******************************************************************************
-// RecurseSubs : Ajout par rÈcursion des fichiers d'un rÈpertoire
-//               Renvoie false si la rÈcursion a ÈtÈ annulÈe
+// RecurseSubs : Ajout par r–πcursion des fichiers d'un r–πpertoire
+//               Renvoie false si la r–πcursion a –πt–π annul–πe
 //******************************************************************************
 function TCopier.RecurseSubs(DirItem:TDirItem):Boolean;
 var FindData:TWin32FindDataW;
@@ -456,14 +459,14 @@ begin
       end;
     until (not SCWin32.FindNextFile(FindHandle,FindData)) or (not Result);
 
-    Windows.FindClose(FindHandle);
+    Windows.FindClose(FindHandle); { *Converted from FindClose*  }
   end;
 end;
 
 //******************************************************************************
-// VerifyFreeSpace : VÈrifie qu'il y a assez d'espace disque pour copier les
-//                   fichiers et dÈclenche un evËnement sinon
-//                   renvoie true si la copie des fichiers n'est pas annulÈe
+// VerifyFreeSpace : V–πrifie qu'il y a assez d'espace disque pour copier les
+//                   fichiers et d–πclenche un ev–∏nement sinon
+//                   renvoie true si la copie des fichiers n'est pas annul–πe
 //                   FastMode=false pour corriger qq pb avec les points de montage NTFS 
 //******************************************************************************
 function TCopier.VerifyFreeSpace(FastMode:Boolean=true):Boolean;
@@ -471,6 +474,8 @@ var Volumes:TDiskSpaceWarningVolumeArray;
     i:Integer;
     ForceCopy:Boolean;
     DiskSpaceOk:Boolean;
+    _FreeSize,_VolumeSize: PLargeInteger;
+
 
   //AddToVolume
   procedure AddToVolume(Volume:WideString;Size:Int64);
@@ -480,7 +485,7 @@ var Volumes:TDiskSpaceWarningVolumeArray;
     while (i<Length(Volumes)) and (Volumes[i].Volume<>Volume) do
       Inc(i);
 
-    if i>=Length(Volumes) then // le volume est-il rÈpertoriÈ?
+    if i>=Length(Volumes) then // le volume est-il r–πpertori–π?
     begin
       SetLength(Volumes,Length(Volumes)+1);
       Volumes[i].Volume:=Volume;
@@ -500,7 +505,7 @@ var Volumes:TDiskSpaceWarningVolumeArray;
     while (i<Length(Volumes)) and (Pos(Volumes[i].Volume,Path)=0) do
       Inc(i);
 
-    if i>=Length(Volumes) then // le volume est-il rÈpertoriÈ?
+    if i>=Length(Volumes) then // le volume est-il r–πpertori–π?
     begin
       SetLength(Volumes,Length(Volumes)+1);
       Volumes[i].Volume:=GetVolumeNameString(Path);
@@ -534,7 +539,7 @@ begin
         for i:=0 to FileList.Count-1 do
           AddToVolumeByPath(FileList[i].Directory.Destpath,FileList[i].SrcSize);
 
-        // ne pas compter la taille du fichier en cours (allouÈe par avance)
+        // ne pas compter la taille du fichier en cours (allou–πe par avance)
         if CurrentCopy.CopiedSize>0 then AddToVolumeByPath(CurrentCopy.DirItem.Destpath,-CurrentCopy.FileItem.SrcSize);
       end
       else
@@ -543,7 +548,7 @@ begin
         for i:=0 to FileList.Count-1 do
           AddToVolume(GetVolumeNameString(FileList[i].Directory.Destpath),FileList[i].SrcSize);
 
-        // ne pas compter la taille du fichier en cours (allouÈe par avance)
+        // ne pas compter la taille du fichier en cours (allou–πe par avance)
         if CurrentCopy.CopiedSize>0 then AddToVolume(GetVolumeNameString(CurrentCopy.DirItem.Destpath),-CurrentCopy.FileItem.SrcSize);
       end;
 
@@ -551,11 +556,13 @@ begin
       FileList.Unlock;
     end;
 
-  // Èliminer les volumes contenant assez de place
+  // –πliminer les volumes contenant assez de place
   for i:=Length(Volumes)-1 downto 0 do
     with Volumes[i] do
     begin
-      DiskSpaceOk:=SCWin32.GetDiskFreeSpaceEx(PWideChar(Volume),FreeSize,VolumeSize,nil);
+      _FreeSize :=  @FreeSize;
+      _VolumeSize := @VolumeSize;
+      DiskSpaceOk:=SCWin32.GetDiskFreeSpaceEx(PWideChar(Volume),_FreeSize,_VolumeSize,nil);
       if DiskSpaceOk then
       begin
         LackSize:=LackSize-FreeSize;
@@ -567,7 +574,7 @@ begin
       end;
     end;
 
-  // dÈclencher un ÈvËnement si au moins 1 volume n'a pas assez de place
+  // d–πclencher un –πv–∏nement si au moins 1 volume n'a pas assez de place
   if (Length(Volumes)>0) and Assigned(OnDiskSpaceWarning) then
   begin
     ForceCopy:=OnDiskSpaceWarning(Volumes);
@@ -578,8 +585,8 @@ begin
 end;
 
 //******************************************************************************
-// FirstCopy : PrÈpare le Copier pour la premiËre copie
-//             Renvoie false si rien ‡ copier
+// FirstCopy : Pr–πpare le Copier pour la premi–∏re copie
+//             Renvoie false si rien –∞ copier
 //******************************************************************************
 function TCopier.FirstCopy:Boolean;
 begin
@@ -603,8 +610,8 @@ begin
 end;
 
 //******************************************************************************
-// NextCopy : PrÈpare le Copier pour la prochaine copie
-//            Renvoie false si plus rien ‡ copier
+// NextCopy : Pr–πpare le Copier pour la prochaine copie
+//            Renvoie false si plus rien –∞ copier
 //******************************************************************************
 function TCopier.NextCopy:Boolean;
 var NonCopiedSize:Int64;
@@ -613,7 +620,7 @@ begin
   begin
     Inc(CopiedCount);
 
-    // Ajouter aux SkippedSize tout ce qui n'a pas ÈtÈ copiÈ
+    // Ajouter aux SkippedSize tout ce qui n'a pas –πt–π copi–π
     with CurrentCopy do
     begin
       NonCopiedSize:=FileItem.SrcSize-(CopiedSize+SkippedSize);
@@ -630,7 +637,7 @@ begin
       try
         FileList.Lock;
 
-        // on enleve le FileItem qui vient d'etre copiÈ
+        // on enleve le FileItem qui vient d'etre copi–π
         FileList.Delete(0);
 
         if FileList.Count>0 then
@@ -660,7 +667,7 @@ begin
     end;
     cpaRetry:
     begin
-      // on recommence la meme copie -> faire comme si l'on avait rien copiÈ
+      // on recommence la meme copie -> faire comme si l'on avait rien copi–π
       SkippedSize:=SkippedSize-CurrentCopy.SkippedSize;
       CopiedSize:=CopiedSize-CurrentCopy.CopiedSize;
     end;
@@ -669,8 +676,8 @@ end;
 
 
 //******************************************************************************
-// ManageFileAction : GËre les collisions de fichiers et effectue les actions demandÈes
-//                    Renvoie false si la copie du fichier en cours est annulÈe
+// ManageFileAction : G–∏re les collisions de fichiers et effectue les actions demand–πes
+//                    Renvoie false si la copie du fichier en cours est annul–πe
 //******************************************************************************
 function TCopier.ManageFileAction(ResumeNoAgeVerification:Boolean):Boolean;
 var Action:TCollisionAction;
@@ -689,10 +696,10 @@ begin
   repeat
     MustRedo:=False;
 
-    // rien ‡ faire si pas de collision ou fichier deja traitÈ
+    // rien –∞ faire si pas de collision ou fichier deja trait–π
     if (not CurrentCopy.FileItem.DestExists) or (CurrentCopy.NextAction<>cpaNextFile) then exit;
 
-    // on lance l'ÈvËnement pour savoir quoi faire
+    // on lance l'–πv–∏nement pour savoir quoi faire
     Assert(Assigned(OnFileCollision),'OnFileCollision not assigned');
     Action:=OnFileCollision(NewName);
 
@@ -722,7 +729,7 @@ begin
           end
           else
           begin
-            // la reprise ne peut pas etre effectuÈe -> Ècraser
+            // la reprise ne peut pas etre effectu–πe -> –πcraser
             Result:=True;
             CurrentCopy.NextAction:=cpaNextFile;
           end;
@@ -745,7 +752,7 @@ begin
 
         CurrentCopy.FileItem.DestName:=NewName;
 
-        MustRedo:=True; // le nom du fichier ‡ changÈ, il peut aussi exister dÈj‡
+        MustRedo:=True; // le nom du fichier –∞ chang–π, il peut aussi exister d–πj–∞
       end;
       claRenameOld:
       begin
@@ -758,7 +765,7 @@ begin
         begin
           // gestion de l'erreur
           GenericError(lsRenameAction,CurrentCopy.FileItem.DestFullName,GetLastErrorText);
-          MustRedo:=True; // le renommage a ÈchouÈ -> la collision n'a pas ÈtÈ rÈsolue
+          MustRedo:=True; // le renommage a –πchou–π -> la collision n'a pas –πt–π r–πsolue
         end;
       end;
     end;
@@ -766,7 +773,7 @@ begin
 end;
 
 //******************************************************************************
-// CreateEmptyDirs : crÈation des rÈpertoires vides
+// CreateEmptyDirs : cr–πation des r–πpertoires vides
 //******************************************************************************
 procedure TCopier.CreateEmptyDirs;
 var i:integer;
@@ -776,14 +783,14 @@ begin
 end;
 
 //******************************************************************************
-// DeleteSrcDirs : supprime les rÈpertoires contenant les fichiers source
+// DeleteSrcDirs : supprime les r–πpertoires contenant les fichiers source
 //******************************************************************************
 procedure TCopier.DeleteSrcDirs;
 var i:integer;
 begin
   for i:=DirList.Count-1 downto 0  do
     if DirList[i].ParentDir<>nil then // un DirItem n'a pas de parent seulement
-    begin                             // si c'est le rÈpertoire de base des ÈlÈments ‡ dÈplacer
+    begin                             // si c'est le r–πpertoire de base des –πl–πments –∞ d–πplacer
       if not DirList[i].SrcDelete then
       begin
         // gestion de l'erreur
@@ -793,7 +800,7 @@ begin
 end;
 
 //******************************************************************************
-// DeleteSrcFile : supprime le fichier source en cours (pour les dÈplacements)
+// DeleteSrcFile : supprime le fichier source en cours (pour les d–πplacements)
 //******************************************************************************
 procedure TCopier.DeleteSrcFile;
 begin
@@ -805,7 +812,7 @@ begin
 end;
 
 //******************************************************************************
-// DeleteDestFile : supprime le fichier destination en cours (copie non terminÈe ou erreur)
+// DeleteDestFile : supprime le fichier destination en cours (copie non termin–πe ou erreur)
 //******************************************************************************
 procedure TCopier.DeleteDestFile;
 begin
@@ -817,7 +824,7 @@ begin
 end;
 
 //******************************************************************************
-// CopyAttributesAndSecurity : Copie les attributs et la sÈcuritÈ du fichier en cours
+// CopyAttributesAndSecurity : Copie les attributs et la s–πcurit–π du fichier en cours
 //******************************************************************************
 procedure TCopier.CopyAttributesAndSecurity;
 begin
@@ -835,7 +842,7 @@ begin
 end;
 
 //******************************************************************************
-// VerifyOrCreateDir : Appelle VerifyOrCreate pour un DirItem et gËre attributs et sÈcuritÈ
+// VerifyOrCreateDir : Appelle VerifyOrCreate pour un DirItem et g–∏re attributs et s–πcurit–π
 //******************************************************************************
 procedure TCopier.VerifyOrCreateDir(ADirItem: TDirItem);
 var DirItem:TDirItem;

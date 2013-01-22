@@ -1,7 +1,7 @@
 #pragma once
 #include <windows.h>
 
-const WCHAR SC2_API_ID[]=L"SuperCopier2 API";
+const WCHAR SC2_API_ID[]=L"SuperCopier API";
 const WCHAR SC2_API_MUTEX_ID[]=L"Mutex";
 const WCHAR SC2_API_FILEMAPPING_ID[]=L"FileMapping";
 const WCHAR SC2_API_CLIENTEVENT_ID[]=L"ClientEvent";

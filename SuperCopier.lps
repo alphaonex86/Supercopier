@@ -1,0 +1,702 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="73">
+      <Unit0>
+        <Filename Value="SuperCopier.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="42"/>
+        <CursorPos X="51" Y="53"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="SCMainForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="SCMainForm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="227"/>
+        <CursorPos X="16" Y="245"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="SCBaseList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCBaseList"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="SCCopier.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCCopier"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="185"/>
+        <CursorPos X="50" Y="197"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="SCDirList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCDirList"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="267"/>
+        <CursorPos X="18" Y="282"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="SCFileList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCFileList"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="329"/>
+        <CursorPos X="1" Y="345"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="SCLocStrings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCLocStrings"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="SCCommon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCCommon"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="377"/>
+        <CursorPos X="61" Y="392"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="SCObjectThreadList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCObjectThreadList"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="64" Y="16"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="SCConfig.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCConfig"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="499"/>
+        <CursorPos X="1" Y="512"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="SCCopyThread.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCCopyThread"/>
+        <TopLine Value="836"/>
+        <CursorPos X="78" Y="842"/>
+        <UsageCount Value="66"/>
+        <Bookmarks Count="2">
+          <Item0 X="3" Y="1095" ID="2"/>
+          <Item1 X="33" Y="1043" ID="1"/>
+        </Bookmarks>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="SCWin32.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCWin32"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="399"/>
+        <CursorPos X="30" Y="426"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="SCCopyForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CopyForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="SCCopyForm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="928"/>
+        <CursorPos X="1" Y="941"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="SCWorkThread.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCWorkThread"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="SCWorkThreadList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCWorkThreadList"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="140"/>
+        <CursorPos X="15" Y="155"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="SCDiskSpaceForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="SCDiskSpaceForm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="3" Y="24"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="SCCollisionForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="SCCollisionForm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="36"/>
+        <CursorPos X="13" Y="45"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="SCCollisionRenameForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="SCCollisionRenameForm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="23"/>
+        <CursorPos X="18" Y="33"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="SCCopyErrorForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="SCCopyErrorForm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="31"/>
+        <CursorPos X="31" Y="37"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="SCConfigForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ConfigForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="SCConfigForm"/>
+        <IsVisibleTab Value="True"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="358"/>
+        <CursorPos X="1" Y="370"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="SCAboutForm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="SCAboutForm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="151"/>
+        <CursorPos X="90" Y="180"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="SCWideUnbufferedCopier.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCWideUnbufferedCopier"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="129"/>
+        <CursorPos X="1" Y="146"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="SCAnsiBufferedCopier.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCAnsiBufferedCopier"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="46"/>
+        <CursorPos X="27" Y="62"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="SCConfigShared.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCConfigShared"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="45" Y="21"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="SCLocEngine.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCLocEngine"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="287"/>
+        <CursorPos X="6" Y="289"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="SCBaseListQueue.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCBaseListQueue"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="SCAPI.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCAPI"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="107"/>
+        <CursorPos X="83" Y="127"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="SCAPICommon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCAPICommon"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="SCProcessPrivileges.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCProcessPrivileges"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="62"/>
+        <CursorPos X="46" Y="76"/>
+        <UsageCount Value="66"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value=""/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="Components\SCTeam\ScSystray.pas"/>
+        <UnitName Value="ScSystray"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="136"/>
+        <CursorPos X="28" Y="105"/>
+        <UsageCount Value="28"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="Components\Other\TntUnicodeControls\TntControls.pas"/>
+        <UnitName Value="TntControls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="74"/>
+        <CursorPos X="43" Y="89"/>
+        <UsageCount Value="7"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win\wininc\func.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="143"/>
+        <CursorPos X="10" Y="157"/>
+        <UsageCount Value="11"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\packages\winunits-base\src\shlobj.pp"/>
+        <UnitName Value="shlobj"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1131"/>
+        <CursorPos X="6" Y="1145"/>
+        <UsageCount Value="11"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="TntSysUtils.pas"/>
+        <UnitName Value="TntSysUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="2" Y="14"/>
+        <UsageCount Value="7"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="Components\SCTeam\ScPopupButton.pas"/>
+        <UnitName Value="ScPopupButton"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="432"/>
+        <CursorPos X="63" Y="452"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="C:\lazarus\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="145"/>
+        <CursorPos X="3" Y="158"/>
+        <UsageCount Value="12"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win\sysutils.pp"/>
+        <UnitName Value="sysutils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1035"/>
+        <CursorPos X="43" Y="1054"/>
+        <UsageCount Value="11"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="C:\lazarus\lcl\menus.pp"/>
+        <UnitName Value="Menus"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="294"/>
+        <CursorPos X="14" Y="355"/>
+        <UsageCount Value="11"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win\wininc\struct.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2164"/>
+        <CursorPos X="6" Y="2178"/>
+        <UsageCount Value="11"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\objpas\sysutils\filutilh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="68"/>
+        <CursorPos X="10" Y="82"/>
+        <UsageCount Value="8"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="Components\SCTeam\SCFileNameLabel.pas"/>
+        <UnitName Value="SCFileNameLabel"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="105"/>
+        <CursorPos X="1" Y="132"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="C:\lazarus\lcl\stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1395"/>
+        <CursorPos X="3" Y="1399"/>
+        <UsageCount Value="10"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="Components\SCTeam\ScTrackBar.pas"/>
+        <UnitName Value="ScTrackBar"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="77" Y="28"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
+        <UnitName Value="LCLType"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="59"/>
+        <CursorPos X="3" Y="72"/>
+        <UsageCount Value="10"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="C:\lazarus\lcl\comctrls.pp"/>
+        <UnitName Value="ComCtrls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1477"/>
+        <CursorPos X="32" Y="1488"/>
+        <UsageCount Value="10"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win\wininc\base.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="57"/>
+        <CursorPos X="6" Y="71"/>
+        <UsageCount Value="8"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\inc\systemh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="77"/>
+        <CursorPos X="3" Y="91"/>
+        <UsageCount Value="8"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="4665"/>
+        <CursorPos X="1" Y="4679"/>
+        <UsageCount Value="8"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win32\system.pp"/>
+        <UnitName Value="System"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win32\windows.pp"/>
+        <UnitName Value="windows"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="C:\lazarus\lcl\include\sizeconstraints.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="33"/>
+        <CursorPos X="1" Y="39"/>
+        <UsageCount Value="8"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1429"/>
+        <CursorPos X="1" Y="1445"/>
+        <UsageCount Value="9"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="C:\lazarus\lcl\include\customcontrol.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="32"/>
+        <CursorPos X="1" Y="48"/>
+        <UsageCount Value="8"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="C:\lazarus\lcl\include\scrollingwincontrol.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="232"/>
+        <CursorPos X="1" Y="256"/>
+        <UsageCount Value="8"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1935"/>
+        <CursorPos X="1" Y="1954"/>
+        <UsageCount Value="8"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\objpas\classes\classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="290"/>
+        <CursorPos X="14" Y="303"/>
+        <UsageCount Value="8"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="C:\lazarus\lcl\imglist.pp"/>
+        <UnitName Value="ImgList"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="173"/>
+        <CursorPos X="15" Y="188"/>
+        <UsageCount Value="10"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="C:\lazarus\lcl\graphtype.pp"/>
+        <UnitName Value="GraphType"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="98"/>
+        <CursorPos X="41" Y="56"/>
+        <UsageCount Value="10"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="C:\lazarus\lcl\include\graphic.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="119"/>
+        <CursorPos X="1" Y="134"/>
+        <UsageCount Value="8"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\packages\fcl-image\src\fpcanvas.pp"/>
+        <UnitName Value="FPCanvas"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="309"/>
+        <CursorPos X="14" Y="323"/>
+        <UsageCount Value="8"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\packages\fcl-image\src\fpimage.pp"/>
+        <UnitName Value="FPimage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="3" Y="30"/>
+        <UsageCount Value="8"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="C:\lazarus\lcl\graphics.pp"/>
+        <UnitName Value="Graphics"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1642"/>
+        <CursorPos X="15" Y="1656"/>
+        <UsageCount Value="8"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="C:\lazarus\lcl\include\mouse.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="32"/>
+        <CursorPos X="1" Y="43"/>
+        <UsageCount Value="8"/>
+      </Unit63>
+      <Unit64>
+        <Filename Value="C:\lazarus\lcl\include\speedbutton.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="829"/>
+        <CursorPos X="1" Y="844"/>
+        <UsageCount Value="8"/>
+      </Unit64>
+      <Unit65>
+        <Filename Value="C:\lazarus\lcl\include\menuitem.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="252"/>
+        <CursorPos X="1" Y="267"/>
+        <UsageCount Value="12"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="C:\lazarus\ide\lazarus.pp"/>
+        <UnitName Value="Lazarus"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="43" Y="9"/>
+        <UsageCount Value="19"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="C:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="207"/>
+        <CursorPos X="1" Y="222"/>
+        <UsageCount Value="12"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="C:\lazarus\lcl\interfaces\win32\win32object.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="353"/>
+        <CursorPos X="1" Y="366"/>
+        <UsageCount Value="12"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="C:\lazarus\lcl\include\listitem.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="455"/>
+        <CursorPos X="1" Y="470"/>
+        <UsageCount Value="11"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="C:\lazarus\fpc\2.6.0\source\packages\winunits-base\src\commctrl.pp"/>
+        <UnitName Value="CommCtrl"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3976"/>
+        <CursorPos X="10" Y="3991"/>
+        <UsageCount Value="10"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="C:\lazarus\lcl\include\icon.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="384"/>
+        <CursorPos X="1" Y="399"/>
+        <UsageCount Value="10"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="C:\lazarus\lcl\include\application.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1392"/>
+        <CursorPos X="31" Y="1405"/>
+        <UsageCount Value="10"/>
+      </Unit72>
+    </Units>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
+  </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="5">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="SCCopyForm.pas"/>
+        <Line Value="340"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="SCCopyForm.pas"/>
+        <Line Value="567"/>
+      </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="SCCopyForm.pas"/>
+        <Line Value="868"/>
+      </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="SCCopyForm.pas"/>
+        <Line Value="854"/>
+      </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="SCAnsiBufferedCopier.pas"/>
+        <Line Value="68"/>
+      </Item5>
+    </BreakPoints>
+    <Watches Count="3">
+      <Item1>
+        <Expression Value="i"/>
+      </Item1>
+      <Item2>
+        <Expression Value="j"/>
+      </Item2>
+      <Item3>
+        <Expression Value="llSpeed"/>
+      </Item3>
+    </Watches>
+  </Debugging>
+</CONFIG>

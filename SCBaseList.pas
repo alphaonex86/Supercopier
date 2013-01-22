@@ -1,18 +1,20 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 }
 
 unit SCBaseList;
+
+{$MODE Delphi}
 
 interface
 uses Classes,SCObjectThreadList;
@@ -44,7 +46,7 @@ function BLSortCompare(Item1,Item2:Pointer):Integer;forward;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TBaseItem: élément de base (fichier ou répertoire)
+// TBaseItem: Ð¹lÐ¹ment de base (fichier ou rÐ¹pertoire)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -57,7 +59,7 @@ end;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TBaseList: liste d'éléments de base
+// TBaseList: liste d'Ð¹lÐ¹ments de base
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************

@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,13 +14,15 @@
 
 unit SCCopyThread;
 
+{$MODE Delphi}
+
 interface
 
 uses
   Windows,Commctrl,Classes,Messages,SCObjectThreadList,SCWorkThread,SCWorkThreadList,
   SCCopier,SCAnsiBufferedCopier,SCWideUnbufferedCopier,SCCommon,SCConfig,SCBaseList,
-  SCDirList,SCSystray,SCCopyForm,SCDiskSpaceForm,SCCollisionForm,SCCopyErrorForm,
-  SCBaseListQueue,Forms,TntForms,ShlObj,ShellApi;
+  SCDirList,{SCSystray,}SCCopyForm,SCDiskSpaceForm,SCCollisionForm,SCCopyErrorForm,
+  SCBaseListQueue,Forms,ShlObj,ShellApi, ExtCtrls;
 
 type
   TCopyThread=class(TWorkThread)
@@ -52,7 +54,7 @@ type
         Paused,SkipPending,CancelPending:Boolean;
         State:TCopyWindowState;
         ConfigData:TCopyWindowConfigData;
-        ConfigDataModifiedByThread:Boolean; // mettre a true si la config doit Ítre copiÈe de la thread vers la fenÍtre
+        ConfigDataModifiedByThread:Boolean; // mettre a true si la config doit –∫tre copi–πe de la thread vers la fen–∫tre
         lvErrorListEmpty:Boolean;
 
         FormCaption,
@@ -88,9 +90,9 @@ type
         SameForNext:Boolean;
       end;
       Notification:record
-        TargetForm:TTntForm;
+        TargetForm:TForm;
         UseMainIcon:Boolean;
-        IconType:TIcoBalloon;
+        IconType:TBalloonFlags;
         Title,Text:WideString;
       end;
     end;
@@ -151,14 +153,14 @@ type
 
 implementation
 
-uses SysUtils,SCMainForm,TntSysUtils,FileCtrl,SCLocStrings, TntComCtrls,
+uses SysUtils,SCMainForm,FileCtrl,SCLocStrings, ComCtrls,
   SCFileList, StrUtils,SCWin32,Math;
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TCopyThread: thread de copie de fichiers, gËre la fenËtre de copie,
-//              les synchros, dÈlËgue la copie au Copier et gËre ses ÈvËnements
+// TCopyThread: thread de copie de fichiers, g–∏re la fen–∏tre de copie,
+//              les synchros, d–πl–∏gue la copie au Copier et g–∏re ses –πv–∏nements
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -200,7 +202,7 @@ begin
   if NumSamples=0 then NumSamples:=1;
   SetLength(SpeedSamples,NumSamples);
 
-  // ÈvËnements du copier
+  // –πv–∏nements du copier
   Copier.OnFileCollision:=CopierFileCollision;
   Copier.OnDiskSpaceWarning:=CopierDiskSpaceWarning;
   Copier.OnCopyError:=CopierCopyError;
@@ -208,10 +210,10 @@ begin
   Copier.OnCopyProgress:=CopierCopyProgress;
   Copier.OnRecurseProgress:=CopierRecurseProgress;
 
-  // crÈation de la fenÍtre
+  // cr–πation de la fen–∫tre
   Synchronize(SyncInitCopy);
 
-  // tout est initialisÈ, on peut lancer la thread
+  // tout est initialis–π, on peut lancer la thread
   Resume;
 end;
 
@@ -223,7 +225,7 @@ begin
   if FIsThreadAlive then
   begin
     // annuler la copie
-    FreeOnTerminate:=False; // pour Èviter que le Cancel fasse que le Destroy soit rappelÈ
+    FreeOnTerminate:=False; // pour –πviter que le Cancel fasse que le Destroy soit rappel–π
     Cancel;
     WaitFor;
   end;
@@ -231,7 +233,7 @@ begin
   // sauvegarde automatique du log des erreurs
   if Config.Values.ErrorLogAutoSave then Synchronize(SyncSaveErrorLog);
 
-  // destruction de la fenÍtre
+  // destruction de la fen–∫tre
   Synchronize(SyncEndCopy);
 
   BaseListQueue.Free;
@@ -243,7 +245,7 @@ begin
 end;
 
 //******************************************************************************
-// GetDisplayName: implÈmentation de TWorkThread.GetDisplayName
+// GetDisplayName: impl–πmentation de TWorkThread.GetDisplayName
 //******************************************************************************
 function TCopyThread.GetDisplayName:WideString;
 begin
@@ -287,7 +289,7 @@ begin
 end;
 
 //******************************************************************************
-// AddBaseList: ajoute une baselist de fichiers ‡ copier
+// AddBaseList: ajoute une baselist de fichiers –∞ copier
 //******************************************************************************
 procedure TCopyThread.AddBaseList(BaseList:TBaseList;AddMode:TBaselistAddMode=amDefaultDir;Dir:WideString='');
 var DestDir:WideString;
@@ -320,14 +322,14 @@ begin
   begin
     dbgln('AddBaseList DestDir='+DestDir);
 
-    // le premier appel a AddBaseList dÈterminera le rÈpertoire par dÈfaut
+    // le premier appel a AddBaseList d–πterminera le r–πpertoire par d–πfaut
     if FDefaultDir='?' then
     begin
-      FDefaultDir:=WideIncludeTrailingBackslash(DestDir);
-      SrcDir:=WideExtractFilePath(BaseList[0].SrcName);
+      FDefaultDir:=IncludeTrailingBackslash(DestDir);
+      SrcDir:=ExtractFilePath(BaseList[0].SrcName);
     end;
 
-    // on ajoute la baselist ‡ la queue
+    // on ajoute la baselist –∞ la queue
     BaseListQueue.Lock;
     try
       BLQueueItem:=TBaseListQueueItem.Create;
@@ -340,14 +342,14 @@ begin
   end
   else
   begin
-    // libÈrer la baselist
+    // lib–πrer la baselist
     BaseList.Free;
   end;
 end;
 
 //******************************************************************************
 // CheckWaitingBaseList: teste des BaseList sont en attente, si oui elles sont
-//                       traitÈes et la fonction renvoie true;
+//                       trait–πes et la fonction renvoie true;
 //******************************************************************************
 function TCopyThread.CheckWaitingBaseList:Boolean;
 var BLQueueItem:TBaseListQueueItem;
@@ -356,7 +358,7 @@ begin
 
   BaseListQueue.Lock;
   try
-    // on boucle tant que la queue n'est pas vidÈe
+    // on boucle tant que la queue n'est pas vid–πe
     while BaseListQueue.Count>0 do
     begin
       Result:=True;
@@ -366,10 +368,10 @@ begin
       // on ajoute les fichiers au copier
       Copier.AddBaseList(BLQueueItem.BaseList,BLQueueItem.DestDir);
 
-      // on vÈrifie si il y a assez de place
+      // on v–πrifie si il y a assez de place
       Copier.VerifyFreeSpace;
 
-      // on a ajoutÈ des fichiers, m‡j de lvFileList
+      // on a ajout–π des fichiers, m–∞j de lvFileList
       Synchronize(SyncSetFileListviewCount);
 
       BLQueueItem.Free;
@@ -405,7 +407,7 @@ begin
 end;
 
 //******************************************************************************
-// LockCopier: bloque les donnÈes du copier et renvoie sa rÈfÈrence
+// LockCopier: bloque les donn–πes du copier et renvoie sa r–πf–πrence
 //******************************************************************************
 function TCopyThread.LockCopier:TCopier;
 begin
@@ -416,7 +418,7 @@ begin
 end;
 
 //******************************************************************************
-// UnlockCopier: dÈbloque les donnÈes du copier
+// UnlockCopier: d–πbloque les donn–πes du copier
 //******************************************************************************
 procedure TCopyThread.UnlockCopier;
 begin
@@ -432,12 +434,12 @@ var CopyError,UnfinishedCopy:Boolean;
 begin
   try
     try
-      // Ètat de dÈpart
+      // –πtat de d–πpart
       Sync.Copy.State:=cwsWaiting;
 
       repeat
         UpdateCopyWindow;
-        // attendre les donnÈes
+        // attendre les donn–πes
         while (not CheckWaitingBaseList) and (not Sync.Copy.CancelPending) and (Copier.FileList.Count=0) do
         begin
           UpdateCopyWindow;
@@ -460,16 +462,16 @@ begin
 
           // boucle principale
           repeat
-            // gÈrer la pause
+            // g–πrer la pause
             HandlePause;
 
-            // vÈrifier si il y a une baselist en attente
+            // v–πrifier si il y a une baselist en attente
             CheckWaitingBaseList;
 
-            // m‡j de lvFileItems
+            // m–∞j de lvFileItems
             Synchronize(SyncUpdateFileListview);
 
-            // m‡j de la fenÍtre
+            // m–∞j de la fen–∫tre
             Sync.Copy.State:=cwsCopying;
             UpdateCopyWindow;
 
@@ -486,12 +488,12 @@ begin
               begin
                 Copier.CopyAttributesAndSecurity;
 
-                // dÈplacement et le fichier ‡ ÈtÈ copiÈ en entier -> on peut supprimer le source
+                // d–πplacement et le fichier –∞ –πt–π copi–π en entier -> on peut supprimer le source
                 if FIsMove and not UnfinishedCopy then
                   Copier.DeleteSrcFile;
               end;
 
-              // gestion suppression copies non terminÈes
+              // gestion suppression copies non termin–πes
               if UnfinishedCopy and Config.Values.DeleteUnfinishedCopies and
                  not (CopyError and Config.Values.DontDeleteOnCopyError) then
               begin
@@ -507,10 +509,10 @@ begin
 
         Sync.Copy.State:=cwsCopyEnd;
 
-        // tout afficher a 100% si la fenÍtre reste ouverte alors que la copie est finie
+        // tout afficher a 100% si la fen–∫tre reste ouverte alors que la copie est finie
         Sync.Copy.ggFileProgress:=Sync.Copy.ggFileMax;
         Sync.Copy.ggAllProgress:=Sync.Copy.ggAllMax;
-        Synchronize(SyncUpdateFileListview); // lvFileList n'est pas ‡ jour aprËs la copie du dernier item
+        Synchronize(SyncUpdateFileListview); // lvFileList n'est pas –∞ jour apr–∏s la copie du dernier item
 
         if (Copier.CurrentCopy.NextAction<>cpaCancel) and (not Sync.Copy.CancelPending) then
         begin
@@ -519,28 +521,28 @@ begin
           begin
             TargetForm:=nil;
             UseMainIcon:=True;
-            IconType:=IBInfo;
+            IconType:=TBalloonFlags.bfInfo;
             Title:=lsCopyEndNotifyTitle;
             Text:=WideFormat(lsCopyEndNotifyText,[DisplayName,Sync.Copy.llSpeedCaption]);
           end;
           Synchronize(SyncShowNotificationBalloon);
 
-          // crÈer les reps vide et supprimer les reps source
+          // cr–πer les reps vide et supprimer les reps source
           Copier.CreateEmptyDirs;
 
           if FIsMove then Copier.DeleteSrcDirs;
         end;
 
-      // on boucle tant que la fenÍtre de copie doit rester ouverte
+      // on boucle tant que la fen–∫tre de copie doit rester ouverte
       until Sync.Copy.CancelPending or (Copier.CurrentCopy.NextAction=cpaCancel) or
             (Sync.Copy.ConfigData.CopyEndAction=cweClose) or
             ((Sync.Copy.ConfigData.CopyEndAction=cweDontCloseIfErrors) and Sync.Copy.lvErrorListEmpty);
     except
-      // afficher les exception qui n'ont pas ÈtÈes trappÈes (et qui sont de toute faÁon des bugs)
-      on E:Exception do SCWin32.MessageBox(Sync.Copy.Form.Handle,E.Message,'SuperCopier2 - Critical error!',MB_ICONERROR);
+      // afficher les exception qui n'ont pas –πt–πes trapp–πes (et qui sont de toute fa–∑on des bugs)
+      on E:Exception do SCWin32.MessageBox(Sync.Copy.Form.Handle,E.Message,'SuperCopier - Critical error!',MB_ICONERROR);
     end;
   finally
-    // dÈ-rescencer la thread
+    // d–π-rescencer la thread
     WorkThreadList.Remove(Self);
     FIsThreadAlive:=False;
   end;
@@ -548,7 +550,7 @@ end;
 
 //******************************************************************************
 //******************************************************************************
-// EvenËments du copier
+// Even–∏ments du copier
 //******************************************************************************
 //******************************************************************************
 
@@ -574,7 +576,7 @@ begin
         UseMainIcon:=False;
         Title:=lsCollisionNotifyTitle;
         Text:=WideFormat(lsCollisionNotifyText,[DisplayName,Copier.CurrentCopy.FileItem.DestFullName]);
-        IconType:=IBWarning;
+        IconType:=TBalloonFlags.bfWarning;
       end;
       Synchronize(SyncShowNotificationBalloon);
 
@@ -600,7 +602,7 @@ begin
       Result:=Sync.Copy.ConfigData.CollisionAction;
     end;
 
-    // rÈcupÈrer le nouveau nom pour le fichier si renommage
+    // r–πcup–πrer le nouveau nom pour le fichier si renommage
     if Result in [claRenameNew,claRenameOld] then
     begin
       if CustomRename then
@@ -637,7 +639,7 @@ begin
     UseMainIcon:=False;
     Title:=lsDiskSpaceNotifyTitle;
     Text:=DisplayName;
-    IconType:=IBWarning;
+    IconType:=TBalloonFlags.bfWarning;
   end;
   Synchronize(SyncShowNotificationBalloon);
 
@@ -660,7 +662,7 @@ function TCopyThread.CopierCopyError(ErrorText:WideString):TCopyErrorAction;
 begin
   dbgln('CopierCopyError: '+ErrorText);
 
-  // ajout de l'erreur ‡ la liste des erreurs
+  // ajout de l'erreur –∞ la liste des erreurs
   with Sync.Copy do
   begin
     Error.Time:=Now;
@@ -686,7 +688,7 @@ begin
         UseMainIcon:=False;
         Title:=lsCopyErrorNotifyTitle;
         Text:=WideFormat(lsCopyErrorNotifyText,[DisplayName,Copier.CurrentCopy.FileItem.DestFullName,ErrorText]);
-        IconType:=IBError;
+        IconType:=TBalloonFlags.bfError;
       end;
       Synchronize(SyncShowNotificationBalloon);
 
@@ -709,7 +711,7 @@ begin
     end
     else
     begin
-      // attendre un certain temps entre 2 erreurs de copie sur un mÍme fichier
+      // attendre un certain temps entre 2 erreurs de copie sur un m–∫me fichier
       if Copier.CurrentCopy.FileItem.CopyTryCount>1 then
       begin
         Sleep(Config.Values.CopyErrorRetryInterval);
@@ -734,7 +736,7 @@ begin
     UseMainIcon:=False;
     Title:=lsGenericErrorNotifyTitle;
     Text:=WideFormat(lsGenericErrorNotifyText,[DisplayName,Action,Target,ErrorText]);
-    IconType:=IBError;
+    IconType:=TBalloonFlags.bfError;
   end;
   Synchronize(SyncShowNotificationBalloon);
 
@@ -761,7 +763,7 @@ var CurTime:Integer;
       Total:Int64;
       i,UsedSamples:Integer;
   begin
-    // calcul de la vitesse instantanÈe
+    // calcul de la vitesse instantan–πe
     TempCopyTime:=CurTime-LastCopyWindowUpdate;
 
     if TempCopyTime<>0 then
@@ -771,12 +773,12 @@ var CurTime:Integer;
 
     LastCopiedSize:=Copier.CopiedSize;
 
-    // ajout ‡ la liste des prÈcÈdentes vitesses
+    // ajout –∞ la liste des pr–πc–πdentes vitesses
     CurrentSample:=(CurrentSample+1) mod NumSamples;
     SpeedSamples[CurrentSample]:=TempCopySpeed;
     if CurrentSample=NumSamples-1 then SpeedSamplesFirstPass:=False;
 
-    // on fait la moyenne pour avoir la vitesse ‡ afficher
+    // on fait la moyenne pour avoir la vitesse –∞ afficher
     Total:=0;
     if SpeedSamplesFirstPass then
       UsedSamples:=CurrentSample+1
@@ -788,8 +790,8 @@ var CurTime:Integer;
     CopySpeed:=Total div UsedSamples;
   end;
 
-  //ComputeThrottleCopySpeed: calcul de la vitesse de copie lorsque la limitation de vitesse est activÈe
-  //                          (vitesse instantanÈe sur l'intervale de throttle)
+  //ComputeThrottleCopySpeed: calcul de la vitesse de copie lorsque la limitation de vitesse est activ–πe
+  //                          (vitesse instantan–πe sur l'intervale de throttle)
   procedure ComputeThrottleCopySpeed;
   var TempCopyTime:Integer;
   begin
@@ -804,7 +806,7 @@ var CurTime:Integer;
 begin
   with Sync.Copy do
   begin
-    // vÈrifier si il y a une baselist en attente
+    // v–πrifier si il y a une baselist en attente
     CheckWaitingBaseList;
 
     CurTime:=GetTickCount;
@@ -813,7 +815,7 @@ begin
 
     if not ConfigData.ThrottleEnabled then
     begin
-      // m‡j de la fenÍtre si nÈcesaire
+      // m–∞j de la fen–∫tre si n–πcesaire
       if CurTime>=(LastCopyWindowUpdate+Config.Values.CopyWindowUpdateInterval) then
       begin
         ComputeCopySpeed;
@@ -859,7 +861,7 @@ end;
 
 //******************************************************************************
 // CopierRecurseProgress: evenement du copier
-//                        renvoyer false pour annuler la rÈcursion
+//                        renvoyer false pour annuler la r–πcursion
 //******************************************************************************
 function TCopyThread.CopierRecurseProgress(CurrentItem:TDirItem):Boolean;
 begin
@@ -869,14 +871,14 @@ begin
 
   Synchronize(SyncUpdateCopy);
 
-  // gÈrer la pause
+  // g–πrer la pause
   HandlePause;
 
   Result:=not Sync.Copy.CancelPending;
 end;
 
 //******************************************************************************
-// UpdateCopyWindow: m‡j des infos de la fenÍtre de copie
+// UpdateCopyWindow: m–∞j des infos de la fen–∫tre de copie
 //******************************************************************************
 procedure TCopyThread.UpdateCopyWindow;
 var TmpStr:String;
@@ -950,11 +952,11 @@ begin
 
       Synchronize(SyncUpdateCopy);
 
-      // gestion de l'Ètat annulation
+      // gestion de l'–πtat annulation
       if CancelPending then
       begin
         Sync.Copy.State:=cwsCancelling;
-        StateUpdated:=not StateUpdated; // Ètat changÈ -> on refait la m‡j
+        StateUpdated:=not StateUpdated; // –πtat chang–π -> on refait la m–∞j
       end;
     end;
   until not StateUpdated;
@@ -977,12 +979,12 @@ end;
 
 //******************************************************************************
 //******************************************************************************
-// MÈthodes de synchro
+// M–πthodes de synchro
 //******************************************************************************
 //******************************************************************************
 
 //******************************************************************************
-// SyncInitCopy: crÈation et initialisation de la fenÍtre de copie
+// SyncInitCopy: cr–πation et initialisation de la fen–∫tre de copie
 //******************************************************************************
 procedure TCopyThread.SyncInitCopy;
 begin
@@ -1011,7 +1013,7 @@ begin
 end;
 
 //******************************************************************************
-// SyncEndCopy: destruction de la fenÍtre de copie
+// SyncEndCopy: destruction de la fen–∫tre de copie
 //******************************************************************************
 procedure TCopyThread.SyncEndCopy;
 begin
@@ -1023,9 +1025,10 @@ begin
 end;
 
 //******************************************************************************
-// SyncUpdatecopy: m‡j de la fenÍtre de copie
+// SyncUpdatecopy: m–∞j de la fen–∫tre de copie
 //******************************************************************************
 procedure TCopyThread.SyncUpdatecopy;
+//var s: string;
 begin
   with Sync.Copy,Sync.Copy.Form do
   begin
@@ -1037,6 +1040,7 @@ begin
     llTo.Caption:=llToCaption;
     llFile.Caption:=llFileCaption;
     llAll.Caption:=llAllCaption;
+//    s :=llSpeedCaption;
     llSpeed.Caption:=llSpeedCaption;
 
     ggFile.Max:=ggFileMax;
@@ -1070,18 +1074,20 @@ begin
 end;
 
 //******************************************************************************
-// SyncSetFileListviewCount: m‡j du nb d'ÈlÈments de lvFileItems
+// SyncSetFileListviewCount: m–∞j du nb d'–πl–πments de lvFileItems
 //******************************************************************************
 procedure TCopyThread.SyncSetFileListviewCount;
 begin
   with Sync.Copy.Form do
   begin
+    //lvFileList.Items.Count:=0;
     lvFileList.Items.Count:=Copier.FileList.Count-1;
+    //lvFileList.Refresh;
   end;
 end;
 
 //******************************************************************************
-// SyncUpdateFileListview: m‡j de lvFileItems
+// SyncUpdateFileListview: m–∞j de lvFileItems
 //******************************************************************************
 procedure TCopyThread.SyncUpdateFileListview;
 var TIndex:integer;
@@ -1090,23 +1096,30 @@ begin
   begin
     if lvFileList.Items.Count<>Copier.FileList.Count-1 then
     begin
-      while lvFileList.Items.Count>Max(0,Copier.FileList.Count-1) do // on rÈduit le nombre d'items de lvFileList jusqu'‡ en avoir le bon nombre
+
+      lvFileList.Items.Count := Max(0,Copier.FileList.Count-1);
+      lvFileList.Refresh;
+                         {
+      while lvFileList.Items.Count>Max(0,Copier.FileList.Count-1) do // on r–πduit le nombre d'items de lvFileList jusqu'–∞ en avoir le bon nombre
       begin
-        lvFileList.Scroll(0,-16);
+        lvFileList.ScrollBy(0,-16);
         lvFileList.Update;
+
         ListView_DeleteItem(lvFileList.Handle,0);
       end;
+              }
     end
     else
     begin
-      TIndex:=lvFileList.TopItem.Index;
-      lvFileList.UpdateItems(TIndex,TIndex+lvFileList.VisibleRowCount);
+      //TIndex:=lvFileList.TopItem.Index;
+      lvFileList.Update;
+      //lvFileList.UpdateItems(TIndex,TIndex+lvFileList.VisibleRowCount);
     end;
   end;
 end;
 
 //******************************************************************************
-// SyncAddToErrorLog: ajout d'une erreur ‡ lvErrorList
+// SyncAddToErrorLog: ajout d'une erreur –∞ lvErrorList
 //******************************************************************************
 procedure TCopyThread.SyncAddToErrorLog;
 begin
@@ -1122,8 +1135,8 @@ begin
 
   with Sync.Copy.Form do
   begin
-    // notifier de la prÈsence d'une nouvelle erreur
-    if pcPages.ActivePage<>tsErrors then tsErrors.Highlighted:=True;
+    // notifier de la pr–πsence d'une nouvelle erreur
+    if pcPages.ActivePage<>tsErrors then tsErrors.Show;
   end;
 end;
 
@@ -1139,9 +1152,9 @@ begin
     begin
       case Config.Values.ErrorLogAutoSaveMode of
         eamToDestDir:
-          FileName:=DefaultDir+WideExtractFileName(Config.Values.ErrorLogFileName);
+          FileName:=DefaultDir+ExtractFileName(Config.Values.ErrorLogFileName);
         eamToSrcDir:
-          FileName:=SrcDir+WideExtractFileName(Config.Values.ErrorLogFileName);
+          FileName:=SrcDir+ExtractFileName(Config.Values.ErrorLogFileName);
         eamCustomDir:
           FileName:=Config.Values.ErrorLogFileName;
       end;
@@ -1153,10 +1166,10 @@ end;
 
 //******************************************************************************
 // SyncShowNotificationBalloon: afiche une bulle de notification dans le systray
-//                              en fonction de la config et de l'Ètat de CopyForm
+//                              en fonction de la config et de l'–πtat de CopyForm
 //******************************************************************************
 procedure TCopyThread.SyncShowNotificationBalloon;
-var TheSystray:TScSystray;
+var TheSystray:TTrayIcon;
 begin
   with Sync.Copy.Form,Sync.Notification do
   begin
@@ -1164,7 +1177,7 @@ begin
     begin
       TheSystray:=Systray;
 
-      // on force l'utilisation de l'icÙne principale si la fenÍtre est rÈduite dans la taskbar
+      // on force l'utilisation de l'ic—Ñne principale si la fen–∫tre est r–πduite dans la taskbar
       if (UseMainIcon or (not MinimizedToTray)){ and Config.Values.TrayIcon} then
       begin
         TheSystray:=MainForm.Systray;
@@ -1173,7 +1186,12 @@ begin
       end;
 
       if Config.Values.MinimizedEventHandling=mehShowBalloon then
-        TheSystray.ShowBalloon(Title,Text,IconType);
+      begin
+        TheSystray.BalloonTitle:= Title;
+        TheSystray.BalloonHint:= Text;
+        TheSystray.BalloonFlags:=IconType;
+        TheSystray.ShowBalloonHint;
+      end;
 
       if Config.Values.MinimizedEventHandling<>mehPopupWindow then
         NotificationTargetForm:=TargetForm;

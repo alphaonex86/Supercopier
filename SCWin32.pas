@@ -1,20 +1,23 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 }
 
 unit SCWin32;
-// Surcouche a l'api Win32 permettant de gérer l'unicode, win9x et les int64
-// (je maudis Microsoft sur 7 generations pour etre oblige de faire ça :)
+
+{$MODE Delphi}
+
+// Surcouche a l'api Win32 permettant de gÐ¹rer l'unicode, win9x et les int64
+// (je maudis Microsoft sur 7 generations pour etre oblige de faire Ð·a :)
 
 interface
 
@@ -45,13 +48,13 @@ function SetFileAttributes(FileName:PWideChar;Attr:Cardinal):Boolean;
 function DeleteFile(FileName:PWideChar):Boolean;
 function CreateDirectory(DirName:PWideChar;PSA:PSecurityAttributes):Boolean;
 function RemoveDirectory(DirName:PWideChar):Boolean;
-function GetDiskFreeSpaceEx(DirName:PWideChar;var FreeBytesAvailable;var TotalNumberOfBytes;TotalNumberOfFreeBytes:PLargeInteger):Boolean;
+function GetDiskFreeSpaceEx(DirName:PWideChar;var FreeBytesAvailable: PLargeInteger;var TotalNumberOfBytes:PLargeInteger;TotalNumberOfFreeBytes:PLargeInteger):Boolean;
 function MoveFile(Source,Dest:PWideChar):Boolean;
 function DragQueryFile(hDrop:HDROP;iFile:Cardinal;lpszFile:PWideChar;cch:Cardinal):Cardinal;
 function FindFirstFile(lpFileName: PWideChar; var lpFindFileData: TWIN32FindDataW): THandle;
 function FindNextFile(hFindFile: THandle; var lpFindFileData: TWIN32FindDataW): Boolean;
 function SHGetPathFromIDList(pidl:PItemIDList;pszPath:PWideChar):LongBool;
-function SHBrowseForFolder(var lpbi:_browseinfoW):PItemIDList;
+function SHBrowseForFolder(var lpbi:PBROWSEINFOW):PItemIDList;
 function GetVolumeInformation(lpRootPathName: PWideChar;
   lpVolumeNameBuffer: PWideChar; nVolumeNameSize: DWORD; lpVolumeSerialNumber: PDWORD;
   var lpMaximumComponentLength, lpFileSystemFlags: DWORD;
@@ -76,16 +79,16 @@ function GlobalAddAtom(lpString: PWideChar): TAtom;
 function GlobalFindAtom(lpString: PWideChar): TAtom;
 
 var
-  HKernel32_dll:Cardinal;
+  //HKernel32_dll:Cardinal;
 
-  // fonctions non déclarées sous tous les windows, appel dynamique obligatoire
+  // fonctions non dÐ¹clarÐ¹es sous tous les windows, appel dynamique obligatoire
   GetVolumePathName:TGetVolumePathNameW;
   GetVolumeNameForVolumeMountPoint:TGetVolumeNameForVolumeMountPointW;
   GetSystemDefaultUILanguage:TGetSystemDefaultUILanguage;
 
 implementation
 
-uses TntWindows,Sysutils;
+uses Sysutils;
 
 function PathIsUNCA(pszPath:PChar):LongBool;stdcall;external 'shlwapi.dll' name 'PathIsUNCA';
 function PathIsUNCW(pszPath:PWideChar):LongBool;stdcall;external 'shlwapi.dll' name 'PathIsUNCW';
@@ -103,7 +106,7 @@ begin
   ResRec.Lo:=Windows.GetFileSize(TheFile,@SizeHigh);
   ResRec.Hi:=SizeHigh;
 
-  if ResRec.Lo=INVALID_FILE_SIZE then Result:=0;
+  if ResRec.Lo=$ffffffff then Result:=0;
 end;
 
 
@@ -126,7 +129,7 @@ end;
 //******************************************************************************
 function GetFileAttributes(FileName:PWideChar):Integer;
 begin
-  Result:=Tnt_GetFileAttributesW(FileName);
+  Result:=GetFileAttributesW(FileName);
 end;
 
 //******************************************************************************
@@ -134,7 +137,7 @@ end;
 //******************************************************************************
 function SetFileAttributes(FileName:PWideChar;Attr:Cardinal):Boolean;
 begin
-  Result:=Tnt_SetFileAttributesW(FileName,Attr);
+  Result:=SetFileAttributesW(FileName,Attr);
 end;
 
 //******************************************************************************
@@ -142,8 +145,8 @@ end;
 //******************************************************************************
 function DeleteFile(FileName:PWideChar):Boolean;
 begin
-  Tnt_SetFileAttributesW(FileName,FILE_ATTRIBUTE_NORMAL);
-  Result:=Tnt_DeleteFileW(FileName);
+  SetFileAttributesW(FileName,FILE_ATTRIBUTE_NORMAL);
+  Result:=DeleteFileW(FileName);
 end;
 
 //******************************************************************************
@@ -151,7 +154,7 @@ end;
 //******************************************************************************
 function CreateDirectory(DirName:PWideChar;PSA:PSecurityAttributes):Boolean;
 begin
-  Result:=Tnt_CreateDirectoryW(DirName,PSA);
+  Result:=CreateDirectoryW(DirName,PSA);
 end;
 
 //******************************************************************************
@@ -159,18 +162,15 @@ end;
 //******************************************************************************
 function RemoveDirectory(DirName:PWideChar):Boolean;
 begin
-  Result:=Tnt_RemoveDirectoryW(DirName);
+  Result:=RemoveDirectoryW(DirName);
 end;
 
 //******************************************************************************
 // GetDiskFreeSpaceEx
 //******************************************************************************
-function GetDiskFreeSpaceEx(DirName:PWideChar;var FreeBytesAvailable;var TotalNumberOfBytes;TotalNumberOfFreeBytes:PLargeInteger):Boolean;
+function GetDiskFreeSpaceEx(DirName:PWideChar;var FreeBytesAvailable: PLargeInteger;var TotalNumberOfBytes:PLargeInteger;TotalNumberOfFreeBytes:PLargeInteger):Boolean;
 begin
-  if Win32Platform=VER_PLATFORM_WIN32_NT then
-    Result:=Windows.GetDiskFreeSpaceExW(DirName,FreeBytesAvailable,TotalNumberOfBytes,TotalNumberOfFreeBytes)
-  else
-    Result:=Windows.GetDiskFreeSpaceEx(PChar(String(DirName)),FreeBytesAvailable,TotalNumberOfBytes,TotalNumberOfFreeBytes);
+  Result:=Windows.GetDiskFreeSpaceExW(DirName,FreeBytesAvailable,TotalNumberOfBytes,TotalNumberOfFreeBytes)
 end;
 
 //******************************************************************************
@@ -178,7 +178,7 @@ end;
 //******************************************************************************
 function MoveFile(Source,Dest:PWideChar):Boolean;
 begin
-  Result:=Tnt_MoveFileW(Source,Dest);
+  Result:=MoveFileW(Source,Dest);
 end;
 
 //******************************************************************************
@@ -203,7 +203,7 @@ end;
 //******************************************************************************
 function FindFirstFile(lpFileName: PWideChar; var lpFindFileData: TWIN32FindDataW): THandle;
 begin
-  Result:=Tnt_FindFirstFileW(lpFileName,lpFindFileData);
+  Result:=FindFirstFileW(lpFileName,lpFindFileData);
 end;
 
 //******************************************************************************
@@ -211,7 +211,7 @@ end;
 //******************************************************************************
 function FindNextFile(hFindFile: THandle; var lpFindFileData: TWIN32FindDataW): Boolean;
 begin
-  Result:=Tnt_FindNextFileW(hFindFile,lpFindFileData);
+  Result:=FindNextFileW(hFindFile,lpFindFileData);
 end;
 
 //******************************************************************************
@@ -219,15 +219,15 @@ end;
 //******************************************************************************
 function SHGetPathFromIDList(pidl:PItemIDList;pszPath:PWideChar):LongBool;
 begin
-  Result:=Tnt_SHGetPathFromIDListW(pidl,pszPath);
+  Result:=SHGetPathFromIDListW(pidl,pszPath);
 end;
 
 //******************************************************************************
 // SHBrowseForFolder
 //******************************************************************************
-function SHBrowseForFolder(var lpbi:_browseinfoW):PItemIDList;
+function SHBrowseForFolder(var lpbi:PBROWSEINFOW):PItemIDList;
 begin
-  Result:=Tnt_SHBrowseForFolderW(lpbi);
+  Result:=SHBrowseForFolderW(lpbi);
 end;
 
 //******************************************************************************
@@ -266,7 +266,7 @@ end;
 //******************************************************************************
 function MessageBox(hWnd: HWND; lpText, lpCaption: WideString; uType: UINT): Integer;
 begin
-  Result:=MessageBoxW(hWnd,PWideChar(lpText),PWideChar(lpCaption),uType); // fonction implémentée sous Win9x
+  Result:=MessageBoxW(hWnd,PWideChar(lpText),PWideChar(lpCaption),uType); // fonction implÐ¹mentÐ¹e sous Win9x
 end;
 
 //******************************************************************************
@@ -275,7 +275,7 @@ end;
 function GetTempPath:WideString;
 var Buf:array[0..MAX_PATH] of WideChar;
 begin
-  if Tnt_GetTempPathW(MAX_PATH,Buf)<>0 then Result:=Buf;
+  if GetTempPathW(MAX_PATH,Buf)<>0 then Result:=Buf;
 end;
 
 //******************************************************************************
@@ -283,7 +283,7 @@ end;
 //******************************************************************************
 function CopyFile(lpExistingFileName, lpNewFileName: PWideChar; bFailIfExists: BOOL): BOOL;
 begin
-  Result:=Tnt_CopyFileW(lpExistingFileName,lpNewFileName,bFailIfExists);
+  Result:=CopyFileW(lpExistingFileName,lpNewFileName,bFailIfExists);
 end;
 
 //******************************************************************************
@@ -313,7 +313,7 @@ end;
 //******************************************************************************
 function GetUserName(lpBuffer: PWideChar; var nSize: DWORD): BOOL;
 begin
-  Result:=Tnt_GetUserNameW(lpBuffer,nSize);
+  Result:=GetUserNameW(lpBuffer,nSize);
 end;
 
 //******************************************************************************
@@ -420,12 +420,9 @@ begin
 end;
 
 initialization
-  HKernel32_dll:=LoadLibrary('kernel32.dll');
-  GetVolumePathName:=GetProcAddress(HKernel32_dll,'GetVolumePathNameW');
-  GetVolumeNameForVolumeMountPoint:=GetProcAddress(HKernel32_dll,'GetVolumeNameForVolumeMountPointW');
-  GetSystemDefaultUILanguage:=GetProcAddress(HKernel32_dll,'GetSystemDefaultUILanguage');
+  GetVolumePathName:=GetProcAddress(GetModuleHandle('kernel32.dll'),'GetVolumePathNameW');
+  GetVolumeNameForVolumeMountPoint:=GetProcAddress(GetModuleHandle('kernel32.dll'),'GetVolumeNameForVolumeMountPointW');
+  GetSystemDefaultUILanguage:=GetProcAddress(GetModuleHandle('kernel32.dll'),'GetSystemDefaultUILanguage');
 
-finalization
-  FreeLibrary(HKernel32_dll);
 
 end.

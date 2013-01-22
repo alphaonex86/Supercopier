@@ -1,18 +1,20 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 }
 
 unit SCLocStrings;
+
+{$MODE Delphi}
 
 interface
 
@@ -93,14 +95,14 @@ lsAPIAlreadyRunning:WideString='API is already running for the current session';
 lsShellExtCopyHere:WideString='SuperCopier copy here';
 lsShellExtMoveHere:WideString='SuperCopier move here';
 
-lsAlreadyRunningText:WideString='%s'+#13#10+'You can''t run SuperCopier 2 more than once per session';
-lsAlreadyRunningCaption:WideString='SuperCopier 2 is already running';
+lsAlreadyRunningText:WideString='%s'+#13#10+'You can''t run SuperCopier more than once per session';
+lsAlreadyRunningCaption:WideString='SuperCopier is already running';
 
 lsUnknown:WideString='Unknown';
 
 procedure TranslateAllStrings;
 
-// /!\ Toujours ajouter les chaines à la fin et remplacer celles enlevées par des lsDummy !!!!
+// /!\ Toujours ajouter les chaines Ð° la fin et remplacer celles enlevÐ¹es par des lsDummy !!!!
 const LOC_STRINGS_ARRAY:array[1..57] of PWideString=(
   @lsCopyDisplayName,
   @lsMoveDisplayName,

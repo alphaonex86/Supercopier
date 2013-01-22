@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,36 +14,41 @@
 
 unit SCMainForm;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics,  TntForms,
-  Dialogs, StdCtrls,filectrl,TntSysUtils,TntStdCtrls,ShellApi, Controls,
-  ComCtrls, TntComCtrls, XPMan, ScSystray, Menus, TntMenus, ImgList,
-  Buttons, TntButtons,SCConfigShared,SCLocEngine,SCAPI;
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics,  Forms,
+  Dialogs, StdCtrls,filectrl, Controls,
+  ComCtrls, {XPMan,} Menus, ImgList,   ExtCtrls,
+  Buttons, SCConfigShared,SCLocEngine,SCAPI, Windows;
 
 const
   CANCEL_TIMEOUT=5000; //ms
 
 type
-  TMainForm = class(TTntForm)
-    XPManifest: TXPManifest;
-    Systray: TScSystray;
-    pmSystray: TTntPopupMenu;
-    miActivate: TTntMenuItem;
-    N1: TTntMenuItem;
-    miConfig: TTntMenuItem;
-    miAbout: TTntMenuItem;
-    miExit: TTntMenuItem;
-    N2: TTntMenuItem;
-    miNewThread: TTntMenuItem;
-    miNewCopyThread: TTntMenuItem;
-    miNewMoveThread: TTntMenuItem;
-    miThreadList: TTntMenuItem;
-    miNoThreadList: TTntMenuItem;
-    miDeactivate: TTntMenuItem;
-    miCancelAll: TTntMenuItem;
-    miCancelThread: TTntMenuItem;
+
+  { TMainForm }
+
+  TMainForm = class(TForm)
+//    XPManifest: TXPManifest;
+    Systray: TTrayIcon;//TTScSystray;
+    pmSystray: TPopupMenu;
+    miActivate: TMenuItem;
+    N1: TMenuItem;
+    miConfig: TMenuItem;
+    miAbout: TMenuItem;
+    miExit: TMenuItem;
+    N2: TMenuItem;
+    miNewThread: TMenuItem;
+    miNewCopyThread: TMenuItem;
+    miNewMoveThread: TMenuItem;
+    miThreadList: TMenuItem;
+    miNoThreadList: TMenuItem;
+    miDeactivate: TMenuItem;
+    miCancelAll: TMenuItem;
+    miCancelThread: TMenuItem;
     ilGlobal: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -58,12 +63,12 @@ type
     procedure miCancelThreadClick(Sender: TObject);
     procedure SystrayBallonClick(Sender: TObject);
   private
-    { Déclarations privées }
+    { DÐ¹clarations privÐ¹es }
     procedure UpdateSystrayIcon;
     procedure OpenDialog(var AMsg:TMessage); message WM_OPENDIALOG;
   public
-    { Déclarations publiques }
-    NotificationSourceForm:TTntForm;
+    { DÐ¹clarations publiques }
+    NotificationSourceForm:TForm;
     NotificationSourceThread:TThread;
   end;
 
@@ -72,12 +77,12 @@ var
 
 implementation
 uses SCConfig,SCCommon,SCWin32,SCCopyThread,SCBaseList,SCFileList,SCDirList,SCWorkThreadList,
-  Forms,SCConfigForm,SCAboutForm,SCLocStrings,SCCopyForm, Math;
-{$R *.dfm}
+  SCConfigForm,SCAboutForm,SCLocStrings,SCCopyForm, Math;
+{$R *.lfm}
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  Windows.SetParent(Handle,THandle(HWND_MESSAGE)); // cacher la form
+  Windows.SetParent(Handle,THANDLE(-3{HWND_MESSAGE})); // cacher la form
   Caption:=SC2_MAINFORM_CAPTION;
 
   WorkThreadList:=TWorkThreadList.Create;
@@ -87,7 +92,7 @@ begin
   OpenConfig;
   ApplyConfig;
 
-  Systray.Hint:='SuperCopier 2';
+  Systray.Hint:='SuperCopier';
   UpdateSystrayIcon;
 
   try
@@ -170,17 +175,17 @@ end;
 
 procedure TMainForm.miThreadListClick(Sender: TObject);
 var i:Integer;
-    MenuItem,CancelSubItem:TTntMenuItem;
+    MenuItem,CancelSubItem:TMenuItem;
 begin
   for i:=0 to WorkThreadList.Count-1 do
   begin
-    MenuItem:=TTntMenuItem.Create(pmSystray);
+    MenuItem:=TMenuItem.Create(pmSystray);
     MenuItem.Caption:=WorkThreadList[i].DisplayName;
     MenuItem.ImageIndex:=miThreadList.ImageIndex;
     MenuItem.Tag:=i;
     miThreadList.Add(MenuItem);
 
-    CancelSubItem:=TTntMenuItem.Create(pmSystray);
+    CancelSubItem:=TMenuItem.Create(pmSystray);
     CancelSubItem.Caption:=miCancelThread.Caption;
     CancelSubItem.OnClick:=miCancelThread.OnClick;
     CancelSubItem.ImageIndex:=miCancelThread.ImageIndex;
@@ -221,24 +226,31 @@ begin
 end;
 
 //******************************************************************************
-// UpdateSystrayIcon: change l'icône du systray en fonction de l'état d'activation
+// UpdateSystrayIcon: change l'icÑ„ne du systray en fonction de l'Ð¹tat d'activation
 //******************************************************************************
 procedure TMainForm.UpdateSystrayIcon;
-var TmpIcon:TIcon;
+var
     Idx:Integer;
+    Bmp: graphics.TBitmap;
+    PluginLoader: CPluginLoader;
 begin
-  TmpIcon:=TIcon.Create;
+  Bmp := graphics.TBitmap.Create;
   try
     if Assigned(API) and API.Enabled then Idx:=28 else Idx:=29;
-    ilGlobal.GetIcon(Idx,TmpIcon);
-    Systray.Icone:=TmpIcon;
+    PluginLoader := CPluginLoader.Create();
+    PluginLoader.SetEnabled(Assigned(API) and API.Enabled);
+    PluginLoader.Free;
+    PluginLoader := nil;
+    ilGlobal.GetBitmap(Idx, Bmp);
+    Systray.Icon.Assign(Bmp);
+    Systray.Show;
   finally
-    TmpIcon.Free;
+    Bmp.Free;
   end;
 end;
 
 //******************************************************************************
-// OpenDialog: gère les messages envoyés par SC2Config
+// OpenDialog: gÐ¸re les messages envoyÐ¹s par SC2Config
 //******************************************************************************
 procedure TMainForm.OpenDialog(var AMsg:TMessage);
 var APoint: TPoint;

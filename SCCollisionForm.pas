@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,45 +14,47 @@
 
 unit SCCollisionForm;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,TntForms,
-  Dialogs, StdCtrls, TntStdCtrls, ExtCtrls, TntExtCtrls,SCCopier,SCCommon,
-  SCFileNameLabel, Menus, TntMenus, ScPopupButton,SCLocEngine;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls,  ExtCtrls, SCCopier,SCCommon,
+  SCFileNameLabel, Menus,  ScPopupButton,SCLocEngine;
 
 type
-  TCollisionForm = class(TTntForm)
-    imIcon: TTntImage;
-    llCollisionText1: TTntLabel;
-    llSourceTitle: TTntLabel;
-    llDestiationTitle: TTntLabel;
-    llCollisionText2: TTntLabel;
-    llSourceData: TTntLabel;
-    llDestinationData: TTntLabel;
+  TCollisionForm = class(TForm)
+    imIcon: TImage;
+    llCollisionText1: TLabel;
+    llSourceTitle: TLabel;
+    llDestiationTitle: TLabel;
+    llCollisionText2: TLabel;
+    llSourceData: TLabel;
+    llDestinationData: TLabel;
     llFileName: TSCFileNameLabel;
     btCancel: TScPopupButton;
     btSkip: TScPopupButton;
     btOverwrite: TScPopupButton;
     btResume: TScPopupButton;
     btRename: TScPopupButton;
-    pmSkip: TTntPopupMenu;
-    pmResume: TTntPopupMenu;
-    pmOverwrite: TTntPopupMenu;
-    pmRename: TTntPopupMenu;
-    Skip1: TTntMenuItem;
-    Alwaysskip1: TTntMenuItem;
-    Resume1: TTntMenuItem;
-    Alwaysresume1: TTntMenuItem;
-    Overwrite1: TTntMenuItem;
-    Overwtiteisdifferent1: TTntMenuItem;
-    Alwaysoverwrite1: TTntMenuItem;
-    Alwaysoverwriteifdifferent1: TTntMenuItem;
-    Rename1: TTntMenuItem;
-    Renameoldfile1: TTntMenuItem;
-    Customrename1: TTntMenuItem;
-    Alwaysrename1: TTntMenuItem;
-    Alwaysrenameoldfile1: TTntMenuItem;
+    pmSkip: TPopupMenu;
+    pmResume: TPopupMenu;
+    pmOverwrite: TPopupMenu;
+    pmRename: TPopupMenu;
+    Skip1: TMenuItem;
+    Alwaysskip1: TMenuItem;
+    Resume1: TMenuItem;
+    Alwaysresume1: TMenuItem;
+    Overwrite1: TMenuItem;
+    Overwtiteisdifferent1: TMenuItem;
+    Alwaysoverwrite1: TMenuItem;
+    Alwaysoverwriteifdifferent1: TMenuItem;
+    Rename1: TMenuItem;
+    Renameoldfile1: TMenuItem;
+    Customrename1: TMenuItem;
+    Alwaysrename1: TMenuItem;
+    Alwaysrenameoldfile1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btSkipClick(Sender: TObject; ItemIndex: Integer);
@@ -61,10 +63,10 @@ type
     procedure btCancelClick(Sender: TObject; ItemIndex: Integer);
     procedure btRenameClick(Sender: TObject; ItemIndex: Integer);
   private
-    { Déclarations privées }
+    { DÐ¹clarations privÐ¹es }
     procedure DisableButtons;
   public
-    { Déclarations publiques }
+    { DÐ¹clarations publiques }
     Action:TCollisionAction;
     SameForNext:Boolean;
     FileName:WideString;
@@ -76,7 +78,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 uses SCCollisionRenameForm, DateUtils,SCMainForm;
 
@@ -93,11 +95,11 @@ procedure TCollisionForm.FormCreate(Sender: TObject);
 begin
   LocEngine.TranslateForm(Self);
 
-  //HACK: ne pas mettre directement la fenêtre en resizeable pour que
+  //HACK: ne pas mettre directement la fenÐºtre en resizeable pour que
   //      la gestion des grandes polices puisse la redimentionner
   BorderStyle:=bsSizeToolWin;
 
-  // empécher le resize vertical
+  // empÐ¹cher le resize vertical
   Constraints.MaxHeight:=Height;
   Constraints.MinHeight:=Height;
 

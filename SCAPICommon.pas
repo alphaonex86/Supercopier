@@ -1,18 +1,20 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 }
 
 unit SCAPICommon;
+
+{$MODE Delphi}
 
 interface
 
@@ -44,12 +46,12 @@ type
   end;
 
 const
-  SC2_API_ID='SuperCopier2 API';
-  SC2_API_SEMAPHORE_ID='Semaphore'; // le sémaphore est utilisé pour s'assurer qu'une seule instance de l'API tourne pour une session
-  SC2_API_MUTEX_ID='Mutex'; // le mutex est utilisé pour empécher 2 clients utilisant l'API de se corrompre mutuellement
-  SC2_API_FILEMAPPING_ID='FileMapping'; // le filemapping est utilisé pour transférer des données depuis et vers les clients utilisant l'API
-  SC2_API_CLIENTEVENT_ID='ClientEvent'; // l'event est utilisé pour notifier que des données d'un client sont prêtes dans le filemapping
-  SC2_API_APIEVENT_ID='APIEvent'; // l'event est utilisé pour notifier que des données de l'API sont prêtes dans le filemapping
+  SC2_API_ID='SuperCopier API';
+  SC2_API_SEMAPHORE_ID='Semaphore'; // le sÐ¹maphore est utilisÐ¹ pour s'assurer qu'une seule instance de l'API tourne pour une session
+  SC2_API_MUTEX_ID='Mutex'; // le mutex est utilisÐ¹ pour empÐ¹cher 2 clients utilisant l'API de se corrompre mutuellement
+  SC2_API_FILEMAPPING_ID='FileMapping'; // le filemapping est utilisÐ¹ pour transfÐ¹rer des donnÐ¹es depuis et vers les clients utilisant l'API
+  SC2_API_CLIENTEVENT_ID='ClientEvent'; // l'event est utilisÐ¹ pour notifier que des donnÐ¹es d'un client sont prÐºtes dans le filemapping
+  SC2_API_APIEVENT_ID='APIEvent'; // l'event est utilisÐ¹ pour notifier que des donnÐ¹es de l'API sont prÐºtes dans le filemapping
 
   SC2_API_FILEMAPPING_SIZE=128*1024;
 

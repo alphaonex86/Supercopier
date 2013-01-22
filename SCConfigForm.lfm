@@ -1,0 +1,1102 @@
+object ConfigForm: TConfigForm
+  Left = 386
+  Height = 394
+  Top = 349
+  Width = 607
+  BorderStyle = bsDialog
+  Caption = 'Configuration'
+  ClientHeight = 394
+  ClientWidth = 607
+  Color = clBtnFace
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  FormStyle = fsStayOnTop
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '1.0.4.0'
+  object lvSections: TListView
+    Left = 0
+    Height = 367
+    Top = 0
+    Width = 161
+    Columns = <    
+      item
+        AutoSize = True
+        Width = 157
+      end>
+    HideSelection = False
+    Items.LazData = {
+      F00000000700000000000000FFFFFFFFFFFFFFFF00000000080000004C616E67
+      7561676500000000FFFFFFFFFFFFFFFF00000000070000005374617274757000
+      000000FFFFFFFFFFFFFFFF000000000E0000005573657220696E746572666163
+      6500000000FFFFFFFFFFFFFFFF0000000017000000436F706965732026206D6F
+      7665732064656661756C747300000000FFFFFFFFFFFFFFFF0000000017000000
+      436F706965732026206D6F766573206265686176696F7200000000FFFFFFFFFF
+      FFFFFF00000000090000004572726F72206C6F6700000000FFFFFFFFFFFFFFFF
+      0000000008000000416476616E636564
+    }
+    ReadOnly = True
+    RowSelect = True
+    ShowColumnHeaders = False
+    TabOrder = 0
+    ViewStyle = vsReport
+    OnChange = lvSectionsChange
+  end
+  object pcSections: TPageControl
+    Left = 160
+    Height = 369
+    Top = 0
+    Width = 447
+    ActivePage = tsAdvanced
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 6
+    TabOrder = 1
+    TabPosition = tpBottom
+    OnChange = pcSectionsChange
+    object tsLanguage: TTabSheet
+      Caption = 'tsLanguage'
+      ClientHeight = 343
+      ClientWidth = 439
+      TabVisible = False
+      object gbLanguage: TGroupBox
+        Left = 8
+        Height = 62
+        Top = 3
+        Width = 425
+        Caption = 'Language'
+        ClientHeight = 44
+        ClientWidth = 421
+        TabOrder = 0
+        object llLanguage: TLabel
+          Left = 8
+          Height = 14
+          Top = 8
+          Width = 93
+          Caption = 'Interface language:'
+          ParentColor = False
+        end
+        object llLanguageInfo: TLabel
+          Left = 8
+          Height = 14
+          Top = 26
+          Width = 300
+          Caption = '(English (default) won''t be applied until you restart SuperCopier.)'
+          ParentColor = False
+        end
+        object cbLanguage: TComboBox
+          Left = 216
+          Height = 21
+          Top = 3
+          Width = 201
+          ItemHeight = 13
+          Style = csDropDownList
+          TabOrder = 0
+        end
+      end
+    end
+    object tsStartup: TTabSheet
+      Caption = 'tsStartup'
+      ClientHeight = 343
+      ClientWidth = 439
+      TabVisible = False
+      object gbStartup: TGroupBox
+        Left = 8
+        Height = 67
+        Top = 3
+        Width = 425
+        Caption = 'Startup'
+        ClientHeight = 49
+        ClientWidth = 421
+        TabOrder = 0
+        object chStartWithWindows: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 2
+          Width = 143
+          Caption = 'Start when windows starts'
+          TabOrder = 0
+        end
+        object chActivateOnStart: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 26
+          Width = 185
+          Caption = 'Activate SuperCopier when it starts'
+          TabOrder = 1
+        end
+      end
+    end
+    object tsUI: TTabSheet
+      Caption = 'tsUI'
+      ClientHeight = 343
+      ClientWidth = 439
+      TabVisible = False
+      object gbTaskbar: TGroupBox
+        Left = 8
+        Height = 112
+        Top = 3
+        Width = 425
+        Caption = 'Taskbar && system tray'
+        ClientHeight = 94
+        ClientWidth = 421
+        TabOrder = 0
+        object llMinimizedEventHandling: TLabel
+          Left = 9
+          Height = 14
+          Top = 49
+          Width = 251
+          Caption = 'When there is an event and the window is minimized:'
+          ParentColor = False
+        end
+        object chTrayIcon: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 3
+          Width = 197
+          Caption = 'Show SuperCopier icon in system tray'
+          TabOrder = 0
+        end
+        object cbMinimize: TComboBox
+          Left = 8
+          Height = 21
+          Top = 24
+          Width = 409
+          ItemHeight = 13
+          Items.Strings = (
+            'Minimize windows to system tray and set them as always on top'
+            'Minimize windows to taskbar'
+          )
+          OnClick = cbMinimizeClick
+          Style = csDropDownList
+          TabOrder = 1
+        end
+        object cbMinimizedEventHandling: TComboBox
+          Left = 8
+          Height = 21
+          Top = 68
+          Width = 409
+          ItemHeight = 13
+          Items.Strings = (
+            'Do nothing (wait for the window to be restored)'
+            'Display a balloon notification (will not work on Windows 98,95 & NT4)'
+            'Popup the event window'
+          )
+          Style = csDropDownList
+          TabOrder = 2
+        end
+      end
+      object gbCWAppearance: TGroupBox
+        Left = 8
+        Height = 90
+        Top = 119
+        Width = 425
+        Caption = 'Copy window appearance'
+        ClientHeight = 72
+        ClientWidth = 421
+        TabOrder = 1
+        object chCWSavePosition: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 28
+          Width = 149
+          Caption = 'Save copy window position'
+          TabOrder = 1
+        end
+        object chCWSaveSize: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 52
+          Width = 131
+          Caption = 'Save copy window size'
+          TabOrder = 2
+        end
+        object chCWStartMinimized: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 4
+          Width = 211
+          Caption = 'Start copies with copy window minimized'
+          TabOrder = 0
+        end
+      end
+      object gbSizeUnit: TGroupBox
+        Left = 8
+        Height = 45
+        Top = 213
+        Width = 425
+        Caption = 'Size unit'
+        ClientHeight = 27
+        ClientWidth = 421
+        TabOrder = 2
+        object llSizeUnit: TLabel
+          Left = 8
+          Height = 14
+          Top = 4
+          Width = 146
+          Caption = 'Use this unit to display file size:'
+          ParentColor = False
+        end
+        object cbSizeUnit: TComboBox
+          Left = 216
+          Height = 21
+          Top = 0
+          Width = 201
+          ItemHeight = 13
+          Items.Strings = (
+            'Auto'
+            'Bytes'
+            'KB (Kilobytes)'
+            'MB (Megabytes)'
+            'GB (Gigabytes)'
+          )
+          Style = csDropDownList
+          TabOrder = 0
+        end
+      end
+      object gbProgressrar: TGroupBox
+        Left = 8
+        Height = 96
+        Top = 262
+        Width = 426
+        Caption = 'Progress bars'
+        ClientHeight = 78
+        ClientWidth = 422
+        TabOrder = 3
+        object llProgressFG: TLabel
+          Left = 6
+          Height = 14
+          Top = 18
+          Width = 89
+          Caption = 'Foreground colors:'
+          ParentColor = False
+        end
+        object llProgressBG: TLabel
+          Left = 116
+          Height = 14
+          Top = 18
+          Width = 93
+          Caption = 'Background colors:'
+          ParentColor = False
+        end
+        object llProgressBorder: TLabel
+          Left = 338
+          Height = 14
+          Top = 18
+          Width = 61
+          Caption = 'Border color:'
+          ParentColor = False
+        end
+        object ggProgress: TSCProgessBar
+          Left = 6
+          Height = 17
+          Top = -2
+          Width = 411
+          BorderColor = clBlack
+          FrontColor1 = clRed
+          FrontColor2 = clBlue
+          BackColor1 = clGray
+          BackColor2 = clWhite
+          FontProgress.Color = clWhite
+          FontProgress.Height = -11
+          FontProgress.Name = 'MS Sans Serif'
+          FontProgress.Style = [fsBold]
+          FontProgressColor = clBlack
+          FontTxt.Color = clWhite
+          FontTxt.Height = -11
+          FontTxt.Name = 'MS Sans Serif'
+          FontTxtColor = clBlack
+          Max = 100
+          Position = 50
+          TimeRemaining = '00:00:00 Remaining'
+        end
+        object llProgressText: TLabel
+          Left = 227
+          Height = 14
+          Top = 18
+          Width = 56
+          Caption = 'Text colors:'
+          ParentColor = False
+        end
+        object btProgressFG1: TButton
+          Left = 6
+          Height = 25
+          Top = 36
+          Width = 48
+          Caption = 'Edges'
+          OnClick = btProgressFG1Click
+          TabOrder = 0
+        end
+        object bgProgressFG2: TButton
+          Left = 54
+          Height = 25
+          Top = 36
+          Width = 48
+          Caption = 'Middle'
+          OnClick = bgProgressFG2Click
+          TabOrder = 1
+        end
+        object btProgressBG1: TButton
+          Left = 116
+          Height = 25
+          Top = 36
+          Width = 48
+          Caption = 'Edges'
+          OnClick = btProgressBG1Click
+          TabOrder = 2
+        end
+        object btProgressBG2: TButton
+          Left = 164
+          Height = 25
+          Top = 36
+          Width = 48
+          Caption = 'Middle'
+          OnClick = btProgressBG2Click
+          TabOrder = 3
+        end
+        object btProgressBorder: TButton
+          Left = 338
+          Height = 25
+          Top = 36
+          Width = 48
+          Caption = 'Border'
+          OnClick = btProgressBorderClick
+          TabOrder = 6
+        end
+        object btProgressOutline: TButton
+          Left = 275
+          Height = 25
+          Top = 36
+          Width = 48
+          Caption = 'Outline'
+          OnClick = btProgressOutlineClick
+          TabOrder = 5
+        end
+        object btProgressText: TButton
+          Left = 227
+          Height = 25
+          Top = 36
+          Width = 48
+          Caption = 'Text'
+          OnClick = btProgressTextClick
+          TabOrder = 4
+        end
+      end
+    end
+    object tsCWDefaults: TTabSheet
+      Caption = 'tsCWDefaults'
+      ClientHeight = 343
+      ClientWidth = 439
+      TabVisible = False
+      object gbCopyEnd: TGroupBox
+        Left = 8
+        Height = 44
+        Top = 3
+        Width = 425
+        Caption = 'Copy end'
+        ClientHeight = 26
+        ClientWidth = 421
+        TabOrder = 0
+        object llCopyEnd: TLabel
+          Left = 8
+          Height = 14
+          Top = 3
+          Width = 109
+          Caption = 'At the end of the copy:'
+          ParentColor = False
+        end
+        object cbCopyEnd: TComboBox
+          Left = 216
+          Height = 21
+          Top = -2
+          Width = 201
+          ItemHeight = 13
+          ItemIndex = 0
+          Items.Strings = (
+            'Close the window'
+            'Don''t close the window'
+            'Don''t close if there was errors'
+          )
+          Style = csDropDownList
+          TabOrder = 0
+          Text = 'Close the window'
+        end
+      end
+      object gbSpeedLimit: TGroupBox
+        Left = 8
+        Height = 44
+        Top = 51
+        Width = 425
+        Caption = 'Speed limit'
+        ClientHeight = 26
+        ClientWidth = 421
+        TabOrder = 1
+        object llCustomSpeedLimit: TLabel
+          Left = 397
+          Height = 14
+          Top = 17
+          Width = 15
+          Caption = 'KB'
+          Enabled = False
+          ParentColor = False
+        end
+        object llSpeedLimit: TLabel
+          Left = 338
+          Height = 13
+          Top = 2
+          Width = 73
+          Alignment = taRightJustify
+          AutoSize = False
+          Caption = 'llSpeedLimit'
+          Enabled = False
+          ParentColor = False
+          Visible = False
+        end
+        object chSpeedLimit: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 1
+          Width = 59
+          Caption = 'Enabled'
+          OnClick = chSpeedLimitClick
+          TabOrder = 0
+        end
+        object tbSpeedLimit: TScTrackBar
+          Left = 80
+          Height = 23
+          Top = -2
+          Width = 249
+          Max = 52
+          OnChange = tbSpeedLimitChange
+          Position = 0
+          TickMarks = tmBoth
+          TickStyle = tsNone
+          Enabled = False
+          TabOrder = 1
+        end
+        object edCustomSpeedLimit: TEdit
+          Left = 336
+          Height = 21
+          Top = -1
+          Width = 57
+          Enabled = False
+          OnKeyPress = NumbersOnly
+          TabOrder = 2
+          Text = 'edCustomSpeedLimit'
+        end
+      end
+      object gbCollisions: TGroupBox
+        Left = 8
+        Height = 44
+        Top = 99
+        Width = 425
+        Caption = 'File collisions'
+        ClientHeight = 26
+        ClientWidth = 421
+        TabOrder = 2
+        object llCollisions: TLabel
+          Left = 8
+          Height = 14
+          Top = 3
+          Width = 162
+          Caption = 'When a file already exists, always:'
+          ParentColor = False
+        end
+        object cbCollisions: TComboBox
+          Left = 216
+          Height = 21
+          Top = -1
+          Width = 201
+          ItemHeight = 13
+          ItemIndex = 0
+          Items.Strings = (
+            'Ask what to do'
+            'Cancel the whole copy'
+            'Skip'
+            'Resume transfer'
+            'Overwrite'
+            'Overwrite if different'
+            'Rename new file'
+            'Rename old file'
+          )
+          Style = csDropDownList
+          TabOrder = 0
+          Text = 'Ask what to do'
+        end
+      end
+      object gbCopyErrors: TGroupBox
+        Left = 8
+        Height = 72
+        Top = 147
+        Width = 425
+        Caption = 'Copy errors'
+        ClientHeight = 54
+        ClientWidth = 421
+        TabOrder = 3
+        object llCopyErrors: TLabel
+          Left = 8
+          Height = 14
+          Top = 3
+          Width = 167
+          Caption = 'When there is a copy error, always:'
+          ParentColor = False
+        end
+        object llRetryInterval: TLabel
+          Left = 8
+          Height = 14
+          Top = 31
+          Width = 156
+          Caption = 'Time to wait between two retries:'
+          ParentColor = False
+        end
+        object llRetryIntervalUnit: TLabel
+          Left = 304
+          Height = 14
+          Top = 31
+          Width = 58
+          Caption = 'Milliseconds'
+          ParentColor = False
+        end
+        object cbCopyError: TComboBox
+          Left = 216
+          Height = 21
+          Top = -1
+          Width = 201
+          ItemHeight = 13
+          ItemIndex = 0
+          Items.Strings = (
+            'Ask what to do'
+            'Cancel then whole copy'
+            'Skip'
+            'Retry'
+            'Put the file at the copy list bottom'
+          )
+          Style = csDropDownList
+          TabOrder = 0
+          Text = 'Ask what to do'
+        end
+        object edCopyErrorRetry: TEdit
+          Left = 216
+          Height = 21
+          Top = 27
+          Width = 81
+          TabOrder = 1
+        end
+      end
+    end
+    object tsCopy: TTabSheet
+      Caption = 'tsCopy'
+      ClientHeight = 343
+      ClientWidth = 439
+      TabVisible = False
+      object gbCLHandling: TGroupBox
+        Left = 8
+        Height = 106
+        Top = 3
+        Width = 425
+        Caption = 'New copy list handling'
+        ClientHeight = 88
+        ClientWidth = 421
+        TabOrder = 0
+        object llCLHandling: TLabel
+          Left = 8
+          Height = 14
+          Top = 2
+          Width = 238
+          Caption = 'Add new copy lists to allready copying ones when:'
+          ParentColor = False
+        end
+        object llCLHandlingInfo: TLabel
+          Left = 8
+          Height = 14
+          Top = 48
+          Width = 259
+          Caption = '(same source means, for example, same physical drive)'
+          ParentColor = False
+        end
+        object cbCLHandling: TComboBox
+          Left = 8
+          Height = 21
+          Top = 21
+          Width = 409
+          ItemHeight = 13
+          Items.Strings = (
+            'Never'
+            'Always'
+            'The source is the same'
+            'The destination is the same'
+            'The source and the destination are the same'
+            'The source or the destination are the same'
+          )
+          Style = csDropDownList
+          TabOrder = 0
+        end
+        object chCLHandlingConfirm: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 65
+          Width = 181
+          Caption = 'Ask for confirmation before adding'
+          TabOrder = 1
+        end
+      end
+      object gbAttributes: TGroupBox
+        Left = 8
+        Height = 67
+        Top = 113
+        Width = 425
+        Caption = 'Attributes && security'
+        ClientHeight = 49
+        ClientWidth = 421
+        TabOrder = 1
+        object llAttributesAndSecurityForCopies: TLabel
+          Left = 8
+          Height = 14
+          Top = 2
+          Width = 173
+          Caption = 'When a file or folder is copied, copy:'
+          ParentColor = False
+        end
+        object llAttributesAndSecurityForMoves: TLabel
+          Left = 8
+          Height = 14
+          Top = 26
+          Width = 173
+          Caption = 'When a file or folder is moved, copy:'
+          ParentColor = False
+        end
+        object chSaveAttributesOnCopy: TCheckBox
+          Left = 200
+          Height = 19
+          Top = 1
+          Width = 64
+          Caption = 'Attributes'
+          TabOrder = 0
+        end
+        object chSaveAttributesOnMove: TCheckBox
+          Left = 200
+          Height = 19
+          Top = 25
+          Width = 64
+          Caption = 'Attributes'
+          TabOrder = 2
+        end
+        object chSaveSecurityOnCopy: TCheckBox
+          Left = 312
+          Height = 19
+          Top = 1
+          Width = 58
+          Caption = 'Security'
+          TabOrder = 1
+        end
+        object chSaveSecurityOnMove: TCheckBox
+          Left = 312
+          Height = 19
+          Top = 25
+          Width = 58
+          Caption = 'Security'
+          TabOrder = 3
+        end
+      end
+      object gbDeleting: TGroupBox
+        Left = 8
+        Height = 67
+        Top = 184
+        Width = 425
+        Caption = 'Deleting'
+        ClientHeight = 49
+        ClientWidth = 421
+        TabOrder = 2
+        object chDeleteUnfinishedCopies: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 1
+          Width = 231
+          Caption = 'Delete files when they are not entirely copied'
+          OnClick = chDeleteUnfinishedCopiesClick
+          TabOrder = 0
+        end
+        object chDontDeleteOnCopyError: TCheckBox
+          Left = 32
+          Height = 19
+          Top = 25
+          Width = 252
+          Caption = 'Don''t delete them if it was caused by a copy error'
+          TabOrder = 1
+        end
+      end
+      object gbRenaming: TGroupBox
+        Left = 8
+        Height = 82
+        Top = 255
+        Width = 425
+        Caption = 'Renaming'
+        ClientHeight = 64
+        ClientWidth = 421
+        TabOrder = 4
+        object llRenameOld: TLabel
+          Left = 8
+          Height = 14
+          Top = 10
+          Width = 118
+          Caption = 'Old file renaming pattern:'
+          ParentColor = False
+        end
+        object llRenameNew: TLabel
+          Left = 8
+          Height = 14
+          Top = 38
+          Width = 124
+          Caption = 'New file renaming pattern:'
+          ParentColor = False
+        end
+        object edRenameOldPattern: TEdit
+          Left = 216
+          Height = 21
+          Top = 6
+          Width = 201
+          TabOrder = 0
+        end
+        object edRenameNewPattern: TEdit
+          Left = 216
+          Height = 21
+          Top = 34
+          Width = 201
+          TabOrder = 1
+        end
+      end
+      object btRenamingHelp: TButton
+        Left = 357
+        Height = 16
+        Top = 233
+        Width = 75
+        Caption = 'Help'
+        OnClick = btRenamingHelpClick
+        TabOrder = 3
+      end
+    end
+    object tsLog: TTabSheet
+      Caption = 'tsLog'
+      ClientHeight = 343
+      ClientWidth = 439
+      TabVisible = False
+      object gbErrorLog: TGroupBox
+        Left = 8
+        Height = 94
+        Top = 3
+        Width = 425
+        Caption = 'Error log'
+        ClientHeight = 76
+        ClientWidth = 421
+        TabOrder = 0
+        object llErrorLogAutoSaveMode: TLabel
+          Left = 32
+          Height = 14
+          Top = 27
+          Width = 49
+          Caption = 'Save it to:'
+          ParentColor = False
+        end
+        object llErrorLogFileName: TLabel
+          Left = 32
+          Height = 14
+          Top = 53
+          Width = 136
+          Caption = 'Filename (and maybe folder):'
+          ParentColor = False
+        end
+        object cbErrorLogAutoSaveMode: TComboBox
+          Left = 216
+          Height = 21
+          Top = 22
+          Width = 201
+          ItemHeight = 13
+          Items.Strings = (
+            'The destination folder'
+            'The source folder'
+            'A custom folder'
+          )
+          OnChange = cbErrorLogAutoSaveModeChange
+          Style = csDropDownList
+          TabOrder = 0
+        end
+        object chErrorLogAutoSave: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 2
+          Width = 167
+          Caption = 'Automatically save the error log'
+          OnClick = chErrorLogAutoSaveClick
+          TabOrder = 1
+        end
+        object edErrorLogFileName: TEdit
+          Left = 216
+          Height = 21
+          Top = 49
+          Width = 169
+          OnKeyPress = FileNameOnly
+          TabOrder = 2
+        end
+        object btELFNBrowse: TButton
+          Left = 392
+          Height = 21
+          Top = 49
+          Width = 26
+          Caption = '...'
+          OnClick = btELFNBrowseClick
+          TabOrder = 3
+        end
+      end
+    end
+    object tsAdvanced: TTabSheet
+      Caption = 'tsAdvanced'
+      ClientHeight = 343
+      ClientWidth = 439
+      TabVisible = False
+      object gbPriority: TGroupBox
+        Left = 8
+        Height = 44
+        Top = 3
+        Width = 425
+        Caption = 'Priority'
+        ClientHeight = 26
+        ClientWidth = 421
+        TabOrder = 0
+        object llPriority: TLabel
+          Left = 8
+          Height = 14
+          Top = 5
+          Width = 135
+          Caption = 'SuperCopier process priority:'
+          ParentColor = False
+        end
+        object cbPriority: TComboBox
+          Left = 216
+          Height = 21
+          Top = 0
+          Width = 201
+          ItemHeight = 13
+          Items.Strings = (
+            'Idle'
+            'Normal'
+            'High'
+          )
+          Style = csDropDownList
+          TabOrder = 0
+        end
+      end
+      object gbAdvanced: TGroupBox
+        Left = 7
+        Height = 198
+        Top = 52
+        Width = 425
+        Caption = 'Advanced parameters'
+        ClientHeight = 180
+        ClientWidth = 421
+        TabOrder = 2
+        object llCopyBufferSize: TLabel
+          Left = 8
+          Height = 14
+          Top = 5
+          Width = 79
+          Caption = 'Copy buffer size:'
+          ParentColor = False
+        end
+        object llCopyBufferSizeUnit: TLabel
+          Left = 304
+          Height = 14
+          Top = 5
+          Width = 27
+          Caption = 'Bytes'
+          ParentColor = False
+        end
+        object llCopyWindowUpdateInterval: TLabel
+          Left = 8
+          Height = 14
+          Top = 34
+          Width = 140
+          Caption = 'Copy window update interval:'
+          ParentColor = False
+        end
+        object llCopyWindowUpdateIntervalUnit: TLabel
+          Left = 304
+          Height = 14
+          Top = 34
+          Width = 58
+          Caption = 'Milliseconds'
+          ParentColor = False
+        end
+        object llCopySpeedAveragingInterval: TLabel
+          Left = 8
+          Height = 14
+          Top = 63
+          Width = 147
+          Caption = 'Copy speed averaging interval:'
+          ParentColor = False
+        end
+        object llCopySpeedAveragingIntervalUnit: TLabel
+          Left = 304
+          Height = 14
+          Top = 63
+          Width = 58
+          Caption = 'Milliseconds'
+          ParentColor = False
+        end
+        object llCopyThrottleInterval: TLabel
+          Left = 8
+          Height = 14
+          Top = 92
+          Width = 100
+          Caption = 'Copy throttle interval:'
+          ParentColor = False
+        end
+        object llCopyThrottleIntervalUnit: TLabel
+          Left = 304
+          Height = 14
+          Top = 92
+          Width = 58
+          Caption = 'Milliseconds'
+          ParentColor = False
+        end
+        object edCopyBufferSize: TEdit
+          Left = 216
+          Height = 21
+          Top = 1
+          Width = 81
+          OnKeyPress = NumbersOnly
+          TabOrder = 0
+        end
+        object edCopyWindowUpdateInterval: TEdit
+          Left = 216
+          Height = 21
+          Top = 30
+          Width = 81
+          OnKeyPress = NumbersOnly
+          TabOrder = 1
+        end
+        object edCopySpeedAveragingInterval: TEdit
+          Left = 216
+          Height = 21
+          Top = 59
+          Width = 81
+          OnKeyPress = NumbersOnly
+          TabOrder = 2
+        end
+        object edCopyThrottleInterval: TEdit
+          Left = 216
+          Height = 21
+          Top = 88
+          Width = 81
+          OnKeyPress = NumbersOnly
+          TabOrder = 3
+        end
+        object chFastFreeSpaceCheck: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 119
+          Width = 341
+          Caption = 'Fast free space check (can have problems with NTFS mount points)'
+          TabOrder = 4
+        end
+        object chFailSafeCopier: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 139
+          Width = 305
+          Caption = 'Use a failsafe copier (buffered copy and no unicode support)'
+          TabOrder = 5
+        end
+        object chCopyResumeNoAgeVerification: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 159
+          Width = 297
+          Caption = 'Do not check for same file age before resuming file transfer'
+          TabOrder = 6
+        end
+      end
+      object btAdvancedHelp: TButton
+        Left = 356
+        Height = 16
+        Top = 60
+        Width = 75
+        Caption = 'Help'
+        OnClick = btAdvancedHelpClick
+        TabOrder = 1
+      end
+    end
+  end
+  object btCancel: TButton
+    Left = 446
+    Height = 25
+    Top = 368
+    Width = 76
+    Anchors = [akRight, akBottom]
+    Cancel = True
+    Caption = 'Cancel'
+    OnClick = btCancelClick
+    TabOrder = 3
+  end
+  object btOk: TButton
+    Left = 362
+    Height = 25
+    Top = 368
+    Width = 76
+    Anchors = [akRight, akBottom]
+    Caption = 'OK'
+    Default = True
+    OnClick = btOkClick
+    TabOrder = 2
+  end
+  object btApply: TButton
+    Left = 530
+    Height = 25
+    Top = 368
+    Width = 76
+    Anchors = [akRight, akBottom]
+    Caption = 'Apply'
+    OnClick = btApplyClick
+    TabOrder = 4
+  end
+  object odLog: TOpenDialog
+    DefaultExt = '.txt'
+    Filter = 'Any file (*.*)'
+    Options = [ofHideReadOnly, ofPathMustExist, ofEnableSizing]
+    top = 368
+  end
+  object odProcesses: TOpenDialog
+    DefaultExt = '.exe'
+    Filter = 'Process (*.exe)|*.exe'
+    left = 32
+    top = 368
+  end
+  object cdProgress: TColorDialog
+    Color = clBlack
+    CustomColors.Strings = (
+      'ColorA=000000'
+      'ColorB=000080'
+      'ColorC=008000'
+      'ColorD=008080'
+      'ColorE=800000'
+      'ColorF=800080'
+      'ColorG=808000'
+      'ColorH=808080'
+      'ColorI=C0C0C0'
+      'ColorJ=0000FF'
+      'ColorK=00FF00'
+      'ColorL=00FFFF'
+      'ColorM=FF0000'
+      'ColorN=FF00FF'
+      'ColorO=FFFF00'
+      'ColorP=FFFFFF'
+      'ColorQ=C0DCC0'
+      'ColorR=F0CAA6'
+      'ColorS=F0FBFF'
+      'ColorT=A4A0A0'
+    )
+    left = 64
+    top = 368
+  end
+end

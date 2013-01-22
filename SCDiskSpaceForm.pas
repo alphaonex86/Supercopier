@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,19 +14,21 @@
 
 unit SCDiskSpaceForm;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,TntForms,
-  Dialogs, StdCtrls, TntStdCtrls, ComCtrls, TntComCtrls, ExtCtrls,
-  TntExtCtrls,SCCommon, ScPopupButton,SCLocEngine;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls,  ComCtrls,  ExtCtrls,
+  SCCommon, ScPopupButton,SCLocEngine;
 
 type
-  TDiskSpaceForm = class(TTntForm)
-    llDiskSpaceText1: TTntLabel;
-    lvDiskSpace: TTntListView;
-    llDiskSpaceText2: TTntLabel;
-    imIcon: TTntImage;
+  TDiskSpaceForm = class(TForm)
+    llDiskSpaceText1: TLabel;
+    lvDiskSpace: TListView;
+    llDiskSpaceText2: TLabel;
+    imIcon: TImage;
     btCancel: TScPopupButton;
     btForce: TScPopupButton;
     procedure FormCreate(Sender: TObject);
@@ -34,10 +36,10 @@ type
     procedure btForceClick(Sender: TObject; ItemIndex: Integer);
     procedure btCancelClick(Sender: TObject; ItemIndex: Integer);
   private
-    { Déclarations privées }
+    { DÐ¹clarations privÐ¹es }
     procedure DisableButtons;
   public
-    { Déclarations publiques }
+    { DÐ¹clarations publiques }
     Action:TDiskSpaceAction;
   end;
 
@@ -46,7 +48,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TDiskSpaceForm.DisableButtons;
 begin

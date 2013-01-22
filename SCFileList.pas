@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,8 +14,10 @@
 
 unit SCFileList;
 
+{$MODE Delphi}
+
 interface
-uses SCCommon,SCDirList,Classes,SCObjectThreadList;
+uses SCCommon,SCDirList,Classes,SCObjectThreadList, FileUtil, Windows;
 
 const
   FILELIST_DATA_VERSION=001;
@@ -81,14 +83,14 @@ type
 
 implementation
 
-uses SCWin32,SysUtils,TntSysUtils,Windows, Contnrs, Math;
+uses SCWin32,SysUtils,LCLIntf, LCLType, LMessages, Contnrs, Math;
 
 function FLSortCompare(Item1,Item2:Pointer):Integer;forward;
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TFileItem: fichier à copier
+// TFileItem: fichier Ð° copier
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -99,7 +101,7 @@ begin
   // version 1
     // On ne peut pas sauvegarder un pointeur, on sauvegarde l'index a la place
     // L'index commence de la fin de la liste pour pouvoir retrouver le DirItem
-    // au chargement alors que la DirList est déjà chargée
+    // au chargement alors que la DirList est dÐ¹jÐ° chargÐ¹e
   Idx:=Owner.FDirList.Count-1-Owner.FDirList.IndexOf(Directory);
   TheStream.Write(Idx,SizeOf(Integer));
 
@@ -120,8 +122,8 @@ begin
   if Version>=001 then
   begin
     TheStream.Read(Idx,SizeOf(Integer));
-      // on récupère le DirItem en retranchant à l'index du dernier item de DirList
-      // l'index sauvegardé
+      // on rÐ¹cupÐ¸re le DirItem en retranchant Ð° l'index du dernier item de DirList
+      // l'index sauvegardÐ¹
     Directory:=Owner.FDirList[BaseDirListIndex-Idx];
 
 
@@ -155,27 +157,27 @@ end;
 
 function TFileItem.SrcAge:Integer;
 begin
-	Result:=WideFileAge(SrcFullName);
+	Result:=FileAge(SrcFullName);
 end;
 
 function TFileItem.DestAge:Integer;
 begin
-	Result:=WideFileAge(DestFullName);
+	Result:=FileAge(DestFullName);
 end;
 
 function TFileItem.DestExists:Boolean;
 begin
-	Result:=WideFileAge(DestFullName)<>-1;
+	Result:=FileAge(DestFullName)<>-1;
 end;
 
 function TFileItem.SrcExists: Boolean;
 begin
-	Result:=WideFileAge(SrcFullName)<>-1;
+	Result:=FileAge(SrcFullName)<>-1;
 end;
 
 function TFileItem.DestIsSameFile:Boolean;
 begin
-	// Deux fichiers sont considérés identiques lorsque ils ont la même taille et la même date de dernière modif
+	// Deux fichiers sont considÐ¹rÐ¹s identiques lorsque ils ont la mÐºme taille et la mÐºme date de derniÐ¸re modif
 	Result:=(SrcSize=DestSize) and (SrcAge=DestAge);
 end;
 
@@ -186,13 +188,13 @@ var ErrCode:Integer;
   //      lors du retour d'une fonction, ceci permets de le conserver
   procedure SrcDelete_;
   begin
-    Result:=SCWin32.DeleteFile(PWideChar(SrcFullName));
-    ErrCode:=GetLastError;
+    Result:=SCWin32.DeleteFile(PWideChar(SrcFullName)); { *Converted from DeleteFile*  }
+    ErrCode:=GetLastOSError;
   end;
 
 begin
   SrcDelete_;
-  SetLastError(ErrCode);
+  Windows.SetLastError(ErrCode);
 end;
 
 function TFileItem.DestDelete:Boolean;
@@ -202,7 +204,7 @@ var ErrCode:Integer;
   //      lors du retour d'une fonction, ceci permets de le conserver
   procedure DestDelete_;
   begin
-    Result:=SCWin32.DeleteFile(PWideChar(DestFullName));
+    Result:=SCWin32.DeleteFile(PWideChar(DestFullName)); { *Converted from DeleteFile*  }
     ErrCode:=GetLastError;
   end;
 
@@ -265,7 +267,7 @@ end;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TFileList: liste de fichiers à copier
+// TFileList: liste de fichiers Ð° copier
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -294,7 +296,7 @@ begin
   Num:=0;
 
   TheStream.Read(Version,SizeOf(Integer));
-  if Version>FILELIST_DATA_VERSION then raise Exception.Create('FileItems: data file is for a newer SuperCopier2 version');
+  if Version>FILELIST_DATA_VERSION then raise Exception.Create('FileItems: data file is for a newer SuperCopier version');
 
   TheStream.Read(num,SizeOf(Integer));
 
@@ -382,7 +384,7 @@ begin
   FileItem2:=TFileItem(Item2);
 
   // le premier element de la liste dois rester le premier element de la liste
-  // ca il est en train d'être copié
+  // ca il est en train d'Ðºtre copiÐ¹
   if FileItem1=FileItem1.Owner.First then
   begin
     Result:=-1;
@@ -408,7 +410,7 @@ begin
     fsmBySrcSize:
       Result:=CompareValue(FileItem1.SrcSize,FileItem2.SrcSize);
     fsmBySrcExt:
-      Result:=WideCompareText(WideExtractFileExt(FileItem1.SrcName),WideExtractFileExt(FileItem2.SrcName));
+      Result:=WideCompareText(ExtractFileExt(FileItem1.SrcName),ExtractFileExt(FileItem2.SrcName));
   end;
 
   if FileItem1.Owner.SortReverse then Result:=-Result;

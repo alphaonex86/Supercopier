@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,9 +14,11 @@
 
 unit SCAPI;
 
+{$MODE Delphi}
+
 interface
 
-uses Windows,Classes,Contnrs,SysUtils,TntSysUtils,
+uses Windows,Classes,Contnrs,SysUtils, Forms, ShellApi,
      SCCommon,SCWin32,SCLocStrings,SCAPICommon,SCBaseList,SCWorkThreadList,
        SCWorkThread,SCCopyThread,SCLocEngine;
 
@@ -33,9 +35,9 @@ type
     FAPIEvent:THandle;
     FFileMappingStream:TFileMappingStream;
     FShutdown:Boolean;
-    FHandleList:TObjectList; //TODO: le système actuel où le handle est l'index d'item leake un peu de mémoire
-                             //      en effet, on ne peut pas faire de Delete() sur la liste sinon les handles se décalent ...
-                             //      (on mets l'item à nil, ce qui leake 4 octets par handle libéré)
+    FHandleList:TObjectList; //TODO: le systÐ¸me actuel oÑ‰ le handle est l'index d'item leake un peu de mÐ¹moire
+                             //      en effet, on ne peut pas faire de Delete() sur la liste sinon les handles se dÐ¹calent ...
+                             //      (on mets l'item Ð° nil, ce qui leake 4 octets par handle libÐ¹rÐ¹)
     FLastError:TApiError;
     FEnabled:Boolean;
 
@@ -70,12 +72,248 @@ type
     property Enabled:Boolean read FEnabled write FEnabled; 
   end;
 
+  { CPluginLoader }
+
+  CPluginLoader = class
+  private
+    m_ImportantDll: TStringList;
+    m_SecondDll: TStringList;
+
+    function  GetPluginPath: string;
+  protected
+    function Is64BitWindows: Boolean;
+    function CheckExistsDll(): boolean;
+    function RegisterShellExtDll(const dllPath: string; const bRegister: boolean; const quiet: boolean): boolean;
+  public
+    CorrectlyLoaded: TStringList;
+    AllDllIsImportant: boolean;
+    Debug: boolean;
+    ChangeOfArchDetected: boolean;
+
+    constructor Create;
+    destructor Destroy; override;
+
+    procedure SetEnabled(const needBeRegistred: boolean);
+
+    property PluginPath: string read GetPluginPath;
+  end;
+
 var
   API:TAPI=nil;
 
 implementation
 
-uses Math;
+uses Math, Process;
+
+{ CPluginLoader }
+
+
+function CPluginLoader.GetPluginPath: string;
+begin
+  Result := ExtractFilePath(Application.ExeName);
+end;
+
+function CPluginLoader.Is64BitWindows: Boolean;
+var
+  IsWow64Process: function(hProcess: THandle; out Wow64Process: Bool): Bool; stdcall;
+  Wow64Process: Bool;
+begin
+  {$IF Defined(CPU64)}
+  Result := True; // x64 app starts only on Win64
+  {$ELSEIF Defined(CPU16)}
+  Result := False; // Win64 doesn`t suppert x16 apps
+  {$ELSE}
+  // x32 apps can work on x32 and x64 Windows, so then ...
+  IsWow64Process := GetProcAddress(GetModuleHandle(Kernel32), 'IsWow64Process');
+
+  Wow64Process := False;
+  if Assigned(IsWow64Process) then
+    Wow64Process := IsWow64Process(GetCurrentProcess, Wow64Process) and Wow64Process;
+
+  Result := Wow64Process;
+  {$IFEND}
+end;
+
+function CPluginLoader.CheckExistsDll: boolean;
+begin
+  //detect if it's 64Bits OS or not
+  if(Is64BitWindows) then
+  begin
+    m_ImportantDll.Add('SCShellExt64.dll');
+    m_SecondDll.Add('SCShellExt.dll');
+  end
+  else
+  begin
+    m_ImportantDll.Add('SCShellExt.dll');
+    m_SecondDll.Add('SCShellExt64.dll');
+  end;
+
+  Result := (m_ImportantDll.Count > 0) or (m_SecondDll.Count > 0);
+end;
+
+
+function CPluginLoader.RegisterShellExtDll(const dllPath: string;
+  const bRegister: boolean; const quiet: boolean): boolean;
+var
+  arguments: TStringList;
+  i, res: integer;
+  argumentsString: string;
+  ok: boolean;
+  temp: TStringList;
+  process: TProcess;
+  sei:TSHELLEXECUTEINFOA;
+begin
+  arguments := TStringList.Create;
+  if(not Debug) then
+    arguments.Add('/s');
+  if(not bRegister) then
+    arguments.Add('/u');
+  arguments.Add(dllPath);
+
+  argumentsString := '';
+  for i := 0 to arguments.Count-1 do
+  begin
+    if(Length(argumentsString) = 0) then
+      argumentsString := argumentsString + arguments[i]
+      else if(i = arguments.Count-1) then
+        argumentsString := argumentsString + ' "' + arguments[i] + '"'
+        else argumentsString := argumentsString + ' ' + arguments[i];
+  end;
+  arguments.Free;
+  arguments := nil;
+  res := SysUtils.ExecuteProcess('regsvr32', argumentsString, []);
+
+  ok := res = 0;
+
+  {$IF Not Defined(CPU64)}
+  if((res = 999) and not changeOfArchDetected) then//code of wrong arch for the dll
+  begin
+    changeOfArchDetected := true;
+    temp := m_ImportantDll;
+    m_SecondDll := m_ImportantDll;
+    m_ImportantDll := temp;
+    Result := false;
+    exit;
+  end;
+  {$IFEND}
+  if(res = 5) then
+  begin
+    if(not quiet or (not bRegister and (correctlyLoaded.IndexOf(dllPath) <> -1))) then
+    begin
+      //regsvr32 with elevated privilege
+      //ULTRACOPIER_DEBUGCONSOLE(Ultracopier::DebugLevel_Notice,"try it in win32");
+      // try with regsvr32, win32 because for admin dialog
+      //ok := boolean(ShellExecute(Application.MainForm.Handle, PChar('regsvr32.exe'), PChar('runas'), PChar(''), PChar(''), 0));
+      FillChar(sei, SizeOf(sei), 0);
+      sei.cbSize:=SizeOf(sei);
+      sei.Wnd := Application.MainForm.Handle;
+      sei.fMask := SEE_MASK_FLAG_DDEWAIT or SEE_MASK_FLAG_NO_UI;
+      sei.lpVerb := 'runas';
+      sei.lpFile := PAnsiChar('regsvr32');
+      sei.lpParameters:=PAnsiChar(argumentsString);
+      sei.nShow:=SW_SHOWNORMAL;
+      ok := ShellExecuteExA(@sei);
+    end;
+  end;
+  if (correctlyLoaded.IndexOf(dllPath) <> -1) then
+    correctlyLoaded.Delete(correctlyLoaded.IndexOf(dllPath));
+  Result := ok;
+end;
+
+constructor CPluginLoader.Create;
+begin
+  m_ImportantDll := TStringList.Create;
+  m_SecondDll := TStringList.Create;
+  CorrectlyLoaded := TStringList.Create;
+end;
+
+destructor CPluginLoader.Destroy;
+begin
+  m_ImportantDll.Free;
+  m_SecondDll.Free;
+  CorrectlyLoaded.Free;
+  inherited Destroy;
+end;
+
+procedure CPluginLoader.SetEnabled(const needBeRegistred: boolean);
+var
+  oneHaveFound: boolean;
+  index: integer;
+
+  importantDll_is_loaded, secondDll_is_loaded, importantDll_have_bug, secondDll_have_bug: boolean;
+  importantDll_count, secondDll_count: integer;
+begin
+  if(not CheckExistsDll()) then exit;//stop because not dll found into the folder
+  //importantDll -> string list, launch UAC is needed
+  //secondDll -> string list, never launch UAC
+
+  oneHaveFound := false;
+  index := 0;
+  while(index < m_ImportantDll.Count) do
+  begin
+    if(FileExists(pluginPath + m_ImportantDll[index])) then
+    begin
+      oneHaveFound := true;
+      break;
+    end;
+    inc(index);
+  end;
+
+  if(not oneHaveFound) then
+  begin
+    index := 0;
+    while(index < m_SecondDll.Count) do
+    begin
+      if(FileExists(pluginPath + m_SecondDll[index])) then
+      begin
+        oneHaveFound := true;
+        break;
+      end;
+      inc(index);
+    end
+  end;
+
+  importantDll_is_loaded := false;
+  secondDll_is_loaded := false;
+  importantDll_have_bug := false;
+  secondDll_have_bug := false;
+  importantDll_count := 0;
+  secondDll_count := 0;
+
+  index := 0;
+  while(index < m_ImportantDll.Count) do
+  begin
+    if(not RegisterShellExtDll(pluginPath + m_ImportantDll[index], needBeRegistred, false)) then
+        importantDll_have_bug := true
+    else
+    begin
+      if(needBeRegistred) then
+        correctlyLoaded.Add(m_ImportantDll[index]);
+      importantDll_is_loaded := true;
+    end;
+    inc(importantDll_count);
+    inc(index);
+  end;
+
+  index := 0;
+  while(index < m_SecondDll.Count) do
+  begin
+    if(not RegisterShellExtDll(pluginPath + m_SecondDll[index], needBeRegistred,
+        not ((needBeRegistred and allDllIsImportant) or (not needBeRegistred and (correctlyLoaded.IndexOf(m_SecondDll[index]) <> -1))))) then
+      secondDll_have_bug := true
+      else
+      begin
+        if(needBeRegistred) then
+          correctlyLoaded.Add(m_SecondDll[index]);
+	secondDll_is_loaded := true;
+      end;
+    inc(secondDll_count);
+    inc(index);
+  end;
+
+  if(not needBeRegistred) then
+    correctlyLoaded.clear();
+end;
 
 { TAPI }
 
@@ -87,7 +325,7 @@ begin
 
   Item:=TBaseItem.Create;
   Item.SrcName:=AItemName;
-  Item.IsDirectory:=WideDirectoryExists(AItemName);
+  Item.IsDirectory:=DirectoryExists(AItemName);
 
   (FHandleList[ABaseListHandle] as TBaseList).Add(Item);
 
@@ -150,7 +388,7 @@ begin
     Exit;
   end;
 
-  GuessedSrcDir:=WideExtractFilePath(BaseList[0].SrcName);
+  GuessedSrcDir:=ExtractFilePath(BaseList[0].SrcName);
   Result:=SameVolume(GuessedSrcDir,ADestDir);
 
   FLastError:=aeNone;
@@ -221,7 +459,8 @@ begin
 end;
 
 constructor TAPI.Create;
-var Error:Integer;
+var
+    Error:Integer;
 begin
   inherited Create(True);
   FSemaphore:=0;
@@ -231,7 +470,7 @@ begin
   FAPIEvent:=0;
   FFileMappingStream:=nil;
 
-  // Sémaphore
+  // SÐ¹maphore
   FSemaphore:=SCWin32.CreateSemaphore(nil,0,MaxInt,PWideChar(SessionUniqueAPIIdentifier(SC2_API_SEMAPHORE_ID)));
   Error:=GetLastError;
   if (Error=ERROR_ALREADY_EXISTS) or (Error=ERROR_ACCESS_DENIED) then
@@ -276,7 +515,7 @@ destructor TAPI.Destroy;
 begin
   if FMutex<>0 then
   begin
-    // simuler un évènement d'un client pour pouvoir fermer la thread
+    // simuler un Ð¹vÐ¸nement d'un client pour pouvoir fermer la thread
     WaitForSingleObject(FMutex,INFINITE);
     try
       FFileMappingStream.Seek(0,soFromBeginning);
@@ -294,11 +533,11 @@ begin
 
   FHandleList.Free;
   FFileMappingStream.Free;
-  CloseHandle(FAPIEvent);
-  CloseHandle(FClientEvent);
-  CloseHandle(FFileMapping);
-  CloseHandle(FMutex);
-  CloseHandle(FSemaphore);
+  FileClose(FAPIEvent); { *Converted from CloseHandle*  }
+  FileClose(FClientEvent); { *Converted from CloseHandle*  }
+  FileClose(FFileMapping); { *Converted from CloseHandle*  }
+  FileClose(FMutex); { *Converted from CloseHandle*  }
+  FileClose(FSemaphore); { *Converted from CloseHandle*  }
   inherited;
 end;
 
@@ -322,7 +561,7 @@ begin
 
           dbgln('Received API call #'+IntToStr(Ord(ApiFunction)));
 
-          // /!\ ne pas appeler plusieurs fois Read... dans les paramètres d'une fonction, car Delphi evalue les params de droite à gauche !!!
+          // /!\ ne pas appeler plusieurs fois Read... dans les paramÐ¸tres d'une fonction, car Delphi evalue les params de droite Ð° gauche !!!
           case ApiFunction of
             afObjectFree:
               APIObjectFree(ReadInteger);

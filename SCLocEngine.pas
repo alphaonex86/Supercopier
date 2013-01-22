@@ -1,12 +1,12 @@
-{
-    This file is part of SuperCopier2.
+ï»¿{
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,16 +14,18 @@
 
 unit SCLocEngine;
 
+{$MODE Delphi}
+
 interface
 uses
-  Windows,Messages,Classes,Forms,Controls,TntForms,TntStdCtrls,TntComCtrls,Graphics,
-  TntClasses,TntMenus,TntDialogs,TntButtons,SCCommon,SCPopupButton,SCWin32,IniFiles;
+  Windows,Messages,Classes,Forms,Controls,Graphics,
+  SCCommon,SCPopupButton,SCWin32,IniFiles, stdctrls, menus, dialogs, buttons;
 
 type
   TLocEngine=class
   private
     LangIni:TMemIniFile;
-    Strings:TTntStringList;
+    Strings:TStringList;
 
     procedure ReadHeader;
     procedure WriteHeader;
@@ -38,9 +40,9 @@ type
     destructor Destroy;override;
 
     procedure LoadLanguageFile(LangFile:WideString);
-    procedure TranslateForm(Form:TTntForm);
+    procedure TranslateForm(Form:TForm);
     procedure TranslateString(Id:Integer;var S:WideString);
-    procedure AddForm(Form:TTntForm);
+    procedure AddForm(Form:TForm);
     procedure UpdateFile;
   end;
 
@@ -59,12 +61,12 @@ var
   
 implementation
 
-uses ComCtrls,SysUtils,TntSysUtils, TypInfo;
+uses ComCtrls,SysUtils,TypInfo;
 
 constructor TLocEngine.Create;
 begin
   LangIni:=nil;
-  Strings:=TTntStringList.Create;
+  Strings:=TStringList.Create;
 end;
 
 destructor TLocEngine.Destroy;
@@ -79,10 +81,10 @@ begin
   if Assigned(LangIni) then LangIni.Free;
 
   TmpLangFile:=LangFile;
-  if WideString(TmpLangFile)<>LangFile then // le nom de fichier est-il passé 'sans pertes' en ansi?
+  if WideString(TmpLangFile)<>LangFile then // le nom de fichier est-il passÐ¹ 'sans pertes' en ansi?
   begin
-    //HACK: TMemIniFile ne supporte pas unicode, je crée donc une version temporaire
-    //      du fichier de langues ne contenant que des caractères ansi dans le nom
+    //HACK: TMemIniFile ne supporte pas unicode, je crÐ¹e donc une version temporaire
+    //      du fichier de langues ne contenant que des caractÐ¸res ansi dans le nom
     TmpLangFile:=SCWin32.GetTempPath+TMP_LANGFILE_NAME;
     SCWin32.CopyFile(PWideChar(LangFile),PWideChar(WideString(TmpLangFile)),False);
   end;
@@ -129,7 +131,7 @@ begin
   end;
 end;
 
-procedure TLocEngine.TranslateForm(Form:TTntForm);
+procedure TLocEngine.TranslateForm(Form:TForm);
 var i:Integer;
     Name,Text:WideString;
     FormName:WideString;
@@ -137,7 +139,7 @@ begin
   if not Assigned(LangIni) then exit;
 
   FormName:=Form.ClassName;
-  // rétrocompat anciens fichiers de langage
+  // rÐ¹trocompat anciens fichiers de langage
   if not LangIni.SectionExists(FormName) and (Length(FormName)>0) and (FormName[1]='T') then
     FormName:=Copy(FormName,2,Maxint);
 
@@ -162,7 +164,7 @@ begin
   end;
 end;
 
-procedure TLocEngine.AddForm(Form:TTntForm);
+procedure TLocEngine.AddForm(Form:TForm);
 var i:Integer;
     Name,Text:WideString;
     StrText:String;
@@ -204,38 +206,38 @@ begin
 end;
 
 function TLocEngine.GetComponentText(Component:TComponent):WideString;
-  function Get_TntButton:WideString;
+  function Get_Button:WideString;
   begin
-    Result:=(Component as TTntButton).Caption;
+    Result:=(Component as TButton).Caption;
   end;
 
-  function Get_TntLabel:WideString;
+  function Get_Label:WideString;
   begin
-    Result:=(Component as TTntLabel).Caption;
+    Result:=(Component as TLabel).Caption;
   end;
 
-  function Get_TntEdit:WideString;
+  function Get_Edit:WideString;
   begin
-    Result:=(Component as TTntEdit).Text;
+    Result:=(Component as TEdit).Text;
   end;
 
-  function Get_TntComboBox:WideString;
+  function Get_ComboBox:WideString;
   begin
-    Result:=(Component as TTntComboBox).Items.CommaText;
+    Result:=(Component as TComboBox).Items.CommaText;
   end;
 
-  function Get_TntCheckBox:WideString;
+  function Get_CheckBox:WideString;
   begin
-    Result:=(Component as TTntCheckBox).Caption;
+    Result:=(Component as TCheckBox).Caption;
   end;
 
-  function Get_TntListView:WideString;
+  function Get_ListView:WideString;
   var i:Integer;
-      SL:TTntStringList;
+      SL:TStringList;
   begin
-    SL:=TTntStringList.Create;
+    SL:=TStringList.Create;
     try
-      with (Component as TTntListView) do
+      with (Component as TListView) do
       begin
         SL.Clear;
 
@@ -254,33 +256,33 @@ function TLocEngine.GetComponentText(Component:TComponent):WideString;
     end;
   end;
 
-  function Get_TntGroupBox:WideString;
+  function Get_GroupBox:WideString;
   begin
-    Result:=(Component as TTntGroupBox).Caption;
+    Result:=(Component as TGroupBox).Caption;
   end;
 
-  function Get_TntTabSheet:WideString;
+  function Get_TabSheet:WideString;
   begin
-    Result:=(Component as TTntTabSheet).Caption;
+    Result:=(Component as TTabSheet).Caption;
   end;
 
-  function Get_TntMenuItem:WideString;
+  function Get_MenuItem:WideString;
   begin
-    Result:=(Component as TTntMenuItem).Caption;
+    Result:=(Component as TMenuItem).Caption;
   end;
 
-  function Get_TntOpenDialog:WideString;
+  function Get_OpenDialog:WideString;
   begin
-    Result:=(Component as TTntOpenDialog).Filter;
+    Result:=(Component as TOpenDialog).Filter;
   end;
 
-  function Get_TntSpeedButton:WideString;
-  var SL:TTntStringList;
+  function Get_SpeedButton:WideString;
+  var SL:TStringList;
   begin
-    SL:=TTntStringList.Create;
+    SL:=TStringList.Create;
     try
-      SL.Add((Component as TTntSpeedButton).Caption);
-      SL.Add((Component as TTntSpeedButton).Hint);
+      SL.Add((Component as TSpeedButton).Caption);
+      SL.Add((Component as TSpeedButton).Hint);
       Result:=SL.CommaText;
     finally
       SL.Free;
@@ -288,9 +290,9 @@ function TLocEngine.GetComponentText(Component:TComponent):WideString;
   end;
 
   function Get_SCPopupButton:WideString;
-  var SL:TTntStringList;
+  var SL:TStringList;
   begin
-    SL:=TTntStringList.Create;
+    SL:=TStringList.Create;
     try
       SL.Add((Component as TScPopupButton).Caption);
       SL.Add((Component as TScPopupButton).Hint);
@@ -300,78 +302,78 @@ function TLocEngine.GetComponentText(Component:TComponent):WideString;
     end;
   end;
 
-  function Get_TntRadioButton:WideString;
+  function Get_RadioButton:WideString;
   begin
-    Result:=(Component as TTntRadioButton).Caption;
+    Result:=(Component as TRadioButton).Caption;
   end;
 
 begin
   Result:='';
-  if Component is TTntButton then
-    Result:=Get_TntButton
-  else if Component is TTntLabel then
-    Result:=Get_TntLabel
-  else if Component is TTntEdit then
-    Result:=Get_TntEdit
-  else if Component is TTntComboBox then
-    Result:=Get_TntComboBox
-  else if Component is TTntCheckBox then
-    Result:=Get_TntCheckBox
-  else if Component is TTntListView then
-    Result:=Get_TntListView
-  else if Component is TTntGroupBox then
-    Result:=Get_TntGroupBox
-  else if Component is TTntTabSheet then
-    Result:=Get_TntTabSheet
-  else if Component is TTntMenuItem then
-    Result:=Get_TntMenuItem
-  else if Component is TTntOpenDialog then
-    Result:=Get_TntOpenDialog
-  else if Component is TTntSpeedButton then
-    Result:=Get_TntSpeedButton
+  if Component is TButton then
+    Result:=Get_Button
+  else if Component is TLabel then
+    Result:=Get_Label
+  else if Component is TEdit then
+    Result:=Get_Edit
+  else if Component is TComboBox then
+    Result:=Get_ComboBox
+  else if Component is TCheckBox then
+    Result:=Get_CheckBox
+  else if Component is TListView then
+    Result:=Get_ListView
+  else if Component is TGroupBox then
+    Result:=Get_GroupBox
+  else if Component is TTabSheet then
+    Result:=Get_TabSheet
+  else if Component is TMenuItem then
+    Result:=Get_MenuItem
+  else if Component is TOpenDialog then
+    Result:=Get_OpenDialog
+  else if Component is TSpeedButton then
+    Result:=Get_SpeedButton
   else if Component is TScPopupButton then
     Result:=Get_SCPopupButton
-  else if Component is TTntRadioButton then
-    Result:=Get_TntRadioButton;
+  else if Component is TRadioButton then
+    Result:=Get_RadioButton;
 end;
 
 procedure TLocEngine.SetComponentText(Component:TComponent;Text:WideString);
-  procedure Set_TntButton;
+  procedure Set_Button;
   begin
-    (Component as TTntButton).Caption:=Text;
+    (Component as TButton).Caption:=Text;
   end;
 
-  procedure Set_TntLabel;
+  procedure Set_Label;
   begin
-    (Component as TTntLabel).Caption:=Text;
+    (Component as TLabel).Caption:=Text;
   end;
 
-  procedure Set_TntEdit;
+  procedure Set_Edit;
   begin
-    (Component as TTntEdit).Text:=Text;
+    (Component as TEdit).Text:=Text;
   end;
 
-  procedure Set_TntComboBox;
+  procedure Set_ComboBox;
   var Idx:Integer;
   begin
-    Idx:=(Component as TTntComboBox).ItemIndex;
-    (Component as TTntComboBox).Items.CommaText:=Text;
-    if Idx<(Component as TTntComboBox).Items.Count then
-      (Component as TTntComboBox).ItemIndex:=Idx;
+    Idx:=(Component as TComboBox).ItemIndex;
+    (Component as TComboBox).Items.CommaText:=Text;
+    if Idx<(Component as TComboBox).Items.Count then
+      (Component as TComboBox).ItemIndex:=Idx;
   end;
 
-  procedure Set_TntCheckBox;
+  procedure Set_CheckBox;
   begin
-    (Component as TTntCheckBox).Caption:=Text;
+    (Component as TCheckBox).Caption:=Text;
   end;
 
-  procedure Set_TntListView;
+  procedure Set_ListView;
   var i:Integer;
-      SL:TTntStringList;
+      SL:TStringList;
   begin
-    SL:=TTntStringList.Create;
+    SL:=TStringList.Create;
     try
-      with (Component as TTntListView) do
+      with (Component as TListView) do
       begin
         SL.CommaText:=Text;
 
@@ -392,43 +394,43 @@ procedure TLocEngine.SetComponentText(Component:TComponent;Text:WideString);
     end;
   end;
 
-  procedure Set_TntGroupBox;
+  procedure Set_GroupBox;
   begin
-    (Component as TTntGroupBox).Caption:=Text;
+    (Component as TGroupBox).Caption:=Text;
   end;
 
-  procedure Set_TntTabSheet;
+  procedure Set_TabSheet;
   begin
-    (Component as TTntTabSheet).Caption:=Text;
+    (Component as TTabSheet).Caption:=Text;
   end;
 
-  procedure Set_TntMenuItem;
+  procedure Set_MenuItem;
   begin
-    (Component as TTntMenuItem).Caption:=Text;
+    (Component as TMenuItem).Caption:=Text;
   end;
 
-  procedure Set_TntOpenDialog;
+  procedure Set_OpenDialog;
   begin
-    (Component as TTntOpenDialog).Filter:=Text;
+    (Component as TOpenDialog).Filter:=Text;
   end;
 
-  procedure Set_TntSpeedButton;
-  var SL:TTntStringList;
+  procedure Set_SpeedButton;
+  var SL:TStringList;
   begin
-    SL:=TTntStringList.Create;
+    SL:=TStringList.Create;
     try
       SL.CommaText:=Text;
-      (Component as TTntSpeedButton).Caption:=SL[0];
-      (Component as TTntSpeedButton).Hint:=SL[1];
+      (Component as TSpeedButton).Caption:=SL[0];
+      (Component as TSpeedButton).Hint:=SL[1];
     finally
       SL.Free;
     end;
   end;
 
   procedure Set_SCPopupButton;
-  var SL:TTntStringList;
+  var SL:TStringList;
   begin
-    SL:=TTntStringList.Create;
+    SL:=TStringList.Create;
     try
       SL.CommaText:=Text;
       (Component as TScPopupButton).Caption:=SL[0];
@@ -438,38 +440,38 @@ procedure TLocEngine.SetComponentText(Component:TComponent;Text:WideString);
     end;
   end;
 
-  procedure Set_TntRadioButton;
+  procedure Set_RadioButton;
   begin
-    (Component as TTntRadioButton).Caption:=Text;
+    (Component as TRadioButton).Caption:=Text;
   end;
 
 begin
-  if Component is TTntButton then
-    Set_TntButton
-  else if Component is TTntLabel then
-    Set_TntLabel
-  else if Component is TTntEdit then
-    Set_TntEdit
-  else if Component is TTntComboBox then
-    Set_TntComboBox
-  else if Component is TTntCheckBox then
-    Set_TntCheckBox
-  else if Component is TTntListView then
-    Set_TntListView
-  else if Component is TTntGroupBox then
-    Set_TntGroupBox
-  else if Component is TTntTabSheet then
-    Set_TntTabSheet
-  else if Component is TTntMenuItem then
-    Set_TntMenuItem
-  else if Component is TTntOpenDialog then
-    Set_TntOpenDialog
-  else if Component is TTntSpeedButton then
-    Set_TntSpeedButton
+  if Component is TButton then
+    Set_Button
+  else if Component is TLabel then
+    Set_Label
+  else if Component is TEdit then
+    Set_Edit
+  else if Component is TComboBox then
+    Set_ComboBox
+  else if Component is TCheckBox then
+    Set_CheckBox
+  else if Component is TListView then
+    Set_ListView
+  else if Component is TGroupBox then
+    Set_GroupBox
+  else if Component is TTabSheet then
+    Set_TabSheet
+  else if Component is TMenuItem then
+    Set_MenuItem
+  else if Component is TOpenDialog then
+    Set_OpenDialog
+  else if Component is TSpeedButton then
+    Set_SpeedButton
   else if Component is TScPopupButton then
     Set_SCPopupButton
-  else if Component is TTntRadioButton then
-    Set_TntRadioButton;
+  else if Component is TRadioButton then
+    Set_RadioButton;
 end;
 
 end.

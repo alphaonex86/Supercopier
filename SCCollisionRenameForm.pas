@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,31 +14,33 @@
 
 unit SCCollisionRenameForm;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,TntForms,
-  Dialogs, StdCtrls, TntStdCtrls, ScPopupButton,SCLocEngine;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls,  ScPopupButton,SCLocEngine;
 
 type
-  TCollisionRenameForm = class(TTntForm)
-    rbRenameNew: TTntRadioButton;
-    rbRenameOld: TTntRadioButton;
-    llOriginalNameTitle: TTntLabel;
-    llOriginalName: TTntLabel;
-    llNewNameTitle: TTntLabel;
-    edNewName: TTntEdit;
+  TCollisionRenameForm = class(TForm)
+    rbRenameNew: TRadioButton;
+    rbRenameOld: TRadioButton;
+    llOriginalNameTitle: TLabel;
+    llOriginalName: TLabel;
+    llNewNameTitle: TLabel;
+    edNewName: TEdit;
     btCancel: TScPopupButton;
     btRename: TScPopupButton;
     procedure edNewNameKeyPress(Sender: TObject; var Key: Char);
     procedure edNewNameChange(Sender: TObject);
     procedure btCancelClick(Sender: TObject; ItemIndex: Integer);
     procedure btRenameClick(Sender: TObject; ItemIndex: Integer);
-    procedure TntFormCreate(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
-    { Déclarations privées }
+    { DÐ¹clarations privÐ¹es }
   public
-    { Déclarations publiques }
+    { DÐ¹clarations publiques }
   end;
 
 var
@@ -46,11 +48,11 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
-uses SCCommon,SCLocStrings,SCWin32,TntSysutils;
+uses SCCommon,SCLocStrings,SCWin32;
 
-procedure TCollisionRenameForm.TntFormCreate(Sender: TObject);
+procedure TCollisionRenameForm.FormCreate(Sender: TObject);
 begin
   LocEngine.TranslateForm(Self);
 end;
@@ -58,7 +60,7 @@ end;
 procedure TCollisionRenameForm.edNewNameKeyPress(Sender: TObject;
   var Key: Char);
 begin
-  if Key in ['\','/',':','?','*','"','<','>','|'] then Key:=#0; //caractères interdits dans un nom de fichier
+  if Key in ['\','/',':','?','*','"','<','>','|'] then Key:=#0; //caractÐ¸res interdits dans un nom de fichier
 end;
 
 procedure TCollisionRenameForm.edNewNameChange(Sender: TObject);

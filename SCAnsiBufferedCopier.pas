@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -14,9 +14,11 @@
 
 unit SCAnsiBufferedCopier;
 
+{$MODE Delphi}
+
 interface
 uses
-  Windows,Messages,SCCopier;
+  Windows,Messages,SCCopier,SysUtils;
   
 type
   TAnsiBufferedCopier=class(TCopier)
@@ -35,7 +37,7 @@ uses SCCommon,SCLocStrings,SCWin32;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TAnsiBufferedCopier: descendant de TCopier, copie bufferisée simple en mode
+// TAnsiBufferedCopier: descendant de TCopier, copie bufferisÐ¹e simple en mode
 //                      ansi (Pour Win9x)
 //******************************************************************************
 //******************************************************************************
@@ -54,7 +56,7 @@ begin
 end;
 
 //******************************************************************************
-// DoCopy: renvoie false si la copie échoue
+// DoCopy: renvoie false si la copie Ð¹choue
 //******************************************************************************
 function TAnsiBufferedCopier.DoCopy:boolean;
 var HSrc,HDest:THandle;
@@ -80,38 +82,20 @@ begin
       HDest:=INVALID_HANDLE_VALUE;
       try
         // on ouvre le fichier source
-        HSrc:=CreateFile(pchar(SourceFile),
-                            GENERIC_READ,
-                            FILE_SHARE_READ or FILE_SHARE_WRITE,
-                            nil,
-                            OPEN_EXISTING,
-                            FILE_ATTRIBUTE_NORMAL or FILE_FLAG_SEQUENTIAL_SCAN,
-                            0);
+        HSrc:=SysUtils.FileCreate(pchar(SourceFile)); { *Converted from CreateFile*  }
         RaiseCopyErrorIfNot(HSrc<>INVALID_HANDLE_VALUE);
 
-        // effacer les attributs du fichier de destination pour pouvoir l'ouvrir en écriture
+        // effacer les attributs du fichier de destination pour pouvoir l'ouvrir en Ð¹criture
         FileItem.DestClearAttributes;
 
         // on ouvre le fichier de destination
         if NextAction<>cpaRetry then // doit-on reprendre le transfert?
         begin
-          HDest:=CreateFile(pchar(DestFile),
-                              GENERIC_WRITE,
-                              FILE_SHARE_READ,
-                              nil,
-                              CREATE_ALWAYS,
-                              FILE_ATTRIBUTE_NORMAL,
-                              0);
+          HDest:=FileCreate(pchar(DestFile)); { *Converted from CreateFile*  }
         end
         else
         begin
-          HDest:=CreateFile(pchar(DestFile),
-                              GENERIC_WRITE,
-                              FILE_SHARE_READ,
-                              nil,
-                              OPEN_ALWAYS,
-                              FILE_ATTRIBUTE_NORMAL,
-                              0);
+          HDest:=FileCreate(pchar(DestFile)); { *Converted from CreateFile*  }
 
           // on se positionne a la fin du fichier de destination
           SetFilePointer(HDest,0,FILE_END);
@@ -123,12 +107,12 @@ begin
         end;
         RaiseCopyErrorIfNot(HDest<>INVALID_HANDLE_VALUE);
 
-        // on donne sa taille finale au fichier de destination (pour éviter la fragmentation)
+        // on donne sa taille finale au fichier de destination (pour Ð¹viter la fragmentation)
         RaiseCopyErrorIfNot(SetFileSize(HDest,FileItem.SrcSize));
 
         // boucle principale de copie
         repeat
-          RaiseCopyErrorIfNot(ReadFile(HSrc,Buffer[0],BufferSize,BytesRead,nil));
+          RaiseCopyErrorIfNot(FileRead(HSrc, Buffer[0],BufferSize) <> -1);
           RaiseCopyErrorIfNot(WriteFile(HDest,Buffer[0],BytesRead,BytesWritten,nil));
           CopiedSize:=CopiedSize+BytesWritten;
           Self.CopiedSize:=Self.CopiedSize+BytesWritten;
@@ -141,12 +125,12 @@ begin
       finally
         LastError:=GetLastError;
 
-        // on déclare la position courrante dans le fichier destination comme fin de fichier
+        // on dÐ¹clare la position courrante dans le fichier destination comme fin de fichier
         SetEndOfFile(HDest);
 
         // fermeture des handles si ouverts
-        CloseHandle(HSrc);
-        CloseHandle(HDest);
+        FileClose(HSrc); { *Converted from CloseHandle*  }
+        FileClose(HDest); { *Converted from CloseHandle*  }
 
         SetLastError(LastError); // ne pas polluer le code d'erreur
 

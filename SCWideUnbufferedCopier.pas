@@ -1,18 +1,20 @@
 {
-    This file is part of SuperCopier2.
+    This file is part of SuperCopier.
 
-    SuperCopier2 is free software; you can redistribute it and/or modify
+    SuperCopier is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier2 is distributed in the hope that it will be useful,
+    SuperCopier is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 }
 
 unit SCWideUnbufferedCopier;
+
+{$MODE Delphi}
 
 interface
 uses
@@ -47,13 +49,13 @@ type
 
 implementation
 
-uses SCCommon,SCLocStrings,SCWin32,SysUtils,TntSysutils,Math;
+uses SCCommon,SCLocStrings,SCWin32,SysUtils,Math;
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// TWideUnbufferedCopier: descendant de TCopier, copie non bufferisée asynchrone
-//                        gérant l'unicode
+// TWideUnbufferedCopier: descendant de TCopier, copie non bufferisÐ¹e asynchrone
+//                        gÐ¹rant l'unicode
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -62,7 +64,7 @@ uses SCCommon,SCLocStrings,SCWin32,SysUtils,TntSysutils,Math;
 // Create
 //******************************************************************************
 constructor TWideUnbufferedCopier.Create;
-  // MakeUnique: ajoute un identifiant unique de Copier à S
+  // MakeUnique: ajoute un identifiant unique de Copier Ð° S
   function MakeUnique(S:String):String;
   begin
     Result:=S+IntToStr(Cardinal(Self));
@@ -71,7 +73,7 @@ begin
   inherited;
   FBufferSize:=0;
 
-  // créer les évènements pour le copier
+  // crÐ¹er les Ð¹vÐ¸nements pour le copier
   Events[READ_ENDING_EVENT]:=Windows.CreateEvent(nil,True,False,PChar(MakeUnique(READ_ENDING_EVENT_NAME)));
   Events[WRITE_ENDING_EVENT]:=Windows.CreateEvent(nil,True,False,PChar(MakeUnique(WRITE_ENDING_EVENT_NAME)));
   Events[WORK_EVENT]:=Windows.CreateEvent(nil,True,False,PChar(MakeUnique(WORK_EVENT_NAME)));
@@ -83,7 +85,7 @@ begin
     raise Exception.Create('Failed to create copy events');
   end;
 
-  // associer les évènements aux structures Overlapped
+  // associer les Ð¹vÐ¸nements aux structures Overlapped
   SrcOvr.hEvent:=Events[READ_ENDING_EVENT];
   DestOvr.hEvent:=Events[WRITE_ENDING_EVENT];
 end;
@@ -95,10 +97,10 @@ destructor TWideUnbufferedCopier.Destroy;
 begin
   SetBufferSize(0);
 
-  // détruire les évènements
-  CloseHandle(Events[READ_ENDING_EVENT]);
-  CloseHandle(Events[WRITE_ENDING_EVENT]);
-  CloseHandle(Events[WORK_EVENT]);
+  // dÐ¹truire les Ð¹vÐ¸nements
+  FileClose(Events[READ_ENDING_EVENT]); { *Converted from CloseHandle*  }
+  FileClose(Events[WRITE_ENDING_EVENT]); { *Converted from CloseHandle*  }
+  FileClose(Events[WORK_EVENT]); { *Converted from CloseHandle*  }
 
   inherited;
 end;
@@ -112,13 +114,13 @@ begin
   begin
     FBufferSize:=Value;
     FullBufferSize:=FBufferSize*MAX_WAITING_IO;
-    VirtualFree(Buffer,0,MEM_RELEASE); // on libère le précédent buffer alloué
+    VirtualFree(Buffer,0,MEM_RELEASE); // on libÐ¸re le prÐ¹cÐ¹dent buffer allouÐ¹
     Buffer:=VirtualAlloc(nil,FullBufferSize,MEM_COMMIT,PAGE_READWRITE);
   end;
 end;
 
 //******************************************************************************
-// DoCopy: renvoie false si la copie échoue
+// DoCopy: renvoie false si la copie Ð¹choue
 //******************************************************************************
 function TWideUnbufferedCopier.DoCopy:boolean;
   function OnlyFullChunks(Size:Int64):Int64;
@@ -158,7 +160,7 @@ begin
     SourceIsNetwork:=PathIsNetworkPath(PWideChar(SourceFile));
     DestIsNetwork:=PathIsNetworkPath(PWideChar(DestFile));
 
-    // gérer les chemins de plus de MAX_PATH caractères
+    // gÐ¹rer les chemins de plus de MAX_PATH caractÐ¸res
     if not PathIsUNC(PWideChar(SourceFile)) then SourceFile:=ENABLE_32K_CHARS_PATH+SourceFile;
     if not PathIsUNC(PWideChar(DestFile)) then DestFile:=ENABLE_32K_CHARS_PATH+DestFile;
 
@@ -170,7 +172,7 @@ begin
       HBufferedDest:=INVALID_HANDLE_VALUE;
       try
         // on ouvre le fichier source
-        HSrc:=CreateFileW(PWideChar(SourceFile),
+        HSrc:=Windows.CreateFileW(PWideChar(SourceFile),
                             GENERIC_READ,
                             FILE_SHARE_READ or FILE_SHARE_WRITE,
                             nil,
@@ -180,7 +182,7 @@ begin
                             0);
         RaiseCopyErrorIfNot(HSrc<>INVALID_HANDLE_VALUE);
 
-        // effacer les attributs du fichier de destination pour pouvoir l'ouvrir en écriture
+        // effacer les attributs du fichier de destination pour pouvoir l'ouvrir en Ð¹criture
         FileItem.DestClearAttributes;
 
         // on ouvre le fichier de destination
@@ -196,9 +198,9 @@ begin
                               0);
           RaiseCopyErrorIfNot(HDest<>INVALID_HANDLE_VALUE);
 
-          // on ouvre un handle sur le fichier de destination en bufferisé pour pouvoir
-          // fixer le fichier à la bonne taille (en non bufferisé, on ne peut copier
-          // que des blocs de taille multiple de celle d'une page mémoire)
+          // on ouvre un handle sur le fichier de destination en bufferisÐ¹ pour pouvoir
+          // fixer le fichier Ð° la bonne taille (en non bufferisÐ¹, on ne peut copier
+          // que des blocs de taille multiple de celle d'une page mÐ¹moire)
           HBufferedDest:=CreateFileW(PWideChar(DestFile),
                                       GENERIC_WRITE,
                                       FILE_SHARE_READ or FILE_SHARE_WRITE,
@@ -233,11 +235,11 @@ begin
         end;
 
         // on aggrandit fichier de destination a au moins sa taille finale
-        // (pour éviter la fragmentation et pour que l'overlapped fonctionne correctement)
+        // (pour Ð¹viter la fragmentation et pour que l'overlapped fonctionne correctement)
         RaiseCopyErrorIfNot(SetFileSize(HDest,OnlyFullChunks(FileItem.SrcSize)+FBufferSize));
 
 
-        // on amorce le système
+        // on amorce le systÐ¸me
         ReadPos:=SkippedSize;
         WritePos:=SkippedSize;
         SetEvent(Events[WORK_EVENT]);
@@ -246,7 +248,7 @@ begin
         begin
           while not (ReadEnd and WriteEnd) and ContinueCopy  do
           begin
-            // on attends qu'un évènement se produise
+            // on attends qu'un Ð¹vÐ¸nement se produise
             case WaitForMultipleObjects(Length(Events),@Events[0],False,INFINITE) of
               WAIT_OBJECT_0+READ_ENDING_EVENT:
               begin
@@ -269,11 +271,11 @@ begin
                 UsedBuffer:=UsedBuffer-BytesProcessed;
                 WriteEnd:=WritePos>=FileItem.SrcSize;
 
-                // on lance l'écriture suivante
+                // on lance l'Ð¹criture suivante
                 SetEvent(Events[WORK_EVENT]);
 
-                // des données ont étés écrites -> on déclenche l'evenement de progression
-                  // ne pas compter le dépassement de la taille du fichier
+                // des donnÐ¹es ont Ð¹tÐ¹s Ð¹crites -> on dÐ¹clenche l'evenement de progression
+                  // ne pas compter le dÐ¹passement de la taille du fichier
                 if WriteEnd then BytesProcessed:=BytesProcessed-(WritePos-FileItem.SrcSize);
                 CopiedSize:=CopiedSize+BytesProcessed;
                 Self.CopiedSize:=Self.CopiedSize+BytesProcessed;
@@ -289,29 +291,29 @@ begin
                   SrcOvr.Offset:=ReadPosRec.Lo;
                   SrcOvr.OffsetHigh:=ReadPosRec.Hi;
 
-                  // on vérifie que l'on est pas en buffer overflow
+                  // on vÐ¹rifie que l'on est pas en buffer overflow
                   if (Abs((WritePos-ReadPos) mod FullBufferSize)>FBufferSize) or not WritePending then
                   begin
-                    Ok:=ReadFile(HSrc,Pointer(Cardinal(Buffer)+SrcOvr.Offset mod FullBufferSize)^,FBufferSize,BytesProcessed,@SrcOvr);
+                    Ok := Windows.ReadFile(HSrc, Pointer(Cardinal(Buffer)+SrcOvr.Offset mod FullBufferSize)^, FBufferSize, BytesProcessed, @SrcOvr);
                     ReadPending:=GetLastError=ERROR_IO_PENDING;
                     RaiseCopyErrorIfNot(Ok or ReadPending);
-                    if not ReadPending then SetEvent(Events[READ_ENDING_EVENT]); // si l'i/o est synchrone, on déclenche l'evenement a la main
+                    if not ReadPending then SetEvent(Events[READ_ENDING_EVENT]); // si l'i/o est synchrone, on dÐ¹clenche l'evenement a la main
                   end;
                 end;
 
-                // on lance une écriture si il n'y en a pas en cours et si il y a au moins un bloc de lu
+                // on lance une Ð¹criture si il n'y en a pas en cours et si il y a au moins un bloc de lu
                 if not WriteEnd and not WritePending and ((UsedBuffer>=FBufferSize) or ReadEnd) then
                 begin
                   DestOvr.Offset:=WritePosRec.Lo;
                   DestOvr.OffsetHigh:=WritePosRec.Hi;
 
-                  // on vérifie que l'on est pas en buffer overflow
+                  // on vÐ¹rifie que l'on est pas en buffer overflow
                   if (Abs((WritePos-ReadPos) mod FullBufferSize)>FBufferSize) or not ReadPending then
                   begin
                     Ok:=WriteFile(HDest,Pointer(Cardinal(Buffer)+DestOvr.Offset mod FullBufferSize)^,FBufferSize,BytesProcessed,@DestOvr);
                     WritePending:=GetLastError=ERROR_IO_PENDING;
                     RaiseCopyErrorIfNot(Ok or WritePending);
-                    if not WritePending then SetEvent(Events[WRITE_ENDING_EVENT]); // si l'i/o est synchrone, on déclenche l'evenement a la main
+                    if not WritePending then SetEvent(Events[WRITE_ENDING_EVENT]); // si l'i/o est synchrone, on dÐ¹clenche l'evenement a la main
                   end;
                 end;
               end;
@@ -319,7 +321,7 @@ begin
           end;
         end;
 
-        // on fixe le fichier à la bonne taille en utilisant le handle bufferisé
+        // on fixe le fichier Ð° la bonne taille en utilisant le handle bufferisÐ¹
         RaiseCopyErrorIfNot(SetFileSize(HBufferedDest,FileItem.SrcSize));
 
         // copie de la date de modif
@@ -328,13 +330,13 @@ begin
       finally
         LastError:=GetLastError;
 
-        // on déclare la position courrante dans le fichier destination comme fin de fichier
+        // on dÐ¹clare la position courrante dans le fichier destination comme fin de fichier
         SetFileSize(HBufferedDest,CopiedSize+SkippedSize); //TODO: ajouter gestion des erreurs !!!
 
         // fermeture des handles si ouverts
-        CloseHandle(HSrc);
-        CloseHandle(HDest);
-        CloseHandle(HBufferedDest);
+        FileClose(HSrc); { *Converted from CloseHandle*  }
+        FileClose(HDest); { *Converted from CloseHandle*  }
+        FileClose(HBufferedDest); { *Converted from CloseHandle*  }
 
         SetLastError(LastError); // ne pas polluer le code d'erreur
 
