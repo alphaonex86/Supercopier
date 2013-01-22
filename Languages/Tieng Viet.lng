@@ -1,8 +1,4 @@
-﻿
-[-Header-]
-IsUTF8=1
-
-[-Strings-]
+﻿[-Strings-]
  1=Copy tập tin %s sang thư mục %s
  2=Chuyển tập tin từ thư mục %s sang %s
  3=Copy tập tin %s
@@ -12,7 +8,7 @@ IsUTF8=1
  7=Chọn thư mục đích:
  8=Tập tin %d/%d, Tổng số: %s
  9=%s, %s
-10=%n KB/giây
+10=%.2f KB/giây
 11=còn lại %s
 12=Hủy bỏ - %s
 13=Tạm dừng - %s

@@ -163,7 +163,9 @@
       <Unit20>
         <Filename Value="SCAboutForm.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="AboutForm"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="SCAboutForm"/>
       </Unit20>
       <Unit21>

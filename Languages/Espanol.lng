@@ -8,7 +8,7 @@
  7=Elegir el archivo de la destinación 
  8=Fichero %d/%d, Total: %s
  9=%s, %s
-10=%n Ko/Sec
+10=%.2f Ko/Sec
 11=%s Resto
 12=Anulación - %s
 13=En pausa - %s

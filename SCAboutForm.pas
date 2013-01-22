@@ -45,6 +45,7 @@ type
     procedure imLogoClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btOkClick(Sender: TObject);
+    procedure Label1Click(Sender: TObject);
     procedure llURLClick(Sender: TObject);
   private
     { Dйclarations privйes }
@@ -105,6 +106,11 @@ end;
 procedure TAboutForm.btOkClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TAboutForm.Label1Click(Sender: TObject);
+begin
+
 end;
 
 procedure TAboutForm.llURLClick(Sender: TObject);

@@ -476,8 +476,8 @@ object AboutForm: TAboutForm
     Left = 8
     Height = 14
     Top = 88
-    Width = 100
-    Caption = 'Version: 3.0.0.0'
+    Width = 147
+    Caption = 'Version: Ultimate 3.0.0.0 64bits'
     Color = clBackground
     Font.Color = clWhite
     Font.Height = -11
@@ -485,5 +485,6 @@ object AboutForm: TAboutForm
     ParentColor = False
     ParentFont = False
     Transparent = False
+    OnClick = Label1Click
   end
 end
