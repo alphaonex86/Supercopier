@@ -239,8 +239,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
-        <CursorPos X="60" Y="103"/>
+        <TopLine Value="69"/>
+        <CursorPos X="3" Y="72"/>
         <UsageCount Value="66"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -664,7 +664,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="3" HistoryIndex="2">
       <Position1>
         <Filename Value="SCAboutForm.pas"/>
         <Caret Line="121" Column="90" TopLine="92"/>
@@ -673,6 +673,10 @@
         <Filename Value="SuperCopier.lpr"/>
         <Caret Line="53" Column="51" TopLine="42"/>
       </Position2>
+      <Position3>
+        <Filename Value="SCAboutForm.pas"/>
+        <Caret Line="103" Column="60" TopLine="35"/>
+      </Position3>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

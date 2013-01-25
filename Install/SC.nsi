@@ -6,15 +6,15 @@
 SetCompressor /FINAL /SOLID lzma
 
 ; The name of the installer
-Name "SuperCopier"
+Name "Supercopier"
 
-Icon "SuperCopier.ico"
+Icon "Supercopier.ico"
 
 ; The file to write
-OutFile "SuperCopier-setup.exe"
+OutFile "Supercopier-setup.exe"
 
 ; The default installation directory
-InstallDir $PROGRAMFILES\SuperCopier
+InstallDir $PROGRAMFILES\Supercopier
 
 XPStyle on
 RequestExecutionLevel admin
@@ -35,8 +35,8 @@ LoadLanguageFile "${NSISDIR}\Contrib\Language files\English.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\French.nlf"
 
 ; A LangString for the section name
-LangString Sec1Name ${LANG_ENGLISH} "SuperCopier (required)"
-LangString Sec1Name ${LANG_FRENCH} "SuperCopier (requis)"
+LangString Sec1Name ${LANG_ENGLISH} "Supercopier (required)"
+LangString Sec1Name ${LANG_FRENCH} "Supercopier (requis)"
 LangString Sec2Name ${LANG_ENGLISH} "Start menu shortcuts"
 LangString Sec2Name ${LANG_FRENCH} "Raccourcis dans le menu démarrer"
 LangString Sec3Name ${LANG_ENGLISH} "Start when windows starts"
@@ -48,15 +48,15 @@ LangString Sec5Name ${LANG_FRENCH} "Ouvrir le README à la fin de l'installation"
 LangString Sec6Name ${LANG_ENGLISH} "Register shell extension (recommended)"
 LangString Sec6Name ${LANG_FRENCH} "Enregistrer l'extension du shell (recommandé)"
 
-LangString UninstSC1 ${LANG_ENGLISH} "You must uninstall SuperCopier 1 before installing SuperCopier, would you like to uninstall it?"
-LangString UninstSC1 ${LANG_FRENCH} "Vous devez désinstaller SuperCopier 1 avant d'installer SuperCopier, voulez-vous le désinstaller?"
-LangString UninstSC1Confirm ${LANG_ENGLISH} "Do you want to force SuperCopier install ? (not recommended !)"
-LangString UninstSC1Confirm ${LANG_FRENCH} "Voulez-vous forcer l'installation de SuperCopier ? (non recommandé !)"
+LangString UninstSC1 ${LANG_ENGLISH} "You must uninstall Supercopier 1 before installing Supercopier, would you like to uninstall it?"
+LangString UninstSC1 ${LANG_FRENCH} "Vous devez désinstaller Supercopier 1 avant d'installer Supercopier, voulez-vous le désinstaller?"
+LangString UninstSC1Confirm ${LANG_ENGLISH} "Do you want to force Supercopier install ? (not recommended !)"
+LangString UninstSC1Confirm ${LANG_FRENCH} "Voulez-vous forcer l'installation de Supercopier ? (non recommandé !)"
 
 LangString MenuAccess ${LANG_ENGLISH} "Menu access"
 LangString MenuAccess ${LANG_FRENCH} "Accéder au menu"
-LangString UninstSC2 ${LANG_ENGLISH} "Uninstall SuperCopier"
-LangString UninstSC2 ${LANG_FRENCH} "Désinstaller SuperCopier"
+LangString UninstSC2 ${LANG_ENGLISH} "Uninstall Supercopier"
+LangString UninstSC2 ${LANG_FRENCH} "Désinstaller Supercopier"
 LangString README ${LANG_ENGLISH} "README"
 LangString README ${LANG_FRENCH} "README"
 
@@ -65,13 +65,13 @@ Section $(Sec1Name)
   SectionIn RO
 
   ; désinstallation SC1
-  ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SuperCopier" "DisplayName"
-  StrCmp $0 "SuperCopier"  0 SC1NotInstalled
+  ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "DisplayName"
+  StrCmp $0 "Supercopier"  0 SC1NotInstalled
     MessageBox MB_YESNO $(UninstSC1) IDYES UninstSC1
       MessageBox MB_YESNO $(UninstSC1Confirm) IDYES SC1NotInstalled
       Quit
     UninstSC1:
-      ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SuperCopier" "UninstallString"
+      ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "UninstallString"
       Exec $0
   SC1NotInstalled:
 
@@ -85,16 +85,16 @@ Section $(Sec1Name)
   SetOutPath $INSTDIR
 
   ; Put file there
-  File SuperCopier.exe
+  File Supercopier.exe
   File README.txt
   File SCShellExt.dll
   File SCShellExt64.dll
 
   ; Write the uninstall keys for Windows
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SuperCopier" "DisplayName" "SuperCopier"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SuperCopier" "UninstallString" '"$INSTDIR\SC2Uninst.exe"'
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SuperCopier" "NoModify" 1
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SuperCopier" "NoRepair" 1
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "DisplayName" "Supercopier"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "UninstallString" '"$INSTDIR\SC2Uninst.exe"'
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "NoModify" 1
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "NoRepair" 1
   WriteUninstaller "SC2Uninst.exe"
 
 SectionEnd ; end the section
@@ -106,22 +106,22 @@ Section $(Sec6Name)
 SectionEnd
 
 Section $(Sec2Name)
-  Delete "$SMPROGRAMS\SuperCopier\*.*"
+  Delete "$SMPROGRAMS\Supercopier\*.*"
 
   SetShellVarContext current
 
-  CreateDirectory "$SMPROGRAMS\SuperCopier"
+  CreateDirectory "$SMPROGRAMS\Supercopier"
 
-  CreateShortCut "$SMPROGRAMS\SuperCopier\SuperCopier.lnk" "$INSTDIR\SuperCopier.exe" "" "$INSTDIR\SuperCopier.exe" 0
+  CreateShortCut "$SMPROGRAMS\Supercopier\Supercopier.lnk" "$INSTDIR\Supercopier.exe" "" "$INSTDIR\Supercopier.exe" 0
 
-  CreateShortCut "$SMPROGRAMS\SuperCopier\$(MenuAccess).lnk" "$INSTDIR\SC2Config.exe" "" "$INSTDIR\SC2Config.exe" 0
+  CreateShortCut "$SMPROGRAMS\Supercopier\$(MenuAccess).lnk" "$INSTDIR\SC2Config.exe" "" "$INSTDIR\SC2Config.exe" 0
 
-  CreateShortCut "$SMPROGRAMS\SuperCopier\$(README).lnk" "$INSTDIR\$(README).txt" "" "$INSTDIR\$(README).txt" 0
-  CreateShortCut "$SMPROGRAMS\SuperCopier\$(UninstSC2).lnk" "$INSTDIR\SC2Uninst.exe" "" "$INSTDIR\SC2Uninst.exe" 0
+  CreateShortCut "$SMPROGRAMS\Supercopier\$(README).lnk" "$INSTDIR\$(README).txt" "" "$INSTDIR\$(README).txt" 0
+  CreateShortCut "$SMPROGRAMS\Supercopier\$(UninstSC2).lnk" "$INSTDIR\SC2Uninst.exe" "" "$INSTDIR\SC2Uninst.exe" 0
 SectionEnd ; end the section
 
 Section $(Sec3Name)
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "SuperCopier.exe" "$INSTDIR\SuperCopier.exe"
+  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Supercopier.exe" "$INSTDIR\Supercopier.exe"
 SectionEnd ; end the section
 
 Section $(Sec4Name)
@@ -149,9 +149,9 @@ Section "Uninstall"
 
 
   ; Remove registry keys
-  DeleteRegKey HKCU "Software\Supercopier\SuperCopier"
-  DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "SuperCopier.exe"
-  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SuperCopier"
+  DeleteRegKey HKCU "Software\Supercopier\Supercopier"
+  DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Supercopier.exe"
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier"
 
   UnRegDLL $INSTDIR\SCShellExt.dll
 
@@ -159,7 +159,7 @@ Section "Uninstall"
 
   ; Remove files and uninstaller
   RMDir /r $INSTDIR\Languages
-  Delete $INSTDIR\SuperCopier.exe
+  Delete $INSTDIR\Supercopier.exe
   Delete /REBOOTOK $INSTDIR\SCShellExt.dll
   Delete /REBOOTOK $INSTDIR\SCShellExt64.dll
   Delete $INSTDIR\README.txt
@@ -168,10 +168,10 @@ Section "Uninstall"
   SetShellVarContext current
 
   ; Remove shortcuts, if any
-  Delete "$SMPROGRAMS\SuperCopier\*.*"
+  Delete "$SMPROGRAMS\Supercopier\*.*"
 
   ; Remove directories used
-  RMDir "$SMPROGRAMS\SuperCopier"
+  RMDir "$SMPROGRAMS\Supercopier"
   RMDir "$INSTDIR\Languages"
   RMDir /REBOOTOK "$INSTDIR"
 
@@ -221,7 +221,7 @@ Function .onInstSuccess
 
   StrCmp $9 "exec" Good NoGood
   Good:
-      Exec $INSTDIR\SuperCopier.exe
+      Exec $INSTDIR\Supercopier.exe
   NoGood:
 
   StrCmp $8 "README" Good2 NoGood2
