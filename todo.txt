@@ -1,3 +1,7 @@
 Drop all 98/2000/Me/NT4 support.
 Make speed limitation more clear.
 Try again use the catchcopy protocol and named pipe. 
+Try fix encoding with %n for speed, to re-add "X XXX" for the number
+"Put window at top" options
+Don't call 2x the UAC at the startup
+Rewrite the old comment into english
