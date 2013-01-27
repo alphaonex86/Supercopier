@@ -55,8 +55,8 @@ LangString UninstSC1Confirm ${LANG_FRENCH} "Voulez-vous forcer l'installation de
 
 LangString MenuAccess ${LANG_ENGLISH} "Menu access"
 LangString MenuAccess ${LANG_FRENCH} "Accéder au menu"
-LangString UninstSC2 ${LANG_ENGLISH} "Uninstall Supercopier"
-LangString UninstSC2 ${LANG_FRENCH} "Désinstaller Supercopier"
+LangString UninstSC ${LANG_ENGLISH} "Uninstall Supercopier"
+LangString UninstSC ${LANG_FRENCH} "Désinstaller Supercopier"
 LangString README ${LANG_ENGLISH} "README"
 LangString README ${LANG_FRENCH} "README"
 
@@ -92,10 +92,10 @@ Section $(Sec1Name)
 
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "DisplayName" "Supercopier"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "UninstallString" '"$INSTDIR\SC2Uninst.exe"'
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "UninstallString" '"$INSTDIR\SCUninst.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Supercopier" "NoRepair" 1
-  WriteUninstaller "SC2Uninst.exe"
+  WriteUninstaller "SCUninst.exe"
 
 SectionEnd ; end the section
 
@@ -114,10 +114,10 @@ Section $(Sec2Name)
 
   CreateShortCut "$SMPROGRAMS\Supercopier\Supercopier.lnk" "$INSTDIR\Supercopier.exe" "" "$INSTDIR\Supercopier.exe" 0
 
-  CreateShortCut "$SMPROGRAMS\Supercopier\$(MenuAccess).lnk" "$INSTDIR\SC2Config.exe" "" "$INSTDIR\SC2Config.exe" 0
+  CreateShortCut "$SMPROGRAMS\Supercopier\$(MenuAccess).lnk" "$INSTDIR\SCConfig.exe" "" "$INSTDIR\SCConfig.exe" 0
 
   CreateShortCut "$SMPROGRAMS\Supercopier\$(README).lnk" "$INSTDIR\$(README).txt" "" "$INSTDIR\$(README).txt" 0
-  CreateShortCut "$SMPROGRAMS\Supercopier\$(UninstSC2).lnk" "$INSTDIR\SC2Uninst.exe" "" "$INSTDIR\SC2Uninst.exe" 0
+  CreateShortCut "$SMPROGRAMS\Supercopier\$(UninstSC).lnk" "$INSTDIR\SCUninst.exe" "" "$INSTDIR\SCUninst.exe" 0
 SectionEnd ; end the section
 
 Section $(Sec3Name)
@@ -142,10 +142,23 @@ Section "Uninstall"
     Sleep 200
     FindWindow $R0 "" "SuperCopier MainForm"
     IntCmp $R0 0 NotLaunched2
-    DetailPrint "Waiting SC2 Close..."
+    DetailPrint "Waiting SC Close..."
     GoTo CloseLoop
 
   NotLaunched2:
+
+  FindWindow $R0 "Window" "SuperCopier"
+  IntCmp $R0 0 NotLaunched3
+  SendMessage $R0 16 0 0  ; WM_CLOSE
+
+  CloseLoop3:
+    Sleep 200
+    FindWindow $R0 "Window" "SuperCopier"
+    IntCmp $R0 0 NotLaunched3
+    DetailPrint "Waiting SC Close..."
+    GoTo CloseLoop3
+
+  NotLaunched3:
 
 
   ; Remove registry keys
@@ -163,7 +176,7 @@ Section "Uninstall"
   Delete /REBOOTOK $INSTDIR\SCShellExt.dll
   Delete /REBOOTOK $INSTDIR\SCShellExt64.dll
   Delete $INSTDIR\README.txt
-  Delete $INSTDIR\SC2Uninst.exe
+  Delete $INSTDIR\SCUninst.exe
 
   SetShellVarContext current
 
