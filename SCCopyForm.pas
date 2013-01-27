@@ -298,7 +298,7 @@ begin
 
       if SelectedOnly then
       begin
-        if (lvFileList.SelCount=1) and (lvFileList.Selected.Index>1) then
+        if (lvFileList.SelCount=1) and (lvFileList.Selected <> nil) and (lvFileList.Selected.Index>1) then
         begin
           Action(FileList,lvFileList.Selected);
         end
