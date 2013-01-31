@@ -50,6 +50,7 @@ type
     miCancelAll: TMenuItem;
     miCancelThread: TMenuItem;
     ilGlobal: TImageList;
+    PluginLoader: CPluginLoader;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure miConfigClick(Sender: TObject);
@@ -82,6 +83,7 @@ uses SCConfig,SCCommon,SCWin32,SCCopyThread,SCBaseList,SCFileList,SCDirList,SCWo
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
+  PluginLoader := CPluginLoader.Create();
   Windows.SetParent(Handle,THANDLE(-3{HWND_MESSAGE})); // cacher la form
   Caption:=SC2_MAINFORM_CAPTION;
 
@@ -120,6 +122,8 @@ end;
 
 procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
+  PluginLoader.Free;
+  PluginLoader := nil;
   CanClose:=True;
 
   API.Free;
@@ -232,18 +236,14 @@ procedure TMainForm.UpdateSystrayIcon;
 var
     Idx:Integer;
     Bmp: graphics.TBitmap;
-    PluginLoader: CPluginLoader;
 begin
   Bmp := graphics.TBitmap.Create;
   try
     if Assigned(API) and API.Enabled then Idx:=28 else Idx:=29;
-    PluginLoader := CPluginLoader.Create();
-    PluginLoader.SetEnabled(Assigned(API) and API.Enabled);
-    PluginLoader.Free;
-    PluginLoader := nil;
     ilGlobal.GetBitmap(Idx, Bmp);
     Systray.Icon.Assign(Bmp);
     Systray.Show;
+    PluginLoader.SetEnabled(Assigned(API) and API.Enabled);
   finally
     Bmp.Free;
   end;

@@ -168,16 +168,12 @@ begin
     arguments.Add('/s');
   if(not bRegister) then
     arguments.Add('/u');
-  arguments.Add(dllPath);
+  arguments.Add('"'+dllPath+'"');
 
   argumentsString := '';
   for i := 0 to arguments.Count-1 do
   begin
-    if(Length(argumentsString) = 0) then
-      argumentsString := argumentsString + arguments[i]
-      else if(i = arguments.Count-1) then
-        argumentsString := argumentsString + ' "' + arguments[i] + '"'
-        else argumentsString := argumentsString + ' ' + arguments[i];
+      argumentsString := argumentsString + ' ' + arguments[i]
   end;
   arguments.Free;
   arguments := nil;
@@ -273,6 +269,7 @@ begin
     end
   end;
 
+  allDllIsImportant := false;
   importantDll_is_loaded := false;
   secondDll_is_loaded := false;
   importantDll_have_bug := false;
@@ -283,7 +280,8 @@ begin
   index := 0;
   while(index < m_ImportantDll.Count) do
   begin
-    if(not RegisterShellExtDll(pluginPath + m_ImportantDll[index], needBeRegistred, false)) then
+    if(not RegisterShellExtDll(pluginPath + m_ImportantDll[index], needBeRegistred,
+        not ((needBeRegistred) or (not needBeRegistred and (correctlyLoaded.IndexOf(m_ImportantDll[index]) <> -1))))) then
         importantDll_have_bug := true
     else
     begin
