@@ -163,6 +163,8 @@ var
   process: TProcess;
   sei:TSHELLEXECUTEINFOA;
 begin
+  if ((correctlyLoaded.IndexOf(dllPath) <> -1) and bRegister) then
+    exit;
   arguments := TStringList.Create;
   if(not Debug) then
     arguments.Add('/s');
@@ -180,6 +182,8 @@ begin
   res := SysUtils.ExecuteProcess('regsvr32', argumentsString, []);
 
   ok := res = 0;
+  if(ok and bRegister) then
+        correctlyLoaded.Add(dllPath);
 
   {$IF Not Defined(CPU64)}
   if((res = 999) and not changeOfArchDetected) then//code of wrong arch for the dll
@@ -209,9 +213,11 @@ begin
       sei.lpParameters:=PAnsiChar(argumentsString);
       sei.nShow:=SW_SHOWNORMAL;
       ok := ShellExecuteExA(@sei);
+        if(ok and bRegister) then
+        correctlyLoaded.Add(dllPath);
     end;
   end;
-  if (correctlyLoaded.IndexOf(dllPath) <> -1) then
+  if ((correctlyLoaded.IndexOf(dllPath) <> -1) and (not bRegister)) then
     correctlyLoaded.Delete(correctlyLoaded.IndexOf(dllPath));
   Result := ok;
 end;
@@ -286,7 +292,6 @@ begin
     else
     begin
       if(needBeRegistred) then
-        correctlyLoaded.Add(m_ImportantDll[index]);
       importantDll_is_loaded := true;
     end;
     inc(importantDll_count);
@@ -302,7 +307,6 @@ begin
       else
       begin
         if(needBeRegistred) then
-          correctlyLoaded.Add(m_SecondDll[index]);
 	secondDll_is_loaded := true;
       end;
     inc(secondDll_count);

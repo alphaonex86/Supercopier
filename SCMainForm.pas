@@ -122,8 +122,7 @@ end;
 
 procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  PluginLoader.Free;
-  PluginLoader := nil;
+  PluginLoader.SetEnabled(false);
   CanClose:=True;
 
   API.Free;
@@ -134,6 +133,8 @@ begin
   CloseConfig;
 
   LocEngine.Free;
+  PluginLoader.Free;
+  PluginLoader := nil;
 end;
 
 procedure TMainForm.miConfigClick(Sender: TObject);
