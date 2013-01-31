@@ -3,7 +3,5 @@ Make speed limitation more clear.
 Try again use the catchcopy protocol and named pipe. 
 Try fix encoding with %n for speed, to re-add "X XXX" for the number
 "Put window at top" options
-Don't call 2x the UAC at the startup
 Rewrite the old comment into english
-Don't install into Program files (x86) for the 64Bits version.
 Support drag'and'drop files on copy window

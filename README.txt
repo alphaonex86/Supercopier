@@ -1,12 +1,12 @@
-SuperCopier 3
+Supercopier 3
 ====================
 
-SuperCopier is free software; you can redistribute it and/or modify
+Supercopier is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 
-SuperCopier is distributed in the hope that it will be useful,
+Supercopier is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
@@ -30,7 +30,7 @@ Special thanks to:
 Description:
 ============
 
-SuperCopier replaces Windows explorer file copy and adds many features:
+Supercopier replaces Windows explorer file copy and adds many features:
     - Transfer resuming
     - Copy speed control
     - No bugs if You copy more than 2GB at once
@@ -46,6 +46,20 @@ Compatibility: Windows NT4/2000/XP/Vista/Seven/8 and 64 bit/Server flavors.
 
 History:
 ========
+
+- v3.0.0.3
+    - Don't install into Program files (x86) for the 64Bits version.
+    - Don't call 2x the UAC at the startup
+    - Work better when have space into the path
+
+- v3.0.0.2
+    - Add german translation
+    - Fix some crash
+    - Improve the uninstall
+
+- v3.0.0.1
+    - Fix crash on some windows
+    - Fix translation for some button
 
 - v3.0.0.0
     - Rewrite for lazarus
