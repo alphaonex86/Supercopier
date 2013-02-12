@@ -927,14 +927,14 @@ object CopyForm: TCopyForm
   end
   object odCopyList: TOpenDialog
     DefaultExt = '.scl'
-    Filter = 'SuperCopier2 Copy List (*.scl)|*.scl'
+    Filter = 'SuperCopier Copy List (*.scl)|*.scl'
     Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
     left = 300
     top = 366
   end
   object sdCopyList: TSaveDialog
     DefaultExt = '.scl'
-    Filter = 'SuperCopier2 Copy List (*.scl)|*.scl'
+    Filter = 'SuperCopier Copy List (*.scl)|*.scl'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
     left = 332
     top = 366
