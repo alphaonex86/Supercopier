@@ -1,12 +1,12 @@
 {
-    This file is part of SuperCopier.
+    This file is part of SuperCopier2.
 
-    SuperCopier is free software; you can redistribute it and/or modify
+    SuperCopier2 is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    SuperCopier is distributed in the hope that it will be useful,
+    SuperCopier2 is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -123,6 +123,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure chSpeedLimitClick(Sender: TObject);
+    procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure lvFileListData(Sender: TObject; Item: TListItem);
     procedure btErrorClearClick(Sender: TObject);
     procedure btFileRemoveClick(Sender: TObject);
@@ -179,7 +180,7 @@ type
     procedure ProcessLvFileListAction(Action:TLvFileListAction;SelectedOnly:Boolean;BackwardScan:Boolean=True);
     procedure OpenNewFilesMenu;
     procedure SortFileList(Mode:TFileListSortMode);
-    procedure OnDropFiles(var Msg:TMessage); message WM_DROPFILES;
+    procedure OnDropFiles_(var Msg:TMessage);// message WM_DROPFILES;
     procedure OnWindowPosChanged(var Msg:TMessage); message WM_ACTIVATE;
     procedure OnSysCommand(var Msg:TMessage); message WM_SYSCOMMAND;
 
@@ -690,7 +691,7 @@ begin
   tiSystray.Enabled:=True;
 
   // accepter le drag & drop
-  DragAcceptFiles(Handle,True);
+  //DragAcceptFiles(lvFileList.Handle,True);
 
   pcPages.ActivePage:=tsCopyList;
 
@@ -914,6 +915,39 @@ begin
   llSpeedLimit.Enabled:=chSpeedLimit.Checked;
 
   FConfigData.ThrottleEnabled:=chSpeedLimit.Checked;
+end;
+
+procedure TCopyForm.FormDropFiles(Sender: TObject; const FileNames: array of String);
+var
+   i:integer;
+   BaseItem:TBaseItem;
+begin
+  try
+    Screen.Cursor:=crHourGlass;
+
+    if Assigned(NewBaseList) then
+       begin
+         NewBaseList.Free;
+         NewBaseList := nil;
+       end;
+
+    // on construit la BaseList
+    if Length(FileNames) = 0 then exit;
+
+    NewBaseList:=TBaseList.Create;
+
+    for i:=0 to Length(FileNames)-1 do
+    begin
+      BaseItem:=TBaseItem.Create;
+      BaseItem.SrcName:=FileNames[i];
+      BaseItem.IsDirectory:=DirectoryExists(FileNames[i]);
+      NewBaseList.Add(BaseItem);
+    end;
+
+    OpenNewFilesMenu;
+  finally
+    Screen.Cursor:=crDefault;
+  end;
 end;
 
 procedure TCopyForm.edCustomSpeedLimitChange(Sender: TObject);
@@ -1142,7 +1176,7 @@ end;
 // Procйdures de message
 //*******************************************************************************
 
-procedure TCopyForm.OnDropFiles(var Msg:TMessage);
+procedure TCopyForm.OnDropFiles_(var Msg:TMessage);
 var i,NumFiles:integer;
 		FN: array[0..MAX_PATH] of WideChar;
 		BaseItem:TBaseItem;
