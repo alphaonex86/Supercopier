@@ -17,7 +17,7 @@ unit SCCommon;
 interface
 
 uses
-  Windows,SCWin32, dialogs;
+  Windows,SCWin32, dialogs, lclproc;
 
 type
   TConfigLocation=(clIniFile, clRegistry);

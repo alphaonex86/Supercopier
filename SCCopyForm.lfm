@@ -16,12 +16,13 @@ object CopyForm: TCopyForm
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Microsoft Sans Serif'
+  FormStyle = fsStayOnTop
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnDropFiles = FormDropFiles
   Position = poScreenCenter
-  LCLVersion = '1.0.4.0'
+  LCLVersion = '0.9.30.4'
   object ggAll: TSCProgessBar
     Left = 8
     Height = 17
@@ -927,14 +928,14 @@ object CopyForm: TCopyForm
   end
   object odCopyList: TOpenDialog
     DefaultExt = '.scl'
-    Filter = 'SuperCopier Copy List (*.scl)|*.scl'
+    Filter = 'SuperCopier2 Copy List (*.scl)|*.scl'
     Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
     left = 300
     top = 366
   end
   object sdCopyList: TSaveDialog
     DefaultExt = '.scl'
-    Filter = 'SuperCopier Copy List (*.scl)|*.scl'
+    Filter = 'SuperCopier2 Copy List (*.scl)|*.scl'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
     left = 332
     top = 366

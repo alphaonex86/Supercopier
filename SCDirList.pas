@@ -17,7 +17,7 @@ unit SCDirList;
 {$MODE Delphi}
 
 interface
-uses Classes,SCObjectThreadList,types;
+uses Classes,SCObjectThreadList,types,lclproc;
 
 const
   DIRLIST_DATA_VERSION=001;
@@ -120,14 +120,14 @@ var SrcHnd,DstHnd:THandle;
 begin
 	if Created and (Win32Platform=VER_PLATFORM_WIN32_NT) then
 	begin
-		SrcHnd:=CreateFileW(pwidechar(SrcPath),
+		SrcHnd:=CreateFileW(pwidechar(UTF8Decode(SrcPath)),
 												GENERIC_READ,
 												FILE_SHARE_READ or FILE_SHARE_WRITE,
 												nil,
 												OPEN_ALWAYS,
 												FILE_FLAG_BACKUP_SEMANTICS,
 												0);
-		DstHnd:=CreateFileW(pwidechar(DestPath),
+		DstHnd:=CreateFileW(pwidechar(UTF8Decode(DestPath)),
 												GENERIC_WRITE,
 												FILE_SHARE_READ or FILE_SHARE_WRITE,
 												nil,

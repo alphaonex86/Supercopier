@@ -47,7 +47,6 @@ uses
   SCConfigForm in 'SCConfigForm.pas' {ConfigForm},
   SCAboutForm in 'SCAboutForm.pas' {AboutForm},
   SCWideUnbufferedCopier in 'SCWideUnbufferedCopier.pas',
-  SCAnsiBufferedCopier in 'SCAnsiBufferedCopier.pas',
   SCConfigShared in 'SCConfigShared.pas',
   SCLocEngine in 'SCLocEngine.pas',
   SCBaseListQueue in 'SCBaseListQueue.pas',

@@ -18,7 +18,7 @@ unit SCAPI;
 
 interface
 
-uses Windows,Classes,Contnrs,SysUtils, Forms, ShellApi,
+uses Windows,Classes,Contnrs,SysUtils, Forms, ShellApi, Dialogs,
      SCCommon,SCWin32,SCLocStrings,SCAPICommon,SCBaseList,SCWorkThreadList,
        SCWorkThread,SCCopyThread,SCLocEngine;
 
@@ -326,8 +326,8 @@ begin
   if not CheckHandle(ABaseListHandle,TBaseList) then Exit;
 
   Item:=TBaseItem.Create;
-  Item.SrcName:=AItemName;
-  Item.IsDirectory:=DirectoryExists(AItemName);
+  Item.SrcName:=UTF8Encode(AItemName);
+  Item.IsDirectory:=DirectoryExists(UTF8Encode(AItemName));
 
   (FHandleList[ABaseListHandle] as TBaseList).Add(Item);
 

@@ -18,7 +18,7 @@ unit SCWideUnbufferedCopier;
 
 interface
 uses
-  Windows,Messages,SCCopier;
+  Windows,Messages,SCCopier, lclproc, Dialogs;
 
 const
   MAX_WAITING_IO=16; // nombre max d'I/O en attente
@@ -172,7 +172,7 @@ begin
       HBufferedDest:=INVALID_HANDLE_VALUE;
       try
         // on ouvre le fichier source
-        HSrc:=Windows.CreateFileW(PWideChar(SourceFile),
+        HSrc:=Windows.CreateFileW(PWideChar(UTF8Decode(SourceFile)),
                             GENERIC_READ,
                             FILE_SHARE_READ or FILE_SHARE_WRITE,
                             nil,
@@ -188,7 +188,7 @@ begin
         // on ouvre le fichier de destination
         if NextAction<>cpaRetry then // doit-on reprendre le transfert?
         begin
-          HDest:=CreateFileW(PWideChar(DestFile),
+          HDest:=CreateFileW(PWideChar(UTF8Decode(DestFile)),
                               GENERIC_WRITE,
                               FILE_SHARE_READ or FILE_SHARE_WRITE,
                               nil,
@@ -201,7 +201,7 @@ begin
           // on ouvre un handle sur le fichier de destination en bufferisй pour pouvoir
           // fixer le fichier а la bonne taille (en non bufferisй, on ne peut copier
           // que des blocs de taille multiple de celle d'une page mйmoire)
-          HBufferedDest:=CreateFileW(PWideChar(DestFile),
+          HBufferedDest:=CreateFileW(PWideChar(UTF8Decode(DestFile)),
                                       GENERIC_WRITE,
                                       FILE_SHARE_READ or FILE_SHARE_WRITE,
                                       nil,
@@ -212,7 +212,7 @@ begin
         end
         else
         begin
-          HDest:=CreateFileW(PWideChar(DestFile),
+          HDest:=CreateFileW(PWideChar(UTF8Decode(DestFile)),
                               GENERIC_WRITE,
                               FILE_SHARE_READ or FILE_SHARE_WRITE,
                               nil,
@@ -221,7 +221,7 @@ begin
                               0);
           RaiseCopyErrorIfNot(HDest<>INVALID_HANDLE_VALUE);
 
-          HBufferedDest:=CreateFileW(PWideChar(DestFile),
+          HBufferedDest:=CreateFileW(PWideChar(UTF8Decode(DestFile)),
                                       GENERIC_WRITE,
                                       FILE_SHARE_READ or FILE_SHARE_WRITE,
                                       nil,

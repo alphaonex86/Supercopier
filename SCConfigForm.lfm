@@ -889,11 +889,11 @@ object ConfigForm: TConfigForm
       end
       object gbAdvanced: TGroupBox
         Left = 7
-        Height = 198
+        Height = 190
         Top = 52
         Width = 425
         Caption = 'Advanced parameters'
-        ClientHeight = 180
+        ClientHeight = 172
         ClientWidth = 421
         TabOrder = 2
         object llCopyBufferSize: TLabel
@@ -1000,21 +1000,13 @@ object ConfigForm: TConfigForm
           Caption = 'Fast free space check (can have problems with NTFS mount points)'
           TabOrder = 4
         end
-        object chFailSafeCopier: TCheckBox
-          Left = 8
-          Height = 19
-          Top = 139
-          Width = 305
-          Caption = 'Use a failsafe copier (buffered copy and no unicode support)'
-          TabOrder = 5
-        end
         object chCopyResumeNoAgeVerification: TCheckBox
           Left = 8
           Height = 19
-          Top = 159
+          Top = 144
           Width = 297
           Caption = 'Do not check for same file age before resuming file transfer'
-          TabOrder = 6
+          TabOrder = 5
         end
       end
       object btAdvancedHelp: TButton

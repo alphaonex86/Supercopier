@@ -64,7 +64,6 @@ type
     ProgressTextColor:TColor;
     ProgressOutlineColor:TColor;
     MinimizedEventHandling:TMinimizedEventHandling;
-    FailSafeCopier:Boolean;
     Language:WideString;
     CopyResumeNoAgeVerification:Boolean;
     SaveSecurityOnCopy:Boolean;
@@ -188,7 +187,6 @@ const
     ProgressTextColor:clWhite;
     ProgressOutlineColor:clBlack;
     MinimizedEventHandling:mehShowBalloon;
-    FailSafeCopier:False;
     Language:'';
     CopyResumeNoAgeVerification:False;
     SaveSecurityOnCopy:False;
@@ -393,7 +391,6 @@ begin
       ProgressTextColor:=StringToColor(ReadString('ProgressTextColor'));
       ProgressOutlineColor:=StringToColor(ReadString('ProgressOutlineColor'));
       MinimizedEventHandling:=TMinimizedEventHandling(ReadInteger('MinimizedEventHandling'));
-      FailSafeCopier:=ReadBoolean('FailSafeCopier');
       Language:=UTF8Decode(ReadString('Language'));
       CopyResumeNoAgeVerification:=ReadBoolean('CopyResumeNoAgeVerification');
       SaveSecurityOnCopy:=ReadBoolean('SaveSecurityOnCopy');
@@ -456,7 +453,6 @@ begin
     WriteString('ProgressTextColor',ColorToString(ProgressTextColor));
     WriteString('ProgressOutlineColor',ColorToString(ProgressOutlineColor));
     WriteInteger('MinimizedEventHandling',Integer(MinimizedEventHandling));
-    WriteBoolean('FailSafeCopier',FailSafeCopier);
     WriteString('Language',UTF8Encode(Language));
     WriteBoolean('CopyResumeNoAgeVerification',CopyResumeNoAgeVerification);
     WriteBoolean('SaveSecurityOnCopy',SaveSecurityOnCopy);

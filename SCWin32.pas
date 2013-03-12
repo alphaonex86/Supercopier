@@ -88,7 +88,7 @@ var
 
 implementation
 
-uses Sysutils;
+uses Sysutils,lclproc;
 
 function PathIsUNCA(pszPath:PChar):LongBool;stdcall;external 'shlwapi.dll' name 'PathIsUNCA';
 function PathIsUNCW(pszPath:PWideChar):LongBool;stdcall;external 'shlwapi.dll' name 'PathIsUNCW';

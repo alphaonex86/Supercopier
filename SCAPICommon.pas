@@ -19,7 +19,7 @@ unit SCAPICommon;
 interface
 
 uses Windows,Classes,SysUtils,
-     SCWin32;
+     SCWin32, lclproc;
 
 type
   TApiError=(aeNone=0,aeBadHandle=1,aeWrongHandleType=2,aeEmptyBaseList=3,aeBadLocStringId=4);
@@ -105,6 +105,7 @@ begin
   Read(Len,SizeOf(Len));
   SetLength(Result,Len);
   Read(Result[1],Len*SizeOf(WideChar));
+  Result := Result;
 end;
 
 function TFileMappingStream.Seek(Offset: Integer; Origin: Word): Longint;

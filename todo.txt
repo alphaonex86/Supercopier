@@ -5,3 +5,6 @@ Try fix encoding with %n for speed, to re-add "X XXX" for the number
 "Put window at top" options
 Rewrite the old comment into english
 Support drag'and'drop files on copy window
+When we apply another language, all other settings are default and does not save the changes.
+When you copy files with special characters is a question mark in place, and often gives error and does not begin to copy.
+not accepted back into the English language, just installing again.

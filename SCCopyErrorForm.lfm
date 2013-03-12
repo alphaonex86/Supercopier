@@ -1,7 +1,7 @@
 object CopyErrorForm: TCopyErrorForm
-  Left = 443
+  Left = 469
   Height = 147
-  Top = 198
+  Top = 378
   Width = 408
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
@@ -18,7 +18,7 @@ object CopyErrorForm: TCopyErrorForm
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   Position = poOwnerFormCenter
-  LCLVersion = '1.0.4.0'
+  LCLVersion = '0.9.30.4'
   object imIcon: TImage
     Left = 8
     Height = 32

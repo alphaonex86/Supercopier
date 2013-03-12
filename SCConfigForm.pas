@@ -133,7 +133,6 @@ type
     llLanguage: TLabel;
     cbLanguage: TComboBox;
     llLanguageInfo: TLabel;
-    chFailSafeCopier: TCheckBox;
     chCopyResumeNoAgeVerification: TCheckBox;
     llAttributesAndSecurityForCopies: TLabel;
     llAttributesAndSecurityForMoves: TLabel;
@@ -213,7 +212,6 @@ begin
   edErrorLogFileName.Enabled:=chErrorLogAutoSave.Checked;
   btELFNBrowse.Enabled:=chErrorLogAutoSave.Checked and (cbErrorLogAutoSaveMode.ItemIndex=2);
   //btRemoveProcess.Enabled:=lvHandledProcesses.Items.Count>0;
-  chFailSafeCopier.Enabled:=Win32Platform=VER_PLATFORM_WIN32_NT;
 end;
 
 //******************************************************************************
@@ -304,7 +302,6 @@ begin
     edCopySpeedAveragingInterval.Text:=IntToStr(CopySpeedAveragingInterval);
     edCopyThrottleInterval.Text:=IntToStr(CopyThrottleInterval);
     chFastFreeSpaceCheck.Checked:=FastFreeSpaceCheck;
-    chFailSafeCopier.Checked:=FailSafeCopier;
     chCopyResumeNoAgeVerification.Checked:=CopyResumeNoAgeVerification;
   end;
 end;
@@ -379,7 +376,6 @@ begin
     CopySpeedAveragingInterval:=StrToIntDef(edCopySpeedAveragingInterval.Text,CONFIG_DEFAULT_VALUES.CopySpeedAveragingInterval);
     CopyThrottleInterval:=StrToIntDef(edCopyThrottleInterval.Text,CONFIG_DEFAULT_VALUES.CopyThrottleInterval);
     FastFreeSpaceCheck:=chFastFreeSpaceCheck.Checked;
-    FailSafeCopier:=chFailSafeCopier.Checked;
     CopyResumeNoAgeVerification:=chCopyResumeNoAgeVerification.Checked;
   end;
 end;

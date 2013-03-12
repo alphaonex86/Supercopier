@@ -17,7 +17,7 @@ unit SCCopier;
 {$MODE Delphi}
 
 interface
-uses Classes, SCFileList, SCDirList, SCBaseList, Sysutils,
+uses Classes, SCFileList, SCDirList, SCBaseList, Sysutils, Dialogs,
   SCCommon, FileUtil, Windows;
 
 const

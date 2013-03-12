@@ -20,9 +20,9 @@ interface
 
 uses
   Windows,Commctrl,Classes,Messages,SCObjectThreadList,SCWorkThread,SCWorkThreadList,
-  SCCopier,SCAnsiBufferedCopier,SCWideUnbufferedCopier,SCCommon,SCConfig,SCBaseList,
+  SCCopier,SCWideUnbufferedCopier,SCCommon,SCConfig,SCBaseList,
   SCDirList,{SCSystray,}SCCopyForm,SCDiskSpaceForm,SCCollisionForm,SCCopyErrorForm,
-  SCBaseListQueue,Forms,ShlObj,ShellApi, ExtCtrls;
+  SCBaseListQueue,Forms,ShlObj,ShellApi, ExtCtrls, Dialogs;
 
 type
   TCopyThread=class(TWorkThread)
@@ -176,10 +176,8 @@ begin
   FIsThreadAlive:=True;
 
   // on choisis le copier en fonction de la config et de l'OS
-  if Config.Values.FailSafeCopier or (Win32Platform<>VER_PLATFORM_WIN32_NT) then
-    Copier:=TAnsiBufferedCopier.Create
-  else
-    Copier:=TWideUnbufferedCopier.Create;
+//  Copier:=TAnsiBufferedCopier.Create;//destroy the source
+  Copier:=TWideUnbufferedCopier.Create;
 
   Copier.BufferSize:=Config.Values.CopyBufferSize;
 

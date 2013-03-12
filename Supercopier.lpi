@@ -134,19 +134,25 @@
       <Unit16>
         <Filename Value="SCCollisionForm.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="CollisionForm"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="SCCollisionForm"/>
       </Unit16>
       <Unit17>
         <Filename Value="SCCollisionRenameForm.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="CollisionRenameForm"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="SCCollisionRenameForm"/>
       </Unit17>
       <Unit18>
         <Filename Value="SCCopyErrorForm.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="CopyErrorForm"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="SCCopyErrorForm"/>
       </Unit18>
       <Unit19>
@@ -170,11 +176,6 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SCWideUnbufferedCopier"/>
       </Unit21>
-      <Unit22>
-        <Filename Value="SCAnsiBufferedCopier.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="SCAnsiBufferedCopier"/>
-      </Unit22>
       <Unit23>
         <Filename Value="SCConfigShared.pas"/>
         <IsPartOfProject Value="True"/>
@@ -200,11 +201,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SCAPICommon"/>
       </Unit27>
-      <Unit28>
+      <Unit22>
         <Filename Value="SCProcessPrivileges.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SCProcessPrivileges"/>
-      </Unit28>
+      </Unit22>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -224,14 +225,12 @@
     </Parsing>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
-      <RelocatableUnit Value="True"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>
-        <GenerateDebugInfo Value="False"/>
         <StripSymbols Value="True"/>
       </Debugging>
       <LinkSmart Value="True"/>
@@ -242,9 +241,6 @@
       </Options>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
