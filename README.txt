@@ -47,6 +47,11 @@ Compatibility: Windows NT4/2000/XP/Vista/Seven/8 and 64 bit/Server flavors.
 History:
 ========
 
+- v3.0.0.4
+    - Add more languages
+    - Fix the drag'and'drop
+    - Fix some encoding problem
+
 - v3.0.0.3
     - Don't install into Program files (x86) for the 64Bits version.
     - Don't call 2x the UAC at the startup
