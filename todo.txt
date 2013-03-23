@@ -8,3 +8,4 @@ Support drag'and'drop files on copy window
 When we apply another language, all other settings are default and does not save the changes.
 When you copy files with special characters is a question mark in place, and often gives error and does not begin to copy.
 not accepted back into the English language, just installing again.
+0KB file created on NAS, see: http://forum.hardware.fr/hfr/reseauxpersosoho/Reseaux/link-sharecenter-320l-sujet_22398_1.htm
