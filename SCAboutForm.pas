@@ -24,6 +24,7 @@ uses
 
 const
   COSTAB_LENGTH=2048;
+  SC_ULTIMATE=false;
 
 type
 
@@ -58,6 +59,7 @@ type
 
 var
   AboutForm: TAboutForm;
+//poNoConsole
 
 	// donnйes pour l'effet
 	//CosTab:array[0..COSTAB_LENGTH-1] of Byte;
@@ -68,6 +70,7 @@ implementation
 
 procedure TAboutForm.FormCreate(Sender: TObject);
 var i:integer;
+  IniFileName:WideString;
 begin
   LocEngine.TranslateForm(Self);
 
@@ -82,7 +85,17 @@ begin
 
 	// on prйcalcule une petite table de cosinus
 	//for i:=0 to COSTAB_LENGTH-1 do CosTab[i]:=Round((Cos(i*2*Pi/COSTAB_LENGTH)+1)*255/2);
-
+	Label1.Caption:=StringReplace(Label1.Caption,'64','32',[rfReplaceAll]);
+	{$IFDEF cpux86_64}
+	Label1.Caption:=StringReplace(Label1.Caption,'32','64',[rfReplaceAll]);
+	{$ENDIF}
+	{$IFDEF WIN64}
+	Label1.Caption:=StringReplace(Label1.Caption,'32','64',[rfReplaceAll]);
+	{$ENDIF}
+	IniFileName:=ChangeFileExt(Application.ExeName,'.ini');
+	if FileExists(IniFileName) then Label1.Caption:=StringReplace(Label1.Caption,'Bits','Bits portable',[rfReplaceAll]);
+	Label1.Caption:=StringReplace(Label1.Caption,'Version: Ultimate ','Version: ',[rfReplaceAll]);
+	if SC_ULTIMATE then Label1.Caption:=StringReplace(Label1.Caption,'Version: ','Version: Ultimate ',[rfReplaceAll]);
 end;
 
 procedure TAboutForm.FormCloseQuery(Sender: TObject;

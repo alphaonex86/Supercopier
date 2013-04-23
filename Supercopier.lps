@@ -4,14 +4,14 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="83">
+    <Units Count="82">
       <Unit0>
         <Filename Value="Supercopier.lpr"/>
         <IsPartOfProject Value="True"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="54"/>
-        <CursorPos X="1" Y="71"/>
-        <UsageCount Value="76"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="70"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit0>
       <Unit1>
@@ -22,9 +22,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SCMainForm"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="152"/>
-        <CursorPos X="32" Y="125"/>
-        <UsageCount Value="76"/>
+        <TopLine Value="117"/>
+        <CursorPos X="23" Y="146"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit1>
       <Unit2>
@@ -34,7 +34,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="68"/>
         <CursorPos X="39" Y="94"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit2>
       <Unit3>
@@ -44,7 +44,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="466"/>
         <CursorPos X="9" Y="37"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit3>
       <Unit4>
@@ -54,7 +54,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="114"/>
         <CursorPos X="13" Y="130"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit4>
       <Unit5>
@@ -64,7 +64,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="244"/>
         <CursorPos X="1" Y="260"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit5>
       <Unit6>
@@ -74,7 +74,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="1" Y="45"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit6>
       <Unit7>
@@ -84,7 +84,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="368"/>
         <CursorPos X="13" Y="378"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit7>
       <Unit8>
@@ -94,29 +94,29 @@
         <WindowIndex Value="0"/>
         <TopLine Value="15"/>
         <CursorPos X="3" Y="24"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit8>
       <Unit9>
         <Filename Value="SCConfig.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SCConfig"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="432"/>
-        <CursorPos X="1" Y="456"/>
-        <UsageCount Value="76"/>
+        <TopLine Value="253"/>
+        <CursorPos X="1" Y="255"/>
+        <UsageCount Value="77"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit9>
       <Unit10>
         <Filename Value="SCCopyThread.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SCCopyThread"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="12" Y="23"/>
-        <UsageCount Value="76"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit10>
       <Unit11>
@@ -126,7 +126,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="124"/>
         <CursorPos X="1" Y="141"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit11>
       <Unit12>
@@ -139,7 +139,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="995"/>
         <CursorPos X="53" Y="1006"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit12>
       <Unit13>
@@ -149,7 +149,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="44" Y="32"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit13>
       <Unit14>
@@ -159,7 +159,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="86"/>
         <CursorPos X="45" Y="96"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit14>
       <Unit15>
@@ -170,7 +170,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="3" Y="24"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit15>
       <Unit16>
@@ -183,7 +183,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="23"/>
         <CursorPos X="5" Y="35"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit16>
       <Unit17>
@@ -196,7 +196,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="23"/>
         <CursorPos X="18" Y="33"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit17>
       <Unit18>
@@ -209,7 +209,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="74"/>
         <CursorPos X="5" Y="33"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit18>
       <Unit19>
@@ -222,7 +222,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="355"/>
         <CursorPos X="1" Y="379"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit19>
       <Unit20>
@@ -233,12 +233,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SCAboutForm"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="76"/>
+        <TopLine Value="13"/>
+        <CursorPos X="19" Y="27"/>
+        <UsageCount Value="77"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit20>
       <Unit21>
@@ -248,9 +249,19 @@
         <WindowIndex Value="0"/>
         <TopLine Value="73"/>
         <CursorPos X="9" Y="35"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit21>
+      <Unit22>
+        <Filename Value="SCProcessPrivileges.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCProcessPrivileges"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="77"/>
+        <CursorPos X="39" Y="92"/>
+        <UsageCount Value="77"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit22>
       <Unit23>
         <Filename Value="SCConfigShared.pas"/>
         <IsPartOfProject Value="True"/>
@@ -258,7 +269,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="45" Y="21"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit23>
       <Unit24>
@@ -268,7 +279,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
         <CursorPos X="13" Y="89"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit24>
       <Unit25>
@@ -278,7 +289,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit25>
       <Unit26>
@@ -288,7 +299,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="322"/>
         <CursorPos X="7" Y="331"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit26>
       <Unit27>
@@ -298,23 +309,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="130"/>
         <CursorPos X="22" Y="30"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="77"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit27>
       <Unit28>
-        <Filename Value="SCProcessPrivileges.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="SCProcessPrivileges"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="77"/>
-        <CursorPos X="39" Y="92"/>
-        <UsageCount Value="76"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <Filename Value=""/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit28>
       <Unit29>
-        <Filename Value=""/>
-        <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\inc\systemh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="347"/>
+        <CursorPos X="3" Y="358"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit29>
       <Unit30>
         <Filename Value="Components\SCTeam\ScSystray.pas"/>
@@ -340,7 +349,6 @@
         <TopLine Value="143"/>
         <CursorPos X="10" Y="157"/>
         <UsageCount Value="11"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit32>
       <Unit33>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\packages\winunits-base\src\shlobj.pp"/>
@@ -349,7 +357,6 @@
         <TopLine Value="1131"/>
         <CursorPos X="6" Y="1145"/>
         <UsageCount Value="11"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit33>
       <Unit34>
         <Filename Value="TntSysUtils.pas"/>
@@ -376,7 +383,6 @@
         <TopLine Value="145"/>
         <CursorPos X="3" Y="158"/>
         <UsageCount Value="12"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit36>
       <Unit37>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win\sysutils.pp"/>
@@ -385,7 +391,6 @@
         <TopLine Value="1035"/>
         <CursorPos X="43" Y="1054"/>
         <UsageCount Value="11"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit37>
       <Unit38>
         <Filename Value="C:\lazarus\lcl\menus.pp"/>
@@ -394,7 +399,6 @@
         <TopLine Value="294"/>
         <CursorPos X="14" Y="355"/>
         <UsageCount Value="11"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit38>
       <Unit39>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win\wininc\struct.inc"/>
@@ -402,7 +406,6 @@
         <TopLine Value="2164"/>
         <CursorPos X="6" Y="2178"/>
         <UsageCount Value="11"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit39>
       <Unit40>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\objpas\sysutils\filutilh.inc"/>
@@ -410,7 +413,6 @@
         <TopLine Value="68"/>
         <CursorPos X="10" Y="82"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit40>
       <Unit41>
         <Filename Value="Components\SCTeam\SCFileNameLabel.pas"/>
@@ -428,7 +430,6 @@
         <TopLine Value="1395"/>
         <CursorPos X="3" Y="1399"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit42>
       <Unit43>
         <Filename Value="Components\SCTeam\ScTrackBar.pas"/>
@@ -446,7 +447,6 @@
         <TopLine Value="59"/>
         <CursorPos X="3" Y="72"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit44>
       <Unit45>
         <Filename Value="C:\lazarus\lcl\comctrls.pp"/>
@@ -455,7 +455,6 @@
         <TopLine Value="1477"/>
         <CursorPos X="32" Y="1488"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit45>
       <Unit46>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win\wininc\base.inc"/>
@@ -463,7 +462,6 @@
         <TopLine Value="57"/>
         <CursorPos X="6" Y="71"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit46>
       <Unit47>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\inc\systemh.inc"/>
@@ -471,7 +469,6 @@
         <TopLine Value="77"/>
         <CursorPos X="3" Y="91"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit47>
       <Unit48>
         <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
@@ -479,7 +476,6 @@
         <TopLine Value="4665"/>
         <CursorPos X="1" Y="4679"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit48>
       <Unit49>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win32\system.pp"/>
@@ -488,7 +484,6 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit49>
       <Unit50>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\win32\windows.pp"/>
@@ -497,7 +492,6 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit50>
       <Unit51>
         <Filename Value="C:\lazarus\lcl\include\sizeconstraints.inc"/>
@@ -505,7 +499,6 @@
         <TopLine Value="33"/>
         <CursorPos X="1" Y="39"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit51>
       <Unit52>
         <Filename Value="C:\lazarus\lcl\include\control.inc"/>
@@ -513,7 +506,6 @@
         <TopLine Value="1429"/>
         <CursorPos X="1" Y="1445"/>
         <UsageCount Value="9"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit52>
       <Unit53>
         <Filename Value="C:\lazarus\lcl\include\customcontrol.inc"/>
@@ -521,7 +513,6 @@
         <TopLine Value="32"/>
         <CursorPos X="1" Y="48"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit53>
       <Unit54>
         <Filename Value="C:\lazarus\lcl\include\scrollingwincontrol.inc"/>
@@ -529,7 +520,6 @@
         <TopLine Value="232"/>
         <CursorPos X="1" Y="256"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit54>
       <Unit55>
         <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
@@ -537,7 +527,6 @@
         <TopLine Value="1935"/>
         <CursorPos X="1" Y="1954"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit55>
       <Unit56>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\objpas\classes\classesh.inc"/>
@@ -545,7 +534,6 @@
         <TopLine Value="290"/>
         <CursorPos X="14" Y="303"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit56>
       <Unit57>
         <Filename Value="C:\lazarus\lcl\imglist.pp"/>
@@ -554,7 +542,6 @@
         <TopLine Value="173"/>
         <CursorPos X="15" Y="188"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit57>
       <Unit58>
         <Filename Value="C:\lazarus\lcl\graphtype.pp"/>
@@ -563,7 +550,6 @@
         <TopLine Value="98"/>
         <CursorPos X="41" Y="56"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit58>
       <Unit59>
         <Filename Value="C:\lazarus\lcl\include\graphic.inc"/>
@@ -571,7 +557,6 @@
         <TopLine Value="119"/>
         <CursorPos X="1" Y="134"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit59>
       <Unit60>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\packages\fcl-image\src\fpcanvas.pp"/>
@@ -580,7 +565,6 @@
         <TopLine Value="309"/>
         <CursorPos X="14" Y="323"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit60>
       <Unit61>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\packages\fcl-image\src\fpimage.pp"/>
@@ -589,7 +573,6 @@
         <TopLine Value="19"/>
         <CursorPos X="3" Y="30"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit61>
       <Unit62>
         <Filename Value="C:\lazarus\lcl\graphics.pp"/>
@@ -598,7 +581,6 @@
         <TopLine Value="1642"/>
         <CursorPos X="15" Y="1656"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit62>
       <Unit63>
         <Filename Value="C:\lazarus\lcl\include\mouse.inc"/>
@@ -606,7 +588,6 @@
         <TopLine Value="32"/>
         <CursorPos X="1" Y="43"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit63>
       <Unit64>
         <Filename Value="C:\lazarus\lcl\include\speedbutton.inc"/>
@@ -614,7 +595,6 @@
         <TopLine Value="829"/>
         <CursorPos X="1" Y="844"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit64>
       <Unit65>
         <Filename Value="C:\lazarus\lcl\include\menuitem.inc"/>
@@ -622,7 +602,6 @@
         <TopLine Value="252"/>
         <CursorPos X="1" Y="267"/>
         <UsageCount Value="12"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit65>
       <Unit66>
         <Filename Value="C:\lazarus\ide\lazarus.pp"/>
@@ -631,7 +610,6 @@
         <TopLine Value="1"/>
         <CursorPos X="43" Y="9"/>
         <UsageCount Value="19"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit66>
       <Unit67>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
@@ -639,7 +617,6 @@
         <TopLine Value="207"/>
         <CursorPos X="1" Y="222"/>
         <UsageCount Value="12"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit67>
       <Unit68>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32object.inc"/>
@@ -647,7 +624,6 @@
         <TopLine Value="353"/>
         <CursorPos X="1" Y="366"/>
         <UsageCount Value="12"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit68>
       <Unit69>
         <Filename Value="C:\lazarus\lcl\include\listitem.inc"/>
@@ -655,7 +631,6 @@
         <TopLine Value="455"/>
         <CursorPos X="1" Y="470"/>
         <UsageCount Value="11"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit69>
       <Unit70>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\packages\winunits-base\src\commctrl.pp"/>
@@ -664,7 +639,6 @@
         <TopLine Value="3976"/>
         <CursorPos X="10" Y="3991"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit70>
       <Unit71>
         <Filename Value="C:\lazarus\lcl\include\icon.inc"/>
@@ -672,7 +646,6 @@
         <TopLine Value="384"/>
         <CursorPos X="1" Y="399"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit71>
       <Unit72>
         <Filename Value="C:\lazarus\lcl\include\application.inc"/>
@@ -680,7 +653,6 @@
         <TopLine Value="1392"/>
         <CursorPos X="31" Y="1405"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit72>
       <Unit73>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\inc\wstringh.inc"/>
@@ -688,7 +660,6 @@
         <TopLine Value="21"/>
         <CursorPos X="20" Y="44"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit73>
       <Unit74>
         <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\win\wininc\struct.inc"/>
@@ -696,6 +667,7 @@
         <TopLine Value="6849"/>
         <CursorPos X="11" Y="6858"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit74>
       <Unit75>
         <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\inc\ustringh.inc"/>
@@ -703,6 +675,7 @@
         <TopLine Value="104"/>
         <CursorPos X="10" Y="112"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit75>
       <Unit76>
         <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\objpas\sysutils\syswideh.inc"/>
@@ -710,6 +683,7 @@
         <TopLine Value="23"/>
         <CursorPos X="10" Y="33"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit76>
       <Unit77>
         <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\objpas\sysutils\syswide.inc"/>
@@ -717,6 +691,7 @@
         <TopLine Value="95"/>
         <CursorPos X="10" Y="102"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit77>
       <Unit78>
         <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\objpas\sysutils\sysformt.inc"/>
@@ -724,6 +699,7 @@
         <TopLine Value="259"/>
         <CursorPos X="3" Y="213"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit78>
       <Unit79>
         <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\objpas\sysutils\sysutilh.inc"/>
@@ -731,6 +707,7 @@
         <TopLine Value="244"/>
         <CursorPos X="3" Y="252"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit79>
       <Unit80>
         <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\win\wininc\ascdef.inc"/>
@@ -738,6 +715,7 @@
         <TopLine Value="112"/>
         <CursorPos X="10" Y="124"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit80>
       <Unit81>
         <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\win\wininc\unifun.inc"/>
@@ -745,28 +723,13 @@
         <TopLine Value="111"/>
         <CursorPos X="10" Y="123"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit81>
-      <Unit22>
-        <Filename Value="C:\Progra~1\lazarus\fpc\2.6.0\source\rtl\inc\systemh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="347"/>
-        <CursorPos X="3" Y="358"/>
-        <UsageCount Value="10"/>
-      </Unit22>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="2" HistoryIndex="1">
-      <Position1>
-        <Filename Value="SCCopyThread.pas"/>
-        <Caret Line="179" Column="3" TopLine="173"/>
-      </Position1>
-      <Position2>
-        <Filename Value="SCAboutForm.pas"/>
-        <Caret Line="113" Column="3" TopLine="92"/>
-      </Position2>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectSession>
   <Debugging>
     <BreakPoints Count="3">

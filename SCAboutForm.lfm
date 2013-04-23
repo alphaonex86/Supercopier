@@ -476,8 +476,8 @@ object AboutForm: TAboutForm
     Left = 8
     Height = 14
     Top = 88
-    Width = 106
-    Caption = 'Version: 3.0.0.3 64bits'
+    Width = 107
+    Caption = 'Version: 3.0.0.4 64Bits'
     Color = clBackground
     Font.Color = clWhite
     Font.Height = -11

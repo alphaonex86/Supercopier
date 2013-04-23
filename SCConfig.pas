@@ -264,6 +264,7 @@ begin
     begin
       if Config.Values.StartWithWindows then
         Reg.WriteString(ExtractFileName(Application.ExeName),Application.ExeName)
+	
       else
         Reg.DeleteValue(ExtractFileName(Application.ExeName));
     end;

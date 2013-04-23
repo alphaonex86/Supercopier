@@ -9,3 +9,5 @@ When we apply another language, all other settings are default and does not save
 When you copy files with special characters is a question mark in place, and often gives error and does not begin to copy.
 not accepted back into the English language, just installing again.
 0KB file created on NAS, see: http://forum.hardware.fr/hfr/reseauxpersosoho/Reseaux/link-sharecenter-320l-sujet_22398_1.htm
+I thought I'd try your new version. When I clicked the top of the size column to sort I got the error message: Press OK to ignore and risk data corruption.
+This file is 18GB but every time only 10GB is copied. The files it half copies are all EXACTLY the same size: The Semaphore Timeout Period Has Expired

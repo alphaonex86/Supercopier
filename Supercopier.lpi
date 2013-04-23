@@ -44,7 +44,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="29">
+    <Units Count="28">
       <Unit0>
         <Filename Value="Supercopier.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -176,6 +176,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SCWideUnbufferedCopier"/>
       </Unit21>
+      <Unit22>
+        <Filename Value="SCProcessPrivileges.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SCProcessPrivileges"/>
+      </Unit22>
       <Unit23>
         <Filename Value="SCConfigShared.pas"/>
         <IsPartOfProject Value="True"/>
@@ -201,11 +206,6 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SCAPICommon"/>
       </Unit27>
-      <Unit22>
-        <Filename Value="SCProcessPrivileges.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="SCProcessPrivileges"/>
-      </Unit22>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -231,6 +231,7 @@
     </CodeGeneration>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
         <StripSymbols Value="True"/>
       </Debugging>
       <LinkSmart Value="True"/>
